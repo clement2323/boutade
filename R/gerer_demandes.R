@@ -51,6 +51,7 @@
 #'
 #' @seealso \code{\link{calculer_agregat_sur_croisement}}
 #'
+#' @importFrom zeallot %<-%
 #' @export
 gerer_une_demande <- function(vecteur_demande) {
   # vecteur_demande <- unlist(table_demandes[1,])
