@@ -13,4 +13,5 @@ RoxygenNote: 7.3.2
 Imports: 
     data.table,
     dplyr,
-    ggplot2
+    ggplot2,
+    zeallot
