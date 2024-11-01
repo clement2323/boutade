@@ -54,6 +54,8 @@
 #' @export
 gerer_une_demande <- function(vecteur_demande) {
   # Affectation multiple des paramètres à partir du vecteur
+  #vecteur_demande <- unlist(table_demandes[1,])
+  
   c(
     id_demande,
     table,
@@ -67,7 +69,7 @@ gerer_une_demande <- function(vecteur_demande) {
     nom_onglet,
     titre
   ) %<-% vecteur_demande
-  
+  print(id_demande)
   # Charger la table de données correspondante
   table <- get(table)
   

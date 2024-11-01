@@ -30,6 +30,7 @@ gerer_agregation_sum <- function(table, var_croisement, var_croisement_relative 
   return(out)
 }
 
+
 #' Calculer l'agrégation sur croisement avec plusieurs fonctions
 #'
 #' @export
@@ -77,5 +78,7 @@ calculer_agregat_sur_croisement <- function(table, var_croisement, var_croisemen
   
   return(out)
 }
+
+
 
 
