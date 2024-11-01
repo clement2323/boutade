@@ -4,9 +4,9 @@
 #' Le graphique est automatiquement sauvegardé dans un répertoire 'output' avec un nom de fichier
 #' généré à partir du titre du graphique.
 #'
-#' @param data \code{data.frame} contenant les données à représenter.
+#' @param data \code{data.frame} contenant lesgit push -u origin main données à représenter.
 #' @param var_x Chaîne de caractères spécifiant le nom de la variable pour l'axe des abscisses dans \code{data}.
-#' @param var_y Chaîne de caractères spécifiant le nom de la variable pour l'axe des ordonnées dans \code{data}.
+#' @param var_y Chaîne de caractères sgipécifiant le nom de la variable pour l'axe des ordonnées dans \code{data}.
 #' @param var_fill Chaîne de caractères spécifiant le nom de la variable de remplissage (couleur) dans \code{data}.
 #' @param lab_x Chaîne de caractères pour le label de l'axe des abscisses.
 #' @param lab_y Chaîne de caractères pour le label de l'axe des ordonnées.

@@ -19,11 +19,11 @@ creer_graphique_bar(
 )
 }
 \arguments{
-\item{data}{\code{data.frame} contenant les données à représenter.}
+\item{data}{\code{data.frame} contenant lesgit push -u origin main données à représenter.}
 
 \item{var_x}{Chaîne de caractères spécifiant le nom de la variable pour l'axe des abscisses dans \code{data}.}
 
-\item{var_y}{Chaîne de caractères spécifiant le nom de la variable pour l'axe des ordonnées dans \code{data}.}
+\item{var_y}{Chaîne de caractères sgipécifiant le nom de la variable pour l'axe des ordonnées dans \code{data}.}
 
 \item{var_fill}{Chaîne de caractères spécifiant le nom de la variable de remplissage (couleur) dans \code{data}.}
 
