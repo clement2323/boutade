@@ -1,11 +1,12 @@
-
 #' Gérer l'agrégation avec la fonction sum
 #'
+#' @export
 #' @param table Data.table contenant les données.
 #' @param var_croisement Variables de croisement.
 #' @param var_croisement_relative Variables de croisement relatives (optionnel).
 #' @param var_quanti Variable quantitative à agréger.
 #' @return Un tibble avec les sous-totaux, totaux et parts.
+#' 
 gerer_agregation_sum <- function(table, var_croisement, var_croisement_relative = c(), var_quanti) {
   # Vérification que 'table' est un data.table
   if (!is.data.table(table)) stop("La table en entrée n'est pas un objet de type data.table, veuillez le transformer au préalable")
@@ -31,6 +32,7 @@ gerer_agregation_sum <- function(table, var_croisement, var_croisement_relative 
 
 #' Calculer l'agrégation sur croisement avec plusieurs fonctions
 #'
+#' @export
 #' @param table Data.table contenant les données.
 #' @param var_croisement Variables de croisement.
 #' @param var_croisement_relative Variables de croisement relatives (optionnel).
