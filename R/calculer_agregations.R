@@ -7,6 +7,7 @@
 #' @param var_quanti Variable quantitative à agréger.
 #' @return Un tibble avec les sous-totaux, totaux et parts.
 #' @import data.table
+#' @import dplyr
 
 gerer_agregation_sum <- function(table, var_croisement, var_croisement_relative = c(), var_quanti) {
   # Vérification que 'table' est un data.table
