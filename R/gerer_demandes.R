@@ -95,6 +95,21 @@ gerer_une_demande <- function(vecteur_demande) {
     condition = condition
   )
   
-  # Retourner le résultat
-  return(table_agrege)
+  # Retourner le résultat si pas de graphique demandé
+  if (type_output == "table" ) return(table_agrege)
+
+
+  p <- creer_graphique_bar(
+      data = table_agrege,
+      var_x = var_croisement ,
+      var_y = "part",
+      var_fill = var_croisement_relative,
+      lab_x = var_croisement,
+      lab_y = "Pourcentage",
+      titre = titre,
+      labels_fill = c(),
+      param_position = "dodge"
+      )
+  
+  return(p)
 }

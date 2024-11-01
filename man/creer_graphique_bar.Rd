@@ -12,7 +12,7 @@ creer_graphique_bar(
   lab_x,
   lab_y,
   titre,
-  labels_fill,
+  labels_fill = NULL,
   soustitre = NULL,
   color_theme = c("#FF4858", "#1B7F79", "#00CCC0", "#72F2EB", "#747F7F"),
   param_position = "stack"

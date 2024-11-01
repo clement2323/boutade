@@ -50,13 +50,13 @@ creer_graphique_bar <- function(
   lab_x,
   lab_y,
   titre,
-  labels_fill,
+  labels_fill = NULL,
   soustitre = NULL,
   color_theme = c("#FF4858", "#1B7F79", "#00CCC0", "#72F2EB", "#747F7F"),
   param_position = "stack"
 ) {
   # Préparation des labels pour la légende
-  lab_fill <- setNames(labels_fill, sort(unique(data[[var_fill]])))
+  if (!is.null(labels_fill)) lab_fill <- setNames(labels_fill, sort(unique(data[[var_fill]])))
   n_color <- length(unique(data[[var_fill]]))
   colors_to_use <- color_theme[1:n_color]
 
@@ -74,8 +74,15 @@ creer_graphique_bar <- function(
 
   # Création du graphique
   p <- ggplot(data, aes_string(x = var_x, y = var_y, fill = var_fill)) +
-    geom_bar(stat = "identity", position = param_position) +
-    scale_fill_manual(values = colors_to_use, labels = labels_fill) +
+    geom_bar(stat = "identity", position = param_position) 
+  
+  if(!is.null(labels_fill)) {
+    p <- p + scale_fill_manual(values = colors_to_use, labels = labels_fill)
+  }else{
+    p <- p + scale_fill_manual(values = colors_to_use)
+  }
+  
+  p <- p +
     theme_minimal() +
     theme(legend.title = element_text(face = "italic")) +
     do.call(labs, labs_args)
