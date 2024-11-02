@@ -23,92 +23,120 @@
 #'
 #' @examples
 #' \dontrun{
-#' ecrire_xls("data.xlsx", "Sheet3", data.frame(b=seq(1,5)), "My Table Title")
+#' ecrire_xls("data.xlsx", "Sheet3", data.frame(b=seq(1,5)), "My Table Title",)
 #' }
 #'
 #' @import openxlsx
 #' @export
-ecrire_xls <- function(nom_fichier_xls, nom_onglet, table, titre, dir="output/") {
+ecrire_xls <- function(nom_fichier_xls, nom_onglet, table, titre, var_group_by, dir = "output/") {
   
-  # Vérifie si le package openxlsx est installé
+  # Vérifier si le package openxlsx est installé
   if (!requireNamespace("openxlsx", quietly = TRUE)) {
     stop("Le package 'openxlsx' est requis mais n'est pas installé.")
   }
   
-  # Crée le répertoire s'il n'existe pas
+  # Créer le répertoire s'il n'existe pas
   if (!dir.exists(dir)) {
     dir.create(dir, recursive = TRUE)
   }
   
-  # Chemin complet du fichier
-  chemin_complet <- paste0(dir, nom_fichier_xls)
+  # Chemin complet du fichier dir <- "output/"
+  chemin_complet <- file.path(dir, nom_fichier_xls)
   
-  # Charge ou crée le classeur
+  # Charger ou créer le classeur
   if (file.exists(chemin_complet)) {
     wb <- openxlsx::loadWorkbook(chemin_complet)
   } else {
     wb <- openxlsx::createWorkbook()
   }
   
-  # Détermine la colonne et la ligne de départ
+  
+  # Déterminer la position de départ
+  startRow <- 1
+  
+    # Si l'onglet existe déjà, trouver la dernière colonne utilisée
   if (nom_onglet %in% openxlsx::sheets(wb)) {
-    # Lit les données existantes de la feuille
-    existing_data <- openxlsx::readWorkbook(wb, sheet = nom_onglet, colNames = FALSE, rowNames = FALSE)
-    
+    # Lire les données existantes
+    existing_data <- openxlsx::read.xlsx(wb, sheet = nom_onglet,skipEmptyCols = FALSE)
+    # Accéder à la feuille de calcul nom_onglet <- "côté filiales"
+
     if (!is.null(existing_data) && ncol(existing_data) > 0) {
-      last_col <- ncol(existing_data)
-      startCol <- last_col + 2 + 1 # Laisse une colonne d'espace
-    } else {
-      startCol <- 1
+      # Ajouter une colonne d'espace
+      startCol <- ncol(existing_data) + 2
     }
-  } else {
-    # Ajoute la feuille si elle n'existe pas
+  }
+  
+  # Ajouter ou sélectionner la feuille
+  if (!(nom_onglet %in% openxlsx::sheets(wb))) {
     openxlsx::addWorksheet(wb, nom_onglet)
     startCol <- 1
   }
   
-  # Ligne de départ pour l'écriture
-  startRow <- 1
-  
-  # Écrit le titre en gras
+
+  # Écrire le titre en gras
   titleStyle <- openxlsx::createStyle(textDecoration = "bold")
-  openxlsx::writeData(wb, sheet = nom_onglet, x = titre, startCol = startCol, startRow = startRow)
-  openxlsx::addStyle(wb, sheet = nom_onglet, style = titleStyle, rows = startRow, cols = startCol, gridExpand = TRUE)
+  openxlsx::writeData(wb, nom_onglet, x = titre, startCol = startCol, startRow = startRow)
+  openxlsx::addStyle(wb, nom_onglet, style = titleStyle, rows = startRow, cols = startCol)
   
-  # Style pour les en-têtes avec bordures noires
-  headerStyle <- openxlsx::createStyle(textDecoration = "bold", border = "TopBottomLeftRight", borderColour = "black")
+  # Écrire les données avec les noms de colonnes
+  openxlsx::writeData(wb, nom_onglet, x = table, startCol = startCol, startRow = startRow + 2,colNames = TRUE,
+  borders = "surrounding",borderStyle="thick")
   
-  # Écrit la table avec les en-têtes en gras et bordures
-  openxlsx::writeData(wb, sheet = nom_onglet, x = table, startCol = startCol, startRow = startRow + 1, headerStyle = headerStyle)
-  
-  # Applique le style italique à la première colonne de la nouvelle table (hors en-tête)
-  italicStyle <- openxlsx::createStyle(textDecoration = "italic")
+  # Nombre de lignes et de colonnes
   numRows <- nrow(table)
-  if (numRows > 0) {
+  numCols <- ncol(table)
+  
+
+  
+  # Vérifier que toutes les colonnes de var_group_by existent dans la table
+  if (!all(var_group_by %in% colnames(table))) {
+    stop("Les colonnes spécifiées dans 'var_group_by' ne sont pas toutes présentes dans 'table'.")
+  }
+  
+  # Indices des colonnes pour var_group_by
+  var_group_by_indices <- match(var_group_by, colnames(table))
+  
+  # 1. Appliquer le style italique et aligné à gauche aux colonnes var_group_by
+  italicLeftStyle <- openxlsx::createStyle(textDecoration = "italic", halign = "left")
+  
+  openxlsx::addStyle(
+    wb,
+    sheet = nom_onglet,
+    style = italicLeftStyle,
+    rows = (startRow + 3):(startRow + numRows + 2),  # Lignes de données
+    cols = (startCol + var_group_by_indices - 1),
+    gridExpand = TRUE
+  )
+  
+  # 5. Centrer les valeurs des autres cellules (hors var_group_by)
+  centerStyle <- openxlsx::createStyle(halign = "center")
+  other_cols_indices <- setdiff(seq_len(numCols), var_group_by_indices)
+  
+  if (length(other_cols_indices) > 0) {
     openxlsx::addStyle(
       wb,
       sheet = nom_onglet,
-      style = italicStyle,
-      rows = (startRow + 2):(startRow + numRows + 1),
-      cols = startCol,
+      style = centerStyle,
+      rows = (startRow + 2):(startRow + numRows + 2),
+      cols = startCol + other_cols_indices - 1,
       gridExpand = TRUE
-    )
-    
-    # Style avec bordures noires pour les données de la table
-    borderStyle <- openxlsx::createStyle(border = "TopBottomLeftRight", borderColour = "black")
-    
-    # Applique le style de bordure aux cellules de la table
-    openxlsx::addStyle(
-      wb,
-      sheet = nom_onglet,
-      style = borderStyle,
-      rows = (startRow + 2):(startRow + numRows + 1),
-      cols = startCol:(startCol + ncol(table) - 1),
-      gridExpand = TRUE,
-      stack = TRUE
     )
   }
   
-  # Sauvegarde le classeur avec le chemin complet
+  
+    # Style gras pour l'en-tête
+  headerStyle <- openxlsx::createStyle(textDecoration = "bold")
+  openxlsx::addStyle(
+    wb,
+    sheet = nom_onglet,
+    style = headerStyle,
+    rows = startRow + 2,  # Ligne d'en-tête
+    cols = startCol:(startCol + numCols - 1),
+    gridExpand = TRUE
+  )
+  
+  # Sauvegarder le classeur
   openxlsx::saveWorkbook(wb, chemin_complet, overwrite = TRUE)
 }
+
+

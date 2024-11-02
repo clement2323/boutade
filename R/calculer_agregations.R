@@ -19,8 +19,8 @@ get_rounding_function <- function(unite) {
     function(x) round(x, 1)
   } else if (unite == "centieme") {
     function(x) round(x, 2)
-  } else if (unite == "millieme") {
-    function(x) round(x, 3)
+  } else if (unite == "millier") {
+    function(x) round(x/1000, 0)
   } else if (unite == "million") {
     function(x) round(x / 1e6, 0)
   } else {

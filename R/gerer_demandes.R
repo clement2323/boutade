@@ -54,7 +54,7 @@
 #' @importFrom zeallot %<-%
 #' @export
 gerer_une_demande <- function(vecteur_demande) {
-  # vecteur_demande <- unlist(table_demandes[1,])
+  # vecteur_demande <- unlist(table_demandes[12,])
   
   c(
     id_demande,
@@ -110,7 +110,8 @@ gerer_une_demande <- function(vecteur_demande) {
           nom_fichier_xls=nom_fichier_xls,
           nom_onglet = nom_onglet,
           table = table_agrege,
-          titre = titre
+          titre = titre,
+          var_group_by = c(var_croisement,var_croisement_relative)
         )  
     }
     return(table_agrege)
