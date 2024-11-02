@@ -21,7 +21,7 @@ gerer_agregation_sum(
 \item{var_quanti}{Variable quantitative à agréger.}
 }
 \value{
-Un tibble avec les sous-totaux, totaux et parts.
+Un data.table avec les sous-totaux, totaux et parts.
 }
 \description{
 Gérer l'agrégation avec la fonction sum

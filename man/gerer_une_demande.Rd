@@ -2,46 +2,46 @@
 % Please edit documentation in R/gerer_demandes.R
 \name{gerer_une_demande}
 \alias{gerer_une_demande}
-\title{Gérer une demande d'agrégation à partir d'un vecteur de paramètres}
+\title{Gerer une demande d'agregation a partir d'un vecteur de parametres}
 \usage{
 gerer_une_demande(vecteur_demande)
 }
 \arguments{
-\item{vecteur_demande}{Un vecteur contenant les paramètres de la demande. Les éléments du vecteur doivent être dans l'ordre suivant :
+\item{vecteur_demande}{Un vecteur contenant les parametres de la demande. Les elements du vecteur doivent être dans l'ordre suivant :
 \enumerate{
 \item \code{id_demande} : Identifiant de la demande.
-\item \code{table} : Nom de la table de données à utiliser.
-\item \code{var_croisement} : Variables de croisement, séparées par des tirets.
+\item \code{table} : Nom de la table de donnees a utiliser.
+\item \code{var_croisement} : Variables de croisement, separees par des tirets.
 \item \code{var_croisement_relative} : Variable de croisement relative (unique).
-\item \code{var_quanti} : Variable quantitative sur laquelle effectuer les agrégations.
-\item \code{fonctions_agregations} : Fonctions d'agrégation à appliquer, séparées par des tirets.
-\item \code{condition} : Condition à appliquer pour filtrer les données (expression R sous forme de texte).
-\item \code{type_output} : Type de sortie souhaité (par exemple, \code{"table"}, \code{"graph"}).
+\item \code{var_quanti} : Variable quantitative sur laquelle effectuer les agregations.
+\item \code{fonctions_agregations} : Fonctions d'agregation a appliquer, separees par des tirets.
+\item \code{condition} : Condition a appliquer pour filtrer les donnees (expression R sous forme de texte).
+\item \code{type_output} : Type de sortie souhaite (par exemple, \code{"table"}, \code{"graph"}).
 \item \code{nom_fichier_xls} : Nom du fichier Excel de sortie.
 \item \code{nom_onglet} : Nom de l'onglet dans le fichier Excel.
 \item \code{titre} : Titre pour la sortie (par exemple, titre du graphique).
 }}
 }
 \value{
-Un \code{data.frame} contenant le résultat de l'agrégation calculée.
+Un \code{data.frame} contenant le resultat de l'agregation calculee.
 }
 \description{
-Cette fonction traite une demande spécifique d'agrégation en utilisant un vecteur de paramètres. Elle récupère les informations nécessaires, calcule l'agrégat en fonction des paramètres spécifiés et retourne le résultat.
+Cette fonction traite une demande specifique d'agregation en utilisant un vecteur de parametres. Elle recupere les informations necessaires, calcule l'agregat en fonction des parametres specifies et retourne le resultat.
 }
 \details{
-La fonction effectue les étapes suivantes :
+La fonction effectue les etapes suivantes :
 \enumerate{
-\item Décompose le \code{vecteur_demande} en variables individuelles.
-\item Charge la table de données correspondante en utilisant \code{get()}.
-\item Extrait les variables de croisement et les fonctions d'agrégation.
-\item Évalue la condition fournie pour filtrer les données si nécessaire.
-\item Calcule l'agrégat en appelant la fonction \code{calculer_agregat_sur_croisement()} avec les paramètres extraits.
+\item Decompose le \code{vecteur_demande} en variables individuelles.
+\item Charge la table de donnees correspondante en utilisant \code{get()}.
+\item Extrait les variables de croisement et les fonctions d'agregation.
+\item evalue la condition fournie pour filtrer les donnees si necessaire.
+\item Calcule l'agregat en appelant la fonction \code{calculer_agregat_sur_croisement()} avec les parametres extraits.
 }
 }
 \examples{
 \dontrun{
 # Exemple d'utilisation de gerer_une_demande
-# Supposons que vecteur_demande soit un vecteur correctement formaté
+# Supposons que vecteur_demande soit un vecteur correctement formate
 vecteur_demande <- c(
   id_demande = 1,
   table = "donnees_ventes",
@@ -52,7 +52,7 @@ vecteur_demande <- c(
   condition = "annee == 2023",
   type_output = "table",
   nom_fichier_xls = "rapport_ventes.xlsx",
-  nom_onglet = "Synthèse",
+  nom_onglet = "Synthese",
   titre = "Rapport des ventes 2023"
 )
 resultat <- gerer_une_demande(vecteur_demande)

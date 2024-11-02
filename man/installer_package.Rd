@@ -2,18 +2,18 @@
 % Please edit documentation in R/installer_package.R
 \name{installer_package}
 \alias{installer_package}
-\title{Installer un package s'il n'est pas déjà installé}
+\title{Installer un package s'il n'est pas dejà installe}
 \usage{
 installer_package(pkg)
 }
 \arguments{
-\item{pkg}{Un caractère unique indiquant le nom du package à installer.}
+\item{pkg}{Un caractere unique indiquant le nom du package à installer.}
 }
 \value{
-Aucun retour de valeur. Le package est installé si nécessaire.
+Aucun retour de valeur. Le package est installe si necessaire.
 }
 \description{
-Cette fonction vérifie si le package spécifié est installé. Si ce n'est pas le cas, elle l'installe depuis CRAN.
+Cette fonction verifie si le package specifie est installe. Si ce n'est pas le cas, elle l'installe depuis CRAN.
 }
 \examples{
 \dontrun{

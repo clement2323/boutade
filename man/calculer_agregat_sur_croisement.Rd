@@ -10,6 +10,7 @@ calculer_agregat_sur_croisement(
   var_croisement_relative = c(),
   var_quanti,
   liste_fonction_agregation,
+  unites,
   condition = NULL
 )
 }
@@ -20,14 +21,16 @@ calculer_agregat_sur_croisement(
 
 \item{var_croisement_relative}{Variables de croisement relatives (optionnel).}
 
-\item{var_quanti}{Variable quantitative à agréger.}
+\item{var_quanti}{Vecteur de variables quantitatives à agréger.}
 
 \item{liste_fonction_agregation}{Liste de fonctions d'agrégation (ex: list(sum, mean)).}
+
+\item{unites}{Vecteur des unités pour arrondir les résultats (ex: c("unite", "dixieme")).}
 
 \item{condition}{Condition à appliquer (optionnelle).}
 }
 \value{
-Un tibble avec les totaux et les parts pour chaque fonction d'agrégation.
+Un tibble avec les agrégations calculées et arrondies.
 }
 \description{
 Calculer l'agrégation sur croisement avec plusieurs fonctions

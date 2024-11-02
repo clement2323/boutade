@@ -2,7 +2,7 @@
 % Please edit documentation in R/creer_graphique_bar.R
 \name{creer_graphique_bar}
 \alias{creer_graphique_bar}
-\title{Créer un graphique à barres avec ggplot2 et le sauvegarder automatiquement}
+\title{Creer un graphique a barres avec ggplot2 et le sauvegarder automatiquement}
 \usage{
 creer_graphique_bar(
   data,
@@ -20,44 +20,44 @@ creer_graphique_bar(
 )
 }
 \arguments{
-\item{data}{\code{data.frame} contenant lesgit push -u origin main données à représenter.}
+\item{data}{\code{data.frame} contenant lesgit push -u origin main donnees a representer.}
 
-\item{var_x}{Chaîne de caractères spécifiant le nom de la variable pour l'axe des abscisses dans \code{data}.}
+\item{var_x}{Chaîne de caracteres specifiant le nom de la variable pour l'axe des abscisses dans \code{data}.}
 
-\item{var_y}{Chaîne de caractères sgipécifiant le nom de la variable pour l'axe des ordonnées dans \code{data}.}
+\item{var_y}{Chaîne de caracteres sgipecifiant le nom de la variable pour l'axe des ordonnees dans \code{data}.}
 
-\item{var_fill}{Chaîne de caractères spécifiant le nom de la variable de remplissage (couleur) dans \code{data}.}
+\item{var_fill}{Chaîne de caracteres specifiant le nom de la variable de remplissage (couleur) dans \code{data}.}
 
-\item{lab_x}{Chaîne de caractères pour le label de l'axe des abscisses.}
+\item{lab_x}{Chaîne de caracteres pour le label de l'axe des abscisses.}
 
-\item{lab_y}{Chaîne de caractères pour le label de l'axe des ordonnées.}
+\item{lab_y}{Chaîne de caracteres pour le label de l'axe des ordonnees.}
 
-\item{titre}{Chaîne de caractères pour le titre du graphique.}
+\item{titre}{Chaîne de caracteres pour le titre du graphique.}
 
-\item{labels_fill}{Vecteur de chaînes de caractères pour les labels de la légende des couleurs.}
+\item{labels_fill}{Vecteur de chaînes de caracteres pour les labels de la legende des couleurs.}
 
-\item{soustitre}{(Optionnel) Chaîne de caractères pour le sous-titre du graphique. Par défaut : \code{NULL}.}
+\item{soustitre}{(Optionnel) Chaîne de caracteres pour le sous-titre du graphique. Par defaut : \code{NULL}.}
 
-\item{color_theme}{Vecteur de codes couleurs hexadécimaux pour le graphique. Par défaut : palette de couleurs prédéfinie.}
+\item{color_theme}{Vecteur de codes couleurs hexadecimaux pour le graphique. Par defaut : palette de couleurs predefinie.}
 
-\item{param_position}{Chaîne de caractères spécifiant la position des barres (\code{"stack"}, \code{"dodge"}, etc.). Par défaut : \code{"stack"}.}
+\item{param_position}{Chaîne de caracteres specifiant la position des barres (\code{"stack"}, \code{"dodge"}, etc.). Par defaut : \code{"stack"}.}
 
 \item{save}{booleen permettant de choisir si l'on veut sauvegarder ou non.}
 }
 \value{
-Un objet \code{ggplot2} représentant le graphique à barres.
+Un objet \code{ggplot2} representant le graphique a barres.
 }
 \description{
-Cette fonction génère un graphique à barres à partir d'un jeu de données en utilisant ggplot2.
-Le graphique est automatiquement sauvegardé dans un répertoire 'output' avec un nom de fichier
-généré à partir du titre du graphique.
+Cette fonction genere un graphique a barres a partir d'un jeu de donnees en utilisant ggplot2.
+Le graphique est automatiquement sauvegarde dans un repertoire 'output' avec un nom de fichier
+genere a partir du titre du graphique.
 }
 \details{
-La fonction crée un graphique à barres en utilisant ggplot2 et le sauvegarde automatiquement dans un répertoire 'output'.
-Le nom du fichier est généré à partir du titre du graphique en remplaçant les espaces par des underscores.
+La fonction cree un graphique a barres en utilisant ggplot2 et le sauvegarde automatiquement dans un repertoire 'output'.
+Le nom du fichier est genere a partir du titre du graphique en remplaçant les espaces par des underscores.
 
-Les couleurs utilisées pour le remplissage sont déterminées par \code{color_theme}, et les labels de la légende sont spécifiés par \code{labels_fill}.
-Si le répertoire 'output' n'existe pas, il sera créé automatiquement.
+Les couleurs utilisees pour le remplissage sont determinees par \code{color_theme}, et les labels de la legende sont specifies par \code{labels_fill}.
+Si le repertoire 'output' n'existe pas, il sera cre automatiquement.
 }
 \examples{
 \dontrun{
@@ -66,9 +66,9 @@ creer_graphique_bar(
   var_x = "dep_EP",
   var_y = "percentage",
   var_fill = "region",
-  lab_x = "Département",
+  lab_x = "Departement",
   lab_y = "Pourcentage",
-  titre = "Structure globale de détention",
+  titre = "Structure globale de detention",
   labels_fill = c("filiales 971", "filiales 972")
 )
 }

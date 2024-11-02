@@ -1,29 +1,29 @@
-#' Créer un graphique à barres avec ggplot2 et le sauvegarder automatiquement
+#' Creer un graphique a barres avec ggplot2 et le sauvegarder automatiquement
 #'
-#' Cette fonction génère un graphique à barres à partir d'un jeu de données en utilisant ggplot2.
-#' Le graphique est automatiquement sauvegardé dans un répertoire 'output' avec un nom de fichier
-#' généré à partir du titre du graphique.
+#' Cette fonction genere un graphique a barres a partir d'un jeu de donnees en utilisant ggplot2.
+#' Le graphique est automatiquement sauvegarde dans un repertoire 'output' avec un nom de fichier
+#' genere a partir du titre du graphique.
 #'
-#' @param data \code{data.frame} contenant lesgit push -u origin main données à représenter.
-#' @param var_x Chaîne de caractères spécifiant le nom de la variable pour l'axe des abscisses dans \code{data}.
-#' @param var_y Chaîne de caractères sgipécifiant le nom de la variable pour l'axe des ordonnées dans \code{data}.
-#' @param var_fill Chaîne de caractères spécifiant le nom de la variable de remplissage (couleur) dans \code{data}.
-#' @param lab_x Chaîne de caractères pour le label de l'axe des abscisses.
-#' @param lab_y Chaîne de caractères pour le label de l'axe des ordonnées.
-#' @param titre Chaîne de caractères pour le titre du graphique.
-#' @param labels_fill Vecteur de chaînes de caractères pour les labels de la légende des couleurs.
-#' @param soustitre (Optionnel) Chaîne de caractères pour le sous-titre du graphique. Par défaut : \code{NULL}.
-#' @param color_theme Vecteur de codes couleurs hexadécimaux pour le graphique. Par défaut : palette de couleurs prédéfinie.
-#' @param param_position Chaîne de caractères spécifiant la position des barres (\code{"stack"}, \code{"dodge"}, etc.). Par défaut : \code{"stack"}.
+#' @param data \code{data.frame} contenant lesgit push -u origin main donnees a representer.
+#' @param var_x Chaîne de caracteres specifiant le nom de la variable pour l'axe des abscisses dans \code{data}.
+#' @param var_y Chaîne de caracteres sgipecifiant le nom de la variable pour l'axe des ordonnees dans \code{data}.
+#' @param var_fill Chaîne de caracteres specifiant le nom de la variable de remplissage (couleur) dans \code{data}.
+#' @param lab_x Chaîne de caracteres pour le label de l'axe des abscisses.
+#' @param lab_y Chaîne de caracteres pour le label de l'axe des ordonnees.
+#' @param titre Chaîne de caracteres pour le titre du graphique.
+#' @param labels_fill Vecteur de chaînes de caracteres pour les labels de la legende des couleurs.
+#' @param soustitre (Optionnel) Chaîne de caracteres pour le sous-titre du graphique. Par defaut : \code{NULL}.
+#' @param color_theme Vecteur de codes couleurs hexadecimaux pour le graphique. Par defaut : palette de couleurs predefinie.
+#' @param param_position Chaîne de caracteres specifiant la position des barres (\code{"stack"}, \code{"dodge"}, etc.). Par defaut : \code{"stack"}.
 #' @param save booleen permettant de choisir si l'on veut sauvegarder ou non.
-#' @return Un objet \code{ggplot2} représentant le graphique à barres.
+#' @return Un objet \code{ggplot2} representant le graphique a barres.
 #'
 #' @details
-#' La fonction crée un graphique à barres en utilisant ggplot2 et le sauvegarde automatiquement dans un répertoire 'output'.
-#' Le nom du fichier est généré à partir du titre du graphique en remplaçant les espaces par des underscores.
+#' La fonction cree un graphique a barres en utilisant ggplot2 et le sauvegarde automatiquement dans un repertoire 'output'.
+#' Le nom du fichier est genere a partir du titre du graphique en remplaçant les espaces par des underscores.
 #'
-#' Les couleurs utilisées pour le remplissage sont déterminées par \code{color_theme}, et les labels de la légende sont spécifiés par \code{labels_fill}.
-#' Si le répertoire 'output' n'existe pas, il sera créé automatiquement.
+#' Les couleurs utilisees pour le remplissage sont determinees par \code{color_theme}, et les labels de la legende sont specifies par \code{labels_fill}.
+#' Si le repertoire 'output' n'existe pas, il sera cre automatiquement.
 #'
 #' @examples
 #' \dontrun{
@@ -32,9 +32,9 @@
 #'   var_x = "dep_EP",
 #'   var_y = "percentage",
 #'   var_fill = "region",
-#'   lab_x = "Département",
+#'   lab_x = "Departement",
 #'   lab_y = "Pourcentage",
-#'   titre = "Structure globale de détention",
+#'   titre = "Structure globale de detention",
 #'   labels_fill = c("filiales 971", "filiales 972")
 #' )
 #' }
@@ -56,12 +56,12 @@ creer_graphique_bar <- function(
   param_position = "stack",
   save = FALSE
 ) {
-  # Préparation des labels pour la légende
+  # Preparation des labels pour la legende
   if (!is.null(labels_fill)) lab_fill <- setNames(labels_fill, sort(unique(data[[var_fill]])))
   n_color <- length(unique(data[[var_fill]]))
   colors_to_use <- color_theme[1:n_color]
 
-  # Préparation des arguments pour labs()
+  # Preparation des arguments pour labs()
   labs_args <- list(
     title = titre,
     x = lab_x,
@@ -73,7 +73,7 @@ creer_graphique_bar <- function(
     labs_args$subtitle <- soustitre
   }
 
-  # Création du graphique
+  # Creation du graphique
   p <-ggplot(data, aes_string(x = var_x, y = var_y, fill = var_fill)) +
     geom_bar(stat = "identity", position = param_position) 
   
@@ -88,13 +88,13 @@ creer_graphique_bar <- function(
     theme(legend.title = element_text(face = "italic")) +
     do.call(labs, labs_args)
 
-  # Création du dossier output s'il n'existe pas
+  # Creation du dossier output s'il n'existe pas
   if (!dir.exists("output")) {
     dir.create("output")
   }
 
-  # Génération du nom de fichier en remplaçant les espaces par des underscores
-  safe_title <- gsub("[^[:alnum:] ]", "", titre)  # Enlever les caractères non-alphanumériques
+  # Generation du nom de fichier en remplaçant les espaces par des underscores
+  safe_title <- gsub("[^[:alnum:] ]", "", titre)  # Enlever les caracteres non-alphanumeriques
   filename <- paste0("output/", gsub(" ", "_", safe_title), ".png")
 
   # Sauvegarde du graphique
