@@ -54,7 +54,7 @@
 #' @importFrom zeallot %<-%
 #' @export
 gerer_une_demande <- function(vecteur_demande) {
-  # vecteur_demande <- unlist(table_demandes[14,])
+  # vecteur_demande <- unlist(table_demandes[2,])
   
   c(
     id_demande,
