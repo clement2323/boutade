@@ -61,12 +61,14 @@ generer_markdown_auto <- function(table_demandes, out) {
   
   # Initialisation du contenu du RMarkdown avec les métadonnées YAML
   rmd_content <- "---
-title: \"Rapport Automatisé\"
+title: \"Bilan\"
 output:
-  rmdformats::readthedown
+  rmdformats::readthedown:
+    toc_depth: 3
 ---
 
 "
+
   # Ajout des bibliothèques au début du document
   rmd_content <- paste0(rmd_content, "```{r setup, include=FALSE}\n")
   rmd_content <- paste0(rmd_content, "library(ggplot2)\n")
@@ -94,12 +96,12 @@ output:
       if (is.data.frame(out[[i]])) {
         # Ajout du chunk pour une table avec knitr::kable
         rmd_content <- paste0(rmd_content, "```{r ", chunk_name, ", echo=FALSE}\n")
-        rmd_content <- paste0(rmd_content, "knitr::kable(out[[", i, "]], caption = '", titles[i], "')\n")
+        rmd_content <- paste0(rmd_content, "knitr::kable(out[[", i, "]])\n")
         rmd_content <- paste0(rmd_content, "```\n\n")
       } else {
         # Ajout du chunk pour un graphique ggplot
         rmd_content <- paste0(rmd_content, "```{r ", chunk_name, ", echo=FALSE}\n")
-        rmd_content <- paste0(rmd_content, "out[[", i, "]] + ggtitle('", titles[i], "')\n")
+        rmd_content <- paste0(rmd_content, "out[[", i, "]] \n")
         rmd_content <- paste0(rmd_content, "```\n\n")
       }
     }
