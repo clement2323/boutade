@@ -54,7 +54,7 @@
 #' @importFrom zeallot %<-%
 #' @export
 gerer_une_demande <- function(vecteur_demande) {
-  # vecteur_demande <- unlist(table_demandes[1,])
+  # vecteur_demande <- unlist(table_demandes[2,])
   
   c(
     id_demande,
@@ -69,6 +69,8 @@ gerer_une_demande <- function(vecteur_demande) {
     nom_onglet,
     titre
   ) %<-% vecteur_demande
+
+  print(id_demande)
   # Charger la table de données correspondante
   table <- get(table)
   
@@ -96,9 +98,19 @@ gerer_une_demande <- function(vecteur_demande) {
   )
   
   # Retourner le résultat si pas de graphique demandé
-  if (type_output == "table" ) return(table_agrege)
-
-
+  if(type_output == "table"){
+    if (nchar(nom_fichier_xls)!=0) {
+      if(type_output == "graphique") stop("pas de graphique dans les fichiers xls")
+        ecrire_xls(
+          chemin_xlsx=paste0(nom_fichier_xls),
+          nom_onglet = nom_onglet,
+          table = table_agrege,
+          titre = titre
+        )  
+    }
+    return(table_agrege)
+  }
+  
   p <- creer_graphique_bar(
       data = table_agrege,
       var_x = var_croisement ,
@@ -113,3 +125,4 @@ gerer_une_demande <- function(vecteur_demande) {
   
   return(p)
 }
+

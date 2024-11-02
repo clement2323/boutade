@@ -10,7 +10,7 @@
 #' }
 #' @export
 installer_package <- function(pkg) {
-  print(pkg)
+  # print(pkg)
   if (!requireNamespace(pkg, quietly = TRUE)) {
     install.packages(pkg)
   }

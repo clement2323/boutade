@@ -1,7 +1,10 @@
 install.packages("devtools")
-devtools::document()
+devtools::document("codes/BoutadE")
 devtools::check()
 devtools::load_all("codes/BoutadE")
+
+setwd('codes/BoutadE')
+usethis::use_package('openxlsx')
 
 [System.Net.WebRequest]::DefaultWebProxy = New-Object System.Net.WebProxy("http://proxy-rie.http.insee.fr:8080")
 $env:http_proxy = "http://proxy-rie.http.insee.fr:8080"
