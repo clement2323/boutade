@@ -15,7 +15,7 @@
 #' @param soustitre (Optionnel) Chaîne de caractères pour le sous-titre du graphique. Par défaut : \code{NULL}.
 #' @param color_theme Vecteur de codes couleurs hexadécimaux pour le graphique. Par défaut : palette de couleurs prédéfinie.
 #' @param param_position Chaîne de caractères spécifiant la position des barres (\code{"stack"}, \code{"dodge"}, etc.). Par défaut : \code{"stack"}.
-#'
+#' @param save booleen permettant de choisir si l'on veut sauvegarder ou non.
 #' @return Un objet \code{ggplot2} représentant le graphique à barres.
 #'
 #' @details
@@ -53,7 +53,8 @@ creer_graphique_bar <- function(
   labels_fill = NULL,
   soustitre = NULL,
   color_theme = c("#FF4858", "#1B7F79", "#00CCC0", "#72F2EB", "#747F7F"),
-  param_position = "stack"
+  param_position = "stack",
+  save = FALSE
 ) {
   # Préparation des labels pour la légende
   if (!is.null(labels_fill)) lab_fill <- setNames(labels_fill, sort(unique(data[[var_fill]])))
@@ -73,7 +74,7 @@ creer_graphique_bar <- function(
   }
 
   # Création du graphique
-  p <- ggplot(data, aes_string(x = var_x, y = var_y, fill = var_fill)) +
+  p <-ggplot(data, aes_string(x = var_x, y = var_y, fill = var_fill)) +
     geom_bar(stat = "identity", position = param_position) 
   
   if(!is.null(labels_fill)) {
@@ -81,7 +82,7 @@ creer_graphique_bar <- function(
   }else{
     p <- p + scale_fill_manual(values = colors_to_use)
   }
-  
+
   p <- p +
     theme_minimal() +
     theme(legend.title = element_text(face = "italic")) +
@@ -97,7 +98,7 @@ creer_graphique_bar <- function(
   filename <- paste0("output/", gsub(" ", "_", safe_title), ".png")
 
   # Sauvegarde du graphique
-  ggsave(filename, plot = p, width = 8, height = 6, units = "in")
+  if (save) ggsave(filename, plot = p, width = 8, height = 6, units = "in")
 
   return(p)
 }

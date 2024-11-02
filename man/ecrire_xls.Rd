@@ -4,10 +4,10 @@
 \alias{ecrire_xls}
 \title{Write a table to an Excel file with formatting, appending to existing sheets}
 \usage{
-ecrire_xls(chemin_xlsx, nom_onglet, table, titre, dir = "/output")
+ecrire_xls(nom_fichier_xls, nom_onglet, table, titre, dir = "output/")
 }
 \arguments{
-\item{chemin_xlsx}{Path to the Excel file.}
+\item{nom_fichier_xls}{Path to the Excel file.}
 
 \item{nom_onglet}{Name of the worksheet.}
 

@@ -53,7 +53,7 @@ generer_markdown_auto <- function(table_demandes, out) {
   
   titles <- table_demandes$titre
   soustitres <- table_demandes$nom_onglet
-  
+  is_markdown <- nchar(table_demandes$nom_fichier_xls)==0
   # Vérifier que les longueurs des vecteurs correspondent
   if (length(titles) != length(out) || length(soustitres) != length(out)) {
     stop("Les longueurs de 'titles', 'soustitres' et 'out' doivent être identiques.")
@@ -82,7 +82,7 @@ output:
     rmd_content <- paste0(rmd_content, "## ", subtitle, "\n\n")
     
     # Parcourir les éléments qui correspondent à ce sous-titre
-    indices <- which(soustitres == subtitle)
+    indices <- which(soustitres == subtitle & is_markdown)
     for (i in indices) {
       # Ajouter le titre en tant qu'en-tête de niveau 3
       rmd_content <- paste0(rmd_content, "### ", titles[i], "\n\n")

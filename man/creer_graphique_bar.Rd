@@ -15,7 +15,8 @@ creer_graphique_bar(
   labels_fill = NULL,
   soustitre = NULL,
   color_theme = c("#FF4858", "#1B7F79", "#00CCC0", "#72F2EB", "#747F7F"),
-  param_position = "stack"
+  param_position = "stack",
+  save = FALSE
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ creer_graphique_bar(
 \item{color_theme}{Vecteur de codes couleurs hexadécimaux pour le graphique. Par défaut : palette de couleurs prédéfinie.}
 
 \item{param_position}{Chaîne de caractères spécifiant la position des barres (\code{"stack"}, \code{"dodge"}, etc.). Par défaut : \code{"stack"}.}
+
+\item{save}{booleen permettant de choisir si l'on veut sauvegarder ou non.}
 }
 \value{
 Un objet \code{ggplot2} représentant le graphique à barres.

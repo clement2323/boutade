@@ -1,6 +1,6 @@
 #' Write a table to an Excel file with formatting, appending to existing sheets
 #'
-#' @param chemin_xlsx Path to the Excel file.
+#' @param nom_fichier_xls Path to the Excel file.
 #' @param nom_onglet Name of the worksheet.
 #' @param table Data frame to write.
 #' @param titre Title to write above the table.
@@ -28,7 +28,8 @@
 #'
 #' @import openxlsx
 #' @export
-ecrire_xls <- function(chemin_xlsx, nom_onglet, table, titre, dir="/output") {
+ecrire_xls <- function(nom_fichier_xls, nom_onglet, table, titre, dir="output/") {
+  
   # Check if openxlsx package is installed
   if (!requireNamespace("openxlsx", quietly = TRUE)) {
     stop("The 'openxlsx' package is required but not installed.")
@@ -40,7 +41,7 @@ ecrire_xls <- function(chemin_xlsx, nom_onglet, table, titre, dir="/output") {
   }
   
   # Build full file path
-  chemin_complet <- file.path(dir, chemin_xlsx)
+  chemin_complet <- paste0(dir, nom_fichier_xls)
   
   # Load or create the workbook
   if (file.exists(chemin_complet)) {

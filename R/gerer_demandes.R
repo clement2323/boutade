@@ -54,7 +54,7 @@
 #' @importFrom zeallot %<-%
 #' @export
 gerer_une_demande <- function(vecteur_demande) {
-  # vecteur_demande <- unlist(table_demandes[2,])
+  # vecteur_demande <- unlist(table_demandes[14,])
   
   c(
     id_demande,
@@ -70,7 +70,7 @@ gerer_une_demande <- function(vecteur_demande) {
     titre
   ) %<-% vecteur_demande
 
-  print(id_demande)
+  #print(id_demande)
   # Charger la table de données correspondante
   table <- get(table)
   
@@ -102,7 +102,7 @@ gerer_une_demande <- function(vecteur_demande) {
     if (nchar(nom_fichier_xls)!=0) {
       if(type_output == "graphique") stop("pas de graphique dans les fichiers xls")
         ecrire_xls(
-          chemin_xlsx=paste0(nom_fichier_xls),
+          nom_fichier_xls=nom_fichier_xls,
           nom_onglet = nom_onglet,
           table = table_agrege,
           titre = titre
@@ -123,6 +123,6 @@ gerer_une_demande <- function(vecteur_demande) {
       param_position = "dodge"
       )
   
-  return(p)
+  return(p) 
 }
 

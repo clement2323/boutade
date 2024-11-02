@@ -1,8 +1,8 @@
 install.packages("devtools")
-devtools::document("codes/BoutadE")
+devtools::document()
 devtools::check()
 devtools::load_all("codes/BoutadE")
-
+getwd()
 setwd('codes/BoutadE')
 usethis::use_package('openxlsx')
 
