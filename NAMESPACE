@@ -2,6 +2,7 @@
 
 export(calculer_agregat_sur_croisement)
 export(creer_graphique_bar)
+export(ecrire_tableau_formate)
 export(ecrire_xls)
 export(generer_markdown_auto)
 export(gerer_agregation_sum)

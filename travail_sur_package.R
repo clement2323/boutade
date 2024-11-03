@@ -1,6 +1,6 @@
 install.packages("devtools")
-devtools::document()
-devtools::check()
+devtools::document("codes/BoutadE")
+devtools::check("codes/BoutadE")
 devtools::load_all("codes/BoutadE")
 getwd()
 setwd('codes/BoutadE')

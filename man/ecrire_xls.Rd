@@ -2,44 +2,78 @@
 % Please edit documentation in R/ecrire_dans_xlsx.R
 \name{ecrire_xls}
 \alias{ecrire_xls}
-\title{Write a table to an Excel file with formatting, appending to existing sheets}
+\title{Écrire un Tableau avec Formatage et Titre dans un Fichier Excel}
 \usage{
-ecrire_xls(nom_fichier_xls, nom_onglet, table, titre, dir = "output/")
+ecrire_xls(
+  nom_fichier_xls,
+  nom_onglet,
+  table,
+  titre,
+  var_group_by,
+  dir = "output/"
+)
 }
 \arguments{
-\item{nom_fichier_xls}{Path to the Excel file.}
+\item{nom_fichier_xls}{\code{character} : Le nom du fichier Excel à créer ou modifier (par exemple, "rapport.xlsx").}
 
-\item{nom_onglet}{Name of the worksheet.}
+\item{nom_onglet}{\code{character} : Le nom de l'onglet (feuille de calcul) où les données seront écrites.}
 
-\item{table}{Data frame to write.}
+\item{table}{\code{data.frame} : Le tableau de données à écrire dans le fichier Excel.}
 
-\item{titre}{Title to write above the table.}
+\item{titre}{\code{character} : Le titre à insérer au-dessus du tableau dans l'onglet Excel.}
+
+\item{var_group_by}{\code{numeric} : Le nombre de premières colonnes à formater spécifiquement
+(par exemple, pour des regroupements ou des croisements).}
+
+\item{dir}{\code{character} : Le répertoire où le fichier Excel sera enregistré. Par défaut, "output/".}
+}
+\value{
+\code{NULL}. La fonction écrit les données dans le fichier Excel spécifié.
 }
 \description{
-This function writes a data frame to an Excel file (.xlsx) with specific formatting. It places the given title in bold above the table, writes the column names in bold, and formats the first column (excluding the header) in italic. If the worksheet already exists and contains data, the new table will be written to the right of the existing data, leaving one column of space.
+Cette fonction écrit un tableau de données dans un fichier Excel en ajoutant un titre formaté
+et en appliquant des styles de formatage au tableau. Elle gère également la création du
+répertoire de sortie si nécessaire et permet d'ajouter des données à un onglet existant
+en décalant les nouvelles données.
 }
 \details{
+La fonction réalise les opérations suivantes :
 \itemize{
-\item Opens an \code{openxlsx} workbook object pointing to the file at \code{chemin_xlsx}.
-\item If \code{nom_onglet} exists in the workbook:
-\itemize{
-\item Reads existing data to determine the starting column.
-\item Writes the \code{titre} in bold one column after the existing data.
-\item Writes the \code{table} below the title with column names in bold.
-}
-\item If \code{nom_onglet} does not exist:
-\itemize{
-\item Adds a new worksheet named \code{nom_onglet}.
-\item Writes the \code{titre} in bold at the first column.
-\item Writes the \code{table} below the title with column names in bold.
-}
-\item Formats the first column of the new table (excluding header) in italic.
-\item Saves the workbook, overwriting the existing Excel file.
+\item Vérifie si le package \code{openxlsx} est installé et le charge.
+\item Crée le répertoire de sortie s'il n'existe pas.
+\item Charge un classeur Excel existant ou en crée un nouveau.
+\item Détermine la position de départ pour écrire les nouvelles données en fonction
+des données existantes dans l'onglet spécifié.
+\item Ajoute ou sélectionne l'onglet spécifié.
+\item Écrit le titre en gras et rouge au-dessus du tableau.
+\item Appelle la fonction \code{\link{ecrire_tableau_formate}} pour écrire et formater le tableau.
+\item Sauvegarde le classeur Excel.
 }
 }
 \examples{
 \dontrun{
-ecrire_xls("data.xlsx", "Sheet3", data.frame(b=seq(1,5)), "My Table Title")
+library(openxlsx)
+
+# Créer un exemple de tableau
+donnees <- data.frame(
+  Nom = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 35),
+  Score = c(85, 90, 95)
+)
+
+# Définir le titre et les variables de groupement
+titre <- "Rapport des Scores"
+var_group_by <- 2
+
+# Utiliser la fonction pour écrire le tableau dans un fichier Excel
+ecrire_xls(
+  nom_fichier_xls = "rapport_scores.xlsx",
+  nom_onglet = "Feuille1",
+  table = donnees,
+  titre = titre,
+  var_group_by = var_group_by,
+  dir = "output/"
+)
 }
 
 }
