@@ -4,17 +4,39 @@
 \alias{generer_markdown_auto}
 \title{Genere un rapport RMarkdown automatise à partir d'une table de demandes et d'une liste de graphiques ou de tables.}
 \usage{
-generer_markdown_auto(table_demandes, out)
+generer_markdown_auto(
+  table_demandes,
+  out,
+  out_ollama = NULL,
+  fonction_ask_ollama = NULL,
+  metadata = NULL,
+  prompt_header = NULL,
+  prompt_instruction = NULL,
+  model_name = NULL
+)
 }
 \arguments{
-\item{table_demandes}{Un data frame contenant au moins deux colonnes :
+\item{table_demandes}{Un data frame contenant au moins les colonnes suivantes :
 \describe{
 \item{\code{titre}}{Les titres des graphiques ou tables à inclure dans le rapport.}
 \item{\code{nom_onglet}}{Les sous-titres ou sections sous lesquelles les elements seront regroupes.}
+\item{\code{nom_fichier_xls}}{Le nom du fichier Excel associe. Une chaîne vide indique un element Markdown.}
 }}
 
 \item{out}{Une liste contenant les graphiques (objets ggplot) et les tables (data frames) à inclure dans le rapport.
 Chaque element de la liste doit correspondre à un titre dans \code{table_demandes$titre}.}
+
+\item{out_ollama}{Liste optionnelle contenant les sorties d'Ollama à inclure dans le rapport.}
+
+\item{fonction_ask_ollama}{Fonction optionnelle pour interroger Ollama.}
+
+\item{metadata}{Donnees supplementaires optionnelles pour la generation des prompts Ollama.}
+
+\item{prompt_header}{En-tête optionnel pour les prompts Ollama.}
+
+\item{prompt_instruction}{Instructions optionnelles pour les prompts Ollama.}
+
+\item{model_name}{Nom optionnel du modèle Ollama à utiliser.}
 }
 \value{
 Cette fonction ne retourne pas de valeur, mais ecrit un fichier RMarkdown dans le repertoire \code{output}.
@@ -28,6 +50,8 @@ La fonction genere un fichier RMarkdown nomme \code{rapport_automatique.Rmd} dan
 Le rapport est structure avec des sous-titres (niveaux 2) et des titres (niveaux 3) correspondant respectivement à \code{nom_onglet} et \code{titre}.
 Les graphiques et les tables sont inseres sous leurs titres correspondants.
 Si le repertoire \code{output} n'existe pas, il sera cre automatiquement.
+
+Si des parametres Ollama sont fournis, la fonction peut enrichir le rapport avec des commentaires generes par l'IA.
 }
 \examples{
 \dontrun{

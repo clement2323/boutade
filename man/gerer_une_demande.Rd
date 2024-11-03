@@ -4,7 +4,7 @@
 \alias{gerer_une_demande}
 \title{Gerer une demande d'agregation a partir d'un vecteur de parametres}
 \usage{
-gerer_une_demande(vecteur_demande)
+gerer_une_demande(vecteur_demande, for_ollama = FALSE)
 }
 \arguments{
 \item{vecteur_demande}{Un vecteur contenant les parametres de la demande. Les elements du vecteur doivent être dans l'ordre suivant :
@@ -20,10 +20,17 @@ gerer_une_demande(vecteur_demande)
 \item \code{nom_fichier_xls} : Nom du fichier Excel de sortie.
 \item \code{nom_onglet} : Nom de l'onglet dans le fichier Excel.
 \item \code{titre} : Titre pour la sortie (par exemple, titre du graphique).
+\item \code{unite} : Unites de mesure, separees par des tirets.
 }}
+
+\item{for_ollama}{Logical. Si TRUE, retourne uniquement la table agregee sans traitement supplementaire.}
 }
 \value{
-Un \code{data.frame} contenant le resultat de l'agregation calculee.
+Selon les parametres :
+\itemize{
+\item Un \code{data.frame} contenant le resultat de l'agregation si \code{type_output = "table"} ou \code{for_ollama = TRUE}
+\item Un objet \code{ggplot} si \code{type_output = "graphique"}
+}
 }
 \description{
 Cette fonction traite une demande specifique d'agregation en utilisant un vecteur de parametres. Elle recupere les informations necessaires, calcule l'agregat en fonction des parametres specifies et retourne le resultat.
@@ -53,7 +60,8 @@ vecteur_demande <- c(
   type_output = "table",
   nom_fichier_xls = "rapport_ventes.xlsx",
   nom_onglet = "Synthese",
-  titre = "Rapport des ventes 2023"
+  titre = "Rapport des ventes 2023",
+  unite = "euros"
 )
 resultat <- gerer_une_demande(vecteur_demande)
 }

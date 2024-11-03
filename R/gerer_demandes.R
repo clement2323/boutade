@@ -15,9 +15,15 @@
 #'   \item \code{nom_fichier_xls} : Nom du fichier Excel de sortie.
 #'   \item \code{nom_onglet} : Nom de l'onglet dans le fichier Excel.
 #'   \item \code{titre} : Titre pour la sortie (par exemple, titre du graphique).
+#'   \item \code{unite} : Unites de mesure, separees par des tirets.
 #' }
+#' @param for_ollama Logical. Si TRUE, retourne uniquement la table agregee sans traitement supplementaire.
 #'
-#' @return Un \code{data.frame} contenant le resultat de l'agregation calculee.
+#' @return Selon les parametres :
+#' \itemize{
+#'   \item Un \code{data.frame} contenant le resultat de l'agregation si \code{type_output = "table"} ou \code{for_ollama = TRUE}
+#'   \item Un objet \code{ggplot} si \code{type_output = "graphique"}
+#' }
 #'
 #' @details
 #' La fonction effectue les etapes suivantes :
@@ -44,7 +50,8 @@
 #'   type_output = "table",
 #'   nom_fichier_xls = "rapport_ventes.xlsx",
 #'   nom_onglet = "Synthese",
-#'   titre = "Rapport des ventes 2023"
+#'   titre = "Rapport des ventes 2023",
+#'   unite = "euros"
 #' )
 #' resultat <- gerer_une_demande(vecteur_demande)
 #' }
@@ -53,7 +60,7 @@
 #'
 #' @importFrom zeallot %<-%
 #' @export
-gerer_une_demande <- function(vecteur_demande) {
+gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
   # vecteur_demande <- unlist(table_demandes[12,])
   
   c(
@@ -103,7 +110,7 @@ gerer_une_demande <- function(vecteur_demande) {
   
   
   # Retourner le resultat si pas de graphique demande
-  if(type_output == "table"){
+  if(type_output == "table" & !for_ollama ){
     if (nchar(nom_fichier_xls)!=0) {
       if(type_output == "graphique") stop("pas de graphique dans les fichiers xls")
         ecrire_xls(
@@ -116,6 +123,9 @@ gerer_une_demande <- function(vecteur_demande) {
     }
     return(table_agrege)
   }
+
+  if(for_ollama) return(table_agrege)
+
   var_part <- grep("_part",colnames(table_agrege),value = TRUE)
   p <- creer_graphique_bar(
       data = table_agrege,
