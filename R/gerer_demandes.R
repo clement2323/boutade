@@ -94,7 +94,7 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
   condition_texte <- condition
   condition <- with(table, eval(parse(text = condition_texte)))
   
-  if (!is.null(condition) && is.na(condition)) condition <- NULL
+  if (!is.null(condition) && sum(is.na(condition))!=0) condition <- NULL
   if(nchar(nom_fichier_xls)==0) nom_fichier_xls <- NULL
   
   # Calculer l'agregat
