@@ -63,7 +63,7 @@ prompt_header=NULL,prompt_instruction = NULL,model_name = NULL){
   # 'out' doit être fourni en argument et doit être une liste contenant les graphiques et tables
   
   titles <- table_demandes$titre
-  soustitres <- table_demandes$nom_onglet
+  soustitres <- table_demandes$nom_onglet[nchar(table_demandes$nom_fichier_xls)==0]
   is_markdown <- nchar(table_demandes$nom_fichier_xls)==0
   # Verifier que les longueurs des vecteurs correspondent
   if (length(titles) != length(out) || length(soustitres) != length(out)) {
