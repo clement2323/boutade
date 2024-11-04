@@ -94,9 +94,8 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
   # evaluer la condition si elle existe
   condition_texte <- condition
   condition <- with(table, eval(parse(text = condition_texte)))
-  if (is.na(condition)) condition <- NULL
-  
-  
+  if (!is.null(condition) && is.na(condition)) condition <- NULL
+
   # Calculer l'agregat
   table_agrege <- calculer_agregat_sur_croisement(
     table = table,
