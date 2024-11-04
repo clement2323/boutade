@@ -64,6 +64,9 @@ prompt_header=NULL,prompt_instruction = NULL,model_name = NULL){
   
   titles <- table_demandes$titre[nchar(table_demandes$nom_fichier_xls)==0]
   soustitres <- table_demandes$nom_onglet[nchar(table_demandes$nom_fichier_xls)==0]
+  out <- out[nchar(table_demandes$nom_fichier_xls)==0]
+  if(!is.null(out_ollama)) out_ollama <- out_ollama[nchar(table_demandes$nom_fichier_xls)==0]
+  
   is_markdown <- nchar(table_demandes$nom_fichier_xls)==0
   # Verifier que les longueurs des vecteurs correspondent
   if (length(titles) != length(out) || length(soustitres) != length(out)) {
