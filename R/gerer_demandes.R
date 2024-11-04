@@ -61,7 +61,7 @@
 #' @importFrom zeallot %<-%
 #' @export
 gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
-  # vecteur_demande <- unlist(table_demandes[1,])
+  #vecteur_demande <- unlist(table_demandes[1,])
   #vecteur_demande <- table_demandes[i,]%>% unlist()
   c(
     id_demande,
@@ -96,6 +96,8 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
   
   if (!is.null(condition) && sum(is.na(condition))!=0) condition <- NULL
   if(nchar(nom_fichier_xls)==0) nom_fichier_xls <- NULL
+
+  if(nchar(var_croisement_relative)==0) var_croisement_relative <- c()
   
   # Calculer l'agregat
   table_agrege <- calculer_agregat_sur_croisement(
