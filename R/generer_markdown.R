@@ -97,7 +97,7 @@ output:
     rmd_content <- paste0(rmd_content, "## ", subtitle, "\n\n")
     
     # Parcourir les elements qui correspondent à ce sous-titre
-    indices <- which(soustitres == subtitle & is_markdown)
+    indices <- which(soustitres == subtitle)
     for (i in indices) {
       # Ajouter le titre en tant qu'en-tête de niveau 3
       rmd_content <- paste0(rmd_content, "### ", titles[i], "\n\n")

@@ -77,7 +77,6 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
     titre,
     unite
   ) %<-% vecteur_demande
-
   # Charger la table de donnees correspondante
   table <- get(table)
   
