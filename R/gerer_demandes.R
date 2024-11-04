@@ -61,8 +61,8 @@
 #' @importFrom zeallot %<-%
 #' @export
 gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
-  # vecteur_demande <- unlist(table_demandes[12,])
-  
+  # vecteur_demande <- unlist(table_demandes[1,])
+  #vecteur_demande <- table_demandes[i,]%>% unlist()
   c(
     id_demande,
     table,
@@ -78,7 +78,6 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
     unite
   ) %<-% vecteur_demande
 
-  #print(id_demande)
   # Charger la table de donnees correspondante
   table <- get(table)
   
@@ -87,15 +86,17 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
   var_quanti <- strsplit(var_quanti, "-")[[1]]
   unite <- strsplit(unite, "-")[[1]]
   # Extraire les fonctions d'agregation
-  vecteur_nom_fonction <- strsplit(fonctions_agregations, "-")[[1]]
+  vecteur_nom_fonction <- strsplit(fonctions_agregations, "-")[[1]]  
   liste_fonction_agregation <- lapply(vecteur_nom_fonction, get)
   names(liste_fonction_agregation) <- vecteur_nom_fonction
   
   # evaluer la condition si elle existe
   condition_texte <- condition
   condition <- with(table, eval(parse(text = condition_texte)))
+  
   if (!is.null(condition) && is.na(condition)) condition <- NULL
-
+  if(nchar(nom_fichier_xls)==0) nom_fichier_xls <- NULL
+  
   # Calculer l'agregat
   table_agrege <- calculer_agregat_sur_croisement(
     table = table,
@@ -106,11 +107,11 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
     condition = condition,
     unites = unite
   )
-  
-  
+
+  # for_ollama = FALSE
   # Retourner le resultat si pas de graphique demande
   if(type_output == "table" & !for_ollama ){
-    if (nchar(nom_fichier_xls)!=0) {
+    if (!is.null(nom_fichier_xls)) {
       if(type_output == "graphique") stop("pas de graphique dans les fichiers xls")
         ecrire_xls(
           nom_fichier_xls=nom_fichier_xls,
