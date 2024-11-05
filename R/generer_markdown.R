@@ -76,7 +76,7 @@
 #' @export
 generer_markdown_auto <- function(table_demandes,out,
 out_ollama = NULL, fonction_ask_ollama = NULL, metadata = NULL,
-prompt_header=NULL,prompt_instruction = NULL,model_name = NULL,output_dir = "output/",nom_rapport = "rapport_automatique.Rmd"){
+prompt_header=NULL,prompt_instruction = NULL,output_dir = "output/",nom_rapport = "rapport_automatique.Rmd"){
   # 'out' doit être fourni en argument et doit être une liste contenant les graphiques et tables
   
   is_markdown <- nchar(table_demandes$nom_fichier_xls)==0
@@ -145,7 +145,7 @@ output:
         }else{
           prompt <- preparer_prompt(table,nom_table,metadata)
         }
-        rep_ollama <- fonction_ask_ollama(prompt,model_name = model_name) 
+        rep_ollama <- fonction_ask_ollama(prompt,model_name = "mistral-small") 
         rmd_content <- paste0(rmd_content, rep_ollama, "\n\n")
     }
   }}

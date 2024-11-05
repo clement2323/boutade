@@ -30,8 +30,7 @@ ecrire_etude <- function(
     dir_output = "output/",
     nom_rapport = "rapport.Rmd",
     use_ia = FALSE,
-    fonction_ask_ia = NULL,
-    model_name = "mistral-small"
+    fonction_ask_ia = NULL
 ) {
   
   dir_etude <- paste0(dir_etude,"/")
@@ -83,7 +82,6 @@ ecrire_etude <- function(
       metadata = metadata,
       prompt_header = NULL,
       prompt_instruction = NULL,
-      model_name = model_name,
       output_dir = dir_output,
       nom_rapport = nom_rapport
     )

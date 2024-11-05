@@ -15,8 +15,7 @@ ecrire_etude(
   dir_output = "output/",
   nom_rapport = "rapport.Rmd",
   use_ia = FALSE,
-  fonction_ask_ia = NULL,
-  model_name = "mistral-small"
+  fonction_ask_ia = NULL
 )
 }
 \arguments{

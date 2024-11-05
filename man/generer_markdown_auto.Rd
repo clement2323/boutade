@@ -12,7 +12,6 @@ generer_markdown_auto(
   metadata = NULL,
   prompt_header = NULL,
   prompt_instruction = NULL,
-  model_name = NULL,
   output_dir = "output/",
   nom_rapport = "rapport_automatique.Rmd"
 )
