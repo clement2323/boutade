@@ -94,7 +94,19 @@ controler_demandes <- function(table_demandes) {
       ))
     }
     
-    # 5. Vérification de l'existence de la table et des variables
+    # 5. Pas plus d'une variable de croisement pour un output graphique
+    if(demande$type_output == "graphique" && demande$var_croisement != "") {
+      vars_croisement <- strsplit(demande$var_croisement, "-")[[1]]
+      if(length(vars_croisement) > 1) {
+        erreurs <- rbind(erreurs, data.frame(
+          id_demande = demande$id_demande,
+          raison = "Output graphique non autorisé avec plus d'une variable de croisement",
+          stringsAsFactors = FALSE
+        ))
+      }
+    }
+    
+    # 6. Vérification de l'existence de la table et des variables
     # Vérification de l'existence de la table
     nom_table <- table_demandes[i,]$table
     if (!exists(nom_table)) {

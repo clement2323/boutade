@@ -78,7 +78,7 @@ creer_tables_demandes <- function(EP_FI_AG) {
     id_demande = 1:20,
     table = rep("EP_FI_AG", 20),
     var_croisement = c(
-      "dep_EP", "s4_EP", "dep_EP-s4_EP", "s4_EP", "dep_EP-dep_FI",
+      "dep_EP", "s4_EP", "dep_EP", "s4_EP", "dep_EP-dep_FI",
       "s4_EP-s4_FI", "dep_EP", "s4_EP-dep_EP", "dep_EP", "s4_EP",
       "dep_EP-s4_FI", "s4_EP", "dep_EP-s4_EP", "s4_EP-dep_FI", "dep_EP",
       "s4_EP-s4_FI", "dep_EP-dep_FI", "s4_EP", "dep_EP", "s4_EP-dep_EP"

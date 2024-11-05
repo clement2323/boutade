@@ -61,8 +61,11 @@
 #' @importFrom zeallot %<-%
 #' @export
 gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
-  #vecteur_demande <- unlist(table_demandes[1,])
-  #vecteur_demande <- table_demandes[i,]%>% unlist()
+  
+  # EP_FI_AG <-creer_table_minimale(20)
+  # table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_valides
+  # i <-3
+  # vecteur_demande <- table_demandes[i,]%>% unlist()
   c(
     id_demande,
     table,

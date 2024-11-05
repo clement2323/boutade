@@ -15,12 +15,25 @@ $env:no_proxy = ""
 # Mettre tous les éléments de la liste dans l'environnement global
 rm(list=ls())
 
-#to DO gérer le markdown
-# metadonnées
-# controle demande 
 EP_FI_AG <-creer_table_minimale(20)
-tables_demandes <- creer_tables_demandes(EP_FI_AG)
+table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_valides
+#table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_erreurs
 
-controler_demandes(tables_demandes$table_demandes_valides)
-controler_demandes(tables_demandes$table_demandes_erreurs)
+erreurs <- controler_demandes(table_demandes)
+if(nrow(erreurs)!=0) erreurs; stop("il ya des erreurs dans les demandes")
+
+setDT(EP_FI_AG)
+for (i in 1:nrow(table_demandes)){
+    print(i)
+    gerer_une_demande(table_demandes[i,]%>% unlist())
+}
+
+out <- apply(table_demandes,1,gerer_une_demande)
+generer_markdown_auto(table_demandes,out)
+
+
+rmarkdown::render(
+    input = "output/rapport_automatique.Rmd",
+    envir = globalenv(),
+)
 
