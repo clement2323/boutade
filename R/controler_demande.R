@@ -47,7 +47,7 @@ controler_demandes <- function(table_demandes) {
   # Contrôle de chaque ligne
   for(i in 1:nrow(table_demandes)) {
     demande <- table_demandes[i, ]
-    # i <-13
+    # i <-1
     # Séparation des éléments multiples
     fonctions <- strsplit(demande$fonctions_agregations, "-")[[1]]
     variables <- strsplit(demande$var_quanti, "-")[[1]]
@@ -154,8 +154,18 @@ controler_demandes <- function(table_demandes) {
         stringsAsFactors = FALSE
       ))
     }
-  
-  }
+    
+          
+  # Vérifier que la variable d'évolution est dans les variables de croisement
+      if(demande$var_evolution != "" &  
+         !grepl(demande$var_evolution, demande$var_croisement, fixed = TRUE)) {
+        erreurs <- rbind(erreurs, data.frame(
+          id_demande = demande$id_demande,
+          raison = "La variable d'évolution doit être incluse dans les variables de croisement",
+          stringsAsFactors = FALSE
+        ))
+      }
+    }
   
   return(erreurs)
 }

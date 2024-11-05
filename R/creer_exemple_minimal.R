@@ -78,10 +78,10 @@ creer_tables_demandes <- function(EP_FI_AG) {
     id_demande = 1:20,
     table = rep("EP_FI_AG", 20),
     var_croisement = c(
-      "dep_EP", "s4_EP", "dep_EP", "s4_EP", "dep_EP-dep_FI",
+      "annee-dep_EP", "s4_EP", "dep_EP", "s4_EP", "dep_EP-dep_FI",
       "s4_EP-s4_FI", "dep_EP", "s4_EP-dep_EP", "dep_EP", "s4_EP",
       "dep_EP-s4_FI", "s4_EP", "dep_EP-s4_EP", "s4_EP-dep_FI", "dep_EP",
-      "s4_EP-s4_FI", "dep_EP-dep_FI", "s4_EP", "dep_EP", "s4_EP-dep_EP"
+      "s4_EP-s4_FI", "dep_EP-dep_FI", "s4_EP", "dep_EP", "annee-s4_EP"
     ),
     var_croisement_relative = c(
       "dep_FI_relatif", "dep_FI_relatif", "dep_FI_relatif", "dep_FI_relatif", "dep_FI_relatif",
@@ -127,6 +127,12 @@ creer_tables_demandes <- function(EP_FI_AG) {
       "unite-millier", "millier", "millier", "millier", "millier",
       "unite-millier", "millier", "millier", "millier", "unite",
       "unite-millier", "millier", "unite", "millier", "unite-millier"
+    ),
+    var_evolution = c(
+      "annee", "", "", "", "",
+      "", "", "", "", "",
+      "", "", "", "", "",
+      "", "", "", "", "annee"
     ),
     stringsAsFactors = FALSE
   )
@@ -192,6 +198,12 @@ creer_tables_demandes <- function(EP_FI_AG) {
       "million-unite", "millier", "unite", "million-millier",
       "million", "unite-millier", "million", "millier",
       "unite-millier", "million", "million-unite", "millier"
+    ),
+    var_evolution = c(
+      "annee", "annee", "", "periode_invalide", "annee",
+      "", "AN", "annee", "", "periode_invalide",
+      "annee", "", "AN", "periode_invalide", "",
+      "annee", "AN", "", "periode_invalide", "annee"
     ),
     stringsAsFactors = FALSE
   )

@@ -65,7 +65,7 @@ gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) 
   # EP_FI_AG <-creer_table_minimale(20)
   # setDT(EP_FI_AG)
   # table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_valides
-  # i <-3
+  # i <-1
   # vecteur_demande <- table_demandes[i,]%>% unlist()
   c(
     id_demande,
@@ -79,10 +79,12 @@ gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) 
     nom_fichier_xls,
     nom_onglet,
     titre,
-    unite
+    unite,
+    var_evolution
   ) %<-% vecteur_demande
   # Charger la table de donnees correspondante
   table <- get(nom_table)
+  
   
   # Extraire les variables de croisement
   var_croisement <- strsplit(var_croisement, "-")[[1]]
@@ -112,6 +114,10 @@ gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) 
     condition = condition,
     unites = unite
   )
+
+  if(var_annee != "") print("CODER CETTE PARTIE POUR EVOLUTION")
+  # TODO
+  
 
   # Transformer les noms de colonnes si metadata existe dans l'environnement
   if (!is.null(metadata)) {
