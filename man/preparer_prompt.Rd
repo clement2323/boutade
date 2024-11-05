@@ -10,7 +10,7 @@ preparer_prompt(
   metadata,
   prompt_header = "Je souhaite une analyse concise d'un tableau de données. \\n\\n",
   prompt_instruction =
-    "INSTRUCTION : \\nVeuillez fournir une analyse très brève des faits saillants de ce tableau. Juste un paragraphe, pas\\n    de référence au tableau en soit mais juste aux faits délivrés par ce dernier."
+    "INSTRUCTION : \\nVeuillez fournir une analyse très brève des faits saillants de ce tableau. Juste un paragraphe. Attention \\n    je me servirai de ce commentaire pour commenter le graphique asocié aussi donc ne parle pas de tableau ni graphique, dis juste qu'on observe que..."
 )
 }
 \arguments{

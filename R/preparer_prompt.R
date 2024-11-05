@@ -71,28 +71,22 @@ format_metadata <- function(metadata, table, nom_table) {
     if (!is.null(table_meta)) {
         # Pour chaque colonne de la table
         for (col in colnames(table)) {
-            # Extraire le nom de base de la variable (avant le dernier underscore)
-            base_var_name <- sub("_[^_]+$", "", col)
-            
-            # Chercher la variable dans les métadonnées, d'abord par nom puis par libelle_court
-            matching_var <- purrr::detect(
+            # Chercher toutes les variables dont le nom ou libelle_court est contenu dans le nom de colonne
+            matching_vars <- purrr::keep(
                 table_meta$variables,
-                ~ .$nom == base_var_name || .$libelle_court == base_var_name
+                ~ grepl(.$nom, col, fixed = TRUE) || 
+                  grepl(.$libelle_court, col, fixed = TRUE)
             )
             
-            if (!is.null(matching_var)) {
-                # Ajouter le suffixe à la description si présent
-                suffix <- sub(".*_([^_]+)$", "\\1", col)
-                if (suffix != col) {  # Si un suffixe a été trouvé
-                    matching_var$description <- paste0(
-                        matching_var$description,
-                        " (", suffix, ")"
-                    )
-                    matching_var$nom <- col
-                } else {
-                    # Si pas de suffixe, utiliser le nom de colonne tel quel
-                    matching_var$nom <- col
-                }
+            # Sélectionner la correspondance la plus longue si plusieurs matches
+            if (length(matching_vars) > 0) {
+                matching_var <- matching_vars[[
+                    which.max(sapply(matching_vars, function(v) 
+                        max(nchar(v$nom), nchar(v$libelle_court))))
+                ]]
+                
+                # Garder le nom de colonne original
+                matching_var$nom <- col
                 all_relevant_vars <- c(all_relevant_vars, list(matching_var))
             }
         }
@@ -112,8 +106,8 @@ format_metadata <- function(metadata, table, nom_table) {
     formatted <- paste0(
         formatted,
         "Note sur les suffixes : \n",
-        "- _sum : indique la somme par catégorie\n",
-        "- _tot : indique le total sur les variables de croisement\n\n"
+        "- _tot : indique le total sur les variables de croisement\n\n",
+        "Total : indique le total sur les variables de croisement\n\n"
     )
     
     # Pour chaque variable pertinente, ajouter sa description
@@ -143,8 +137,8 @@ format_metadata <- function(metadata, table, nom_table) {
 #' preparer_prompt(table, metadata)
 preparer_prompt <- function(table, nom_table,metadata,
     prompt_header = "Je souhaite une analyse concise d'un tableau de données. \n\n",
-    prompt_instruction = "INSTRUCTION : \nVeuillez fournir une analyse très brève des faits saillants de ce tableau. Juste un paragraphe, pas
-    de référence au tableau en soit mais juste aux faits délivrés par ce dernier."
+    prompt_instruction = "INSTRUCTION : \nVeuillez fournir une analyse très brève des faits saillants de ce tableau. Juste un paragraphe. Attention 
+    je me servirai de ce commentaire pour commenter le graphique asocié aussi donc ne parle pas de tableau ni graphique, dis juste qu'on observe que..."
 ) {
     #  metadata <- list( 
     #  dep_EP = "département de l'entreprise profilée",

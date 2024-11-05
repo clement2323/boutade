@@ -31,6 +31,7 @@ rmarkdown::render(
 
 #### Lancement OLLAMA
 rm(list=ls())
+devtools::load_all()
 # Then install the package from GitHub
 devtools::install_github("clement2323/ollamax")
 library(ollamax); #??ollamax
@@ -71,9 +72,9 @@ rmarkdown::render(
 #devtools::document()
 #devtools::check()
 
-#[System.Net.WebRequest]::DefaultWebProxy = New-Object System.Net.WebProxy("http://proxy-rie.http.insee.fr:8080")
-#$env:http_proxy = "http://proxy-rie.http.insee.fr:8080"
-#$env:https_proxy = "http://proxy-rie.http.insee.fr:8080"
-#$env:no_proxy = ""
+[System.Net.WebRequest]::DefaultWebProxy = New-Object System.Net.WebProxy("http://proxy-rie.http.insee.fr:8080")
+$env:http_proxy = "http://proxy-rie.http.insee.fr:8080"
+$env:https_proxy = "http://proxy-rie.http.insee.fr:8080"
+$env:no_proxy = ""
 
 
