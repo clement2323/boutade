@@ -38,13 +38,13 @@
           "nom": "redi_r310_EP",
           "libelle": "Chiffre d'affaires de l'entreprise profilée",
           "libelle_court": "CA EP",
-          "description": "Montant du chiffre d'affaires de l'entreprise profilée (en milliers d'euros)"
+          "description": "Montant du chiffre d'affaires de l'entreprise profilée"
         },
         {
           "nom": "siren_FI",
           "libelle": "Identifiant de la filiale",
           "libelle_court": "ID FI",
-          "description": "Identifiant unique de la filiale (format FI suivi d'un numéro)"
+          "description": "Identifiant unique de la filiale"
         },
         {
           "nom": "denom_FI",
@@ -68,7 +68,7 @@
           "nom": "redi_r310_FI",
           "libelle": "Chiffre d'affaires de la filiale",
           "libelle_court": "CA FI",
-          "description": "Montant du chiffre d'affaires de la filiale (en milliers d'euros)"
+          "description": "Montant du chiffre d'affaires de la filiale"
         },
         {
           "nom": "poids",

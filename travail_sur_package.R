@@ -46,6 +46,7 @@ if(nrow(erreurs)!=0){erreurs; stop("il ya des erreurs dans les demandes")}
 
 setDT(EP_FI_AG)
 metadata <- jsonlite::fromJSON("input/metadonnees.json", simplifyDataFrame = FALSE)  # Ajout de la lecture du JSON
+
 out <- pbapply(table_demandes,1,gerer_une_demande,metadata = metadata)
 out_ollama <- pbapply(table_demandes,1,gerer_une_demande,metadata = metadata,for_ollama = TRUE)
 
@@ -72,9 +73,9 @@ rmarkdown::render(
 #devtools::document()
 #devtools::check()
 
-[System.Net.WebRequest]::DefaultWebProxy = New-Object System.Net.WebProxy("http://proxy-rie.http.insee.fr:8080")
-$env:http_proxy = "http://proxy-rie.http.insee.fr:8080"
-$env:https_proxy = "http://proxy-rie.http.insee.fr:8080"
-$env:no_proxy = ""
+#[System.Net.WebRequest]::DefaultWebProxy = New-Object System.Net.WebProxy("http://proxy-rie.http.insee.fr:8080")
+#$env:http_proxy = "http://proxy-rie.http.insee.fr:8080"
+#$env:https_proxy = "http://proxy-rie.http.insee.fr:8080"
+#$env:no_proxy = ""
 
 
