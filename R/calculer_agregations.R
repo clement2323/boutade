@@ -10,7 +10,8 @@
 #' f_arrondi(3.14159)  # Retourne 3.1
 #'
 #' f_millions <- get_rounding_function("million")
-#' f_millions(1234567)  # Retourne 1
+#' f_millions(1234567)  # Retourne 1 e
+#'  eeee
 #' @export
 get_rounding_function <- function(unite) {
   if (unite == "unite") {

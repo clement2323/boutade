@@ -103,7 +103,7 @@ ecrire_xls <- function(nom_fichier_xls, nom_onglet, table, titre, var_group_by, 
   
 
   # Écrire le titre en gras et rouge
-  titleStyle <- openxlsx::createStyle(textDecoration = "bold", fontColour = "red")
+  titleStyle <- openxlsx::createStyle(textDecoration = "bold", fontColour = "blue")
   openxlsx::writeData(wb, nom_onglet, x = titre, startCol = startCol, startRow = startRow)
   openxlsx::addStyle(wb, nom_onglet, style = titleStyle, rows = startRow, cols = startCol)
   
