@@ -4,18 +4,45 @@
 \alias{format_metadata}
 \title{Format metadata as a text string}
 \usage{
-format_metadata(metadata)
+format_metadata(metadata, table, nom_table)
 }
 \arguments{
-\item{metadata}{A named list of metadata elements}
+\item{metadata}{A named list containing metadata elements, including a 'tables'
+element with table descriptions and variables}
+
+\item{table}{A data frame whose columns need to be documented}
+
+\item{nom_table}{The name of the table to look up in the metadata}
 }
 \value{
-A formatted string containing the metadata
+A formatted string containing the metadata description, including:
+\itemize{
+\item Table description (if available)
+\item Special suffix explanations
+\item Variable descriptions with their labels
+}
 }
 \description{
-Format metadata as a text string
+Takes a metadata list and a data table, and formats the metadata information
+into a human-readable text string. The function processes special column name
+suffixes
 }
 \examples{
-metadata <- list(name = "value", other = "other value")
-format_metadata(metadata)
+metadata <- list(
+  tables = list(
+    list(
+      nom = "example_table",
+      description = "An example table",
+      variables = list(
+        list(
+          nom = "var1",
+          libelle_court = "V1",
+          description = "First variable"
+        )
+      )
+    )
+  )
+)
+table <- data.frame(var1_sum = 1:3)
+format_metadata(metadata, table, "example_table")
 }

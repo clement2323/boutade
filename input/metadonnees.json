@@ -1,0 +1,88 @@
+{
+  "tables": [
+    {
+      "nom_table": "EP_FI_AG",
+      "description": "Données sur les entreprises profilées (EP) et leurs filiales (FI) avec des informations de classification et des variables quantitatives",
+      "variables": [
+        {
+          "nom": "annee",
+          "libelle": "Année de référence",
+          "libelle_court": "Année",
+          "description": "Année des données (2022 ou 2023)"
+        },
+        {
+          "nom": "siren_EP",
+          "libelle": "Numéro SIREN de l'entreprise profilée",
+          "libelle_court": "SIREN EP",
+          "description": "Identifiant unique à 9 chiffres de l'entreprise profilée"
+        },
+        {
+          "nom": "denom_EP",
+          "libelle": "Dénomination de l'entreprise profilée",
+          "libelle_court": "Nom EP",
+          "description": "Raison sociale de l'entreprise profilée"
+        },
+        {
+          "nom": "dep_EP",
+          "libelle": "Département de l'entreprise profilée",
+          "libelle_court": "Dép. EP",
+          "description": "Code département de l'entreprise profilée (971, 972, etc.)"
+        },
+        {
+          "nom": "s4_EP",
+          "libelle": "Secteur d'activité de l'entreprise profilée",
+          "libelle_court": "Secteur EP",
+          "description": "Secteur d'activité en 4 postes (Industrie, Services marchands, etc.)"
+        },
+        {
+          "nom": "redi_r310_EP",
+          "libelle": "Chiffre d'affaires de l'entreprise profilée",
+          "libelle_court": "CA EP",
+          "description": "Montant du chiffre d'affaires de l'entreprise profilée (en milliers d'euros)"
+        },
+        {
+          "nom": "siren_FI",
+          "libelle": "Identifiant de la filiale",
+          "libelle_court": "ID FI",
+          "description": "Identifiant unique de la filiale (format FI suivi d'un numéro)"
+        },
+        {
+          "nom": "denom_FI",
+          "libelle": "Dénomination de la filiale",
+          "libelle_court": "Nom FI",
+          "description": "Raison sociale de la filiale"
+        },
+        {
+          "nom": "dep_FI",
+          "libelle": "Département de la filiale",
+          "libelle_court": "Dép. FI",
+          "description": "Code département de la filiale (971, 972, 973, 974)"
+        },
+        {
+          "nom": "s4_FI",
+          "libelle": "Secteur d'activité de la filiale",
+          "libelle_court": "Secteur FI",
+          "description": "Secteur d'activité en 4 postes (Industrie, Construction, Commerces, Services marchands)"
+        },
+        {
+          "nom": "redi_r310_FI",
+          "libelle": "Chiffre d'affaires de la filiale",
+          "libelle_court": "CA FI",
+          "description": "Montant du chiffre d'affaires de la filiale (en milliers d'euros)"
+        },
+        {
+          "nom": "poids",
+          "libelle": "Poids de l'observation",
+          "libelle_court": "Poids",
+          "description": "Coefficient de pondération de l'observation (1 par défaut)"
+        },
+        {
+          "nom": "dep_FI_relatif",
+          "libelle": "Localisation relative de la filiale",
+          "libelle_court": "Loc. relative",
+          "description": "Position géographique de la filiale par rapport à son EP (interieur, antilles-guyane, autres)"
+        }
+      ]
+    }
+  ]
+}

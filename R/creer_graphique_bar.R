@@ -55,7 +55,8 @@ creer_graphique_bar <- function(
   color_theme = c("#FF4858", "#1B7F79", "#00CCC0", "#72F2EB", "#747F7F"),
   param_position = "stack",
   save = FALSE
-) {
+) { 
+  
   # Preparation des labels pour la legende
   if (!is.null(labels_fill)) lab_fill <- setNames(labels_fill, sort(unique(data[[var_fill]])))
   n_color <- length(unique(data[[var_fill]]))
@@ -72,6 +73,11 @@ creer_graphique_bar <- function(
   if (!is.null(soustitre) && soustitre != "") {
     labs_args$subtitle <- soustitre
   }
+
+  # Application automatique aux variables
+  var_y <- add_backticks(var_y)
+  var_x <- add_backticks(var_x)
+  var_fill <- add_backticks(var_fill)
 
   # Creation du graphique
   p <-ggplot(data, aes_string(x = var_x, y = var_y, fill = var_fill)) +
@@ -101,4 +107,24 @@ creer_graphique_bar <- function(
   if (save) ggsave(filename, plot = p, width = 8, height = 6, units = "in")
 
   return(p)
+}
+
+#' Ajouter des backticks a un nom de variable
+#'
+#' Cette fonction ajoute des backticks (`) autour d'un nom de variable s'ils ne sont pas deja presents.
+#' Elle est utilisee pour formater correctement les noms de variables dans les appels ggplot2.
+#'
+#' @param var_name Chaîne de caracteres representant le nom de la variable.
+#' @return Une chaîne de caracteres avec des backticks autour du nom de la variable.
+#'
+#' @examples
+#' add_backticks("ma_variable")  # Retourne "`ma_variable`"
+#' add_backticks("`ma_variable`")  # Retourne "`ma_variable`" (inchange)
+#'
+#' @noRd
+add_backticks <- function(var_name) {
+    if (!startsWith(var_name, "`")) {
+        var_name <- paste0("`", var_name, "`")
+    }
+    return(var_name)
 }

@@ -64,8 +64,9 @@ prompt_header=NULL,prompt_instruction = NULL,model_name = NULL){
   
   is_markdown <- nchar(table_demandes$nom_fichier_xls)==0
   titles <- table_demandes$titre
+  nom_tables <- table_demandes$table
+
   soustitres <- table_demandes$nom_onglet[is_markdown]
-  
   
   # Verifier que les longueurs des vecteurs correspondent
   if (length(titles) != length(out)) {
@@ -120,12 +121,12 @@ output:
       # i <-1
       if (!is.null(out_ollama)){
         table <- out_ollama[[i]]
-
+        nom_table <- nom_tables[[i]]
         if (!is.null(prompt_header))
         { 
-          prompt <- preparer_prompt(table,metadata,prompt_header,prompt_instruction)
+          prompt <- preparer_prompt(table,nom_table,metadata,prompt_header,prompt_instruction)
         }else{
-          prompt <- preparer_prompt(table,metadata)
+          prompt <- preparer_prompt(table,nom_table,metadata)
         }
         rep_ollama <- fonction_ask_ollama(prompt,model_name = model_name) 
         rmd_content <- paste0(rmd_content, rep_ollama, "\n\n")

@@ -60,15 +60,16 @@
 #'
 #' @importFrom zeallot %<-%
 #' @export
-gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
+gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) {
   
   # EP_FI_AG <-creer_table_minimale(20)
+  # setDT(EP_FI_AG)
   # table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_valides
   # i <-3
   # vecteur_demande <- table_demandes[i,]%>% unlist()
   c(
     id_demande,
-    table,
+    nom_table,
     var_croisement,
     var_croisement_relative,
     var_quanti,
@@ -81,7 +82,7 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
     unite
   ) %<-% vecteur_demande
   # Charger la table de donnees correspondante
-  table <- get(table)
+  table <- get(nom_table)
   
   # Extraire les variables de croisement
   var_croisement <- strsplit(var_croisement, "-")[[1]]
@@ -112,6 +113,31 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
     unites = unite
   )
 
+  # Transformer les noms de colonnes si metadata existe dans l'environnement
+  if (!is.null(metadata)) {
+    nouveaux_noms <- transformer_noms_colonnes(
+      noms_colonnes = colnames(table_agrege),
+      metadata = metadata,
+      nom_table = nom_table
+    )
+    colnames(table_agrege) <- nouveaux_noms
+    
+    # Transformer les noms des variables de croisement
+    var_croisement <- transformer_noms_colonnes(
+      noms_colonnes = var_croisement,
+      metadata = metadata,
+      nom_table = nom_table
+    )
+    
+    if (length(var_croisement_relative) > 0) {
+      var_croisement_relative <- transformer_noms_colonnes(
+        noms_colonnes = var_croisement_relative,
+        metadata = metadata,
+        nom_table = nom_table
+      )
+    }
+  }
+
   # for_ollama = FALSE
   # Retourner le resultat si pas de graphique demande
   if(type_output == "table" & !for_ollama ){
@@ -130,7 +156,8 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
 
   if(for_ollama) return(table_agrege)
 
-  var_part <- grep("_part",colnames(table_agrege),value = TRUE)
+  var_part <- grep("-part|Part",colnames(table_agrege),value = TRUE)
+  
   p <- creer_graphique_bar(
       data = table_agrege,
       var_x = var_croisement ,
@@ -146,3 +173,65 @@ gerer_une_demande <- function(vecteur_demande,for_ollama=FALSE) {
   return(p) 
 }
 
+
+#' Transformer les noms de colonnes avec les métadonnées
+#'
+#' @description
+#' Transforme les noms de colonnes bruts en libellés plus compréhensibles en utilisant
+#' les métadonnées et en gérant les suffixes spéciaux (_sum, _part, etc.).
+#'
+#' @param noms_colonnes Un vecteur de noms de colonnes à transformer
+#' @param metadata La liste des métadonnées contenant les descriptions des variables
+#' @param nom_table Le nom de la table dans les métadonnées
+#' @return Un vecteur de noms de colonnes transformés
+#' @export
+transformer_noms_colonnes <- function(noms_colonnes, metadata, nom_table) {
+  # noms_colonnes <- colnames(table_agrege)
+  # Trouver la table dans les métadonnées
+  table_meta <- purrr::detect(metadata$tables, ~ .$nom == nom_table)
+  if (is.null(table_meta)) return(noms_colonnes)
+  
+  # Créer un dictionnaire des suffixes
+  suffixes <- list(
+    "sum" = "Somme",
+    "part" = "Part",
+    "tot" = "Total",
+    "mean" = "Moyenne",
+    "max" = "Max",
+    "min" = "Min"
+  )
+  
+  # Transformer chaque nom de colonne
+  nouveaux_noms <- sapply(noms_colonnes, function(col) {
+    # Extraire le nom de base et le suffixe
+    parties <- strsplit(col, "-")[[1]]
+    nom_base <- parties[1]
+    if (length(parties) > 1) {
+      suffixe <- parties[length(parties)]
+    } else {
+      suffixe <- NULL
+    }
+    
+    # Chercher la variable dans les métadonnées
+    var_meta <- purrr::detect(
+      table_meta$variables,
+      ~ .$nom == nom_base
+    )
+    
+    if (is.null(var_meta)) {
+      nouveau_nom <- col
+    } else {
+      # Utiliser le libellé court des métadonnées
+      nouveau_nom <- var_meta$libelle_court
+      
+      # Ajouter le suffixe traduit si présent
+      if (!is.null(suffixe) && suffixe %in% names(suffixes)) {
+        nouveau_nom <- paste(suffixes[[suffixe]],nouveau_nom)
+      }
+    }
+    
+    return(nouveau_nom)
+  })
+  
+  return(nouveaux_noms)
+}

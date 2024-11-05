@@ -4,7 +4,7 @@
 \alias{gerer_une_demande}
 \title{Gerer une demande d'agregation a partir d'un vecteur de parametres}
 \usage{
-gerer_une_demande(vecteur_demande, for_ollama = FALSE)
+gerer_une_demande(vecteur_demande, metadata = NULL, for_ollama = FALSE)
 }
 \arguments{
 \item{vecteur_demande}{Un vecteur contenant les parametres de la demande. Les elements du vecteur doivent être dans l'ordre suivant :

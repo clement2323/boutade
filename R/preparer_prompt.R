@@ -1,5 +1,9 @@
 #' Convert a data.frame to CSV text with line breaks
 #' 
+#' @description
+#' Takes a data frame and converts it to a CSV-formatted string with line breaks,
+#' where columns are separated by commas and rows by newlines.
+#' 
 #' @param df A data.frame to convert to text
 #' @return A string containing the CSV representation of the data.frame
 #' @export
@@ -23,16 +27,102 @@ df_to_text <- function(df) {
 
 #' Format metadata as a text string
 #' 
-#' @param metadata A named list of metadata elements
-#' @return A formatted string containing the metadata
+#' @description
+#' Takes a metadata list and a data table, and formats the metadata information
+#' into a human-readable text string. The function processes special column name
+#' suffixes
+#' 
+#' @param metadata A named list containing metadata elements, including a 'tables'
+#' element with table descriptions and variables
+#' @param table A data frame whose columns need to be documented
+#' @param nom_table The name of the table to look up in the metadata
+#' @return A formatted string containing the metadata description, including:
+#'   - Table description (if available)
+#'   - Special suffix explanations
+#'   - Variable descriptions with their labels
 #' @export
 #' @examples
-#' metadata <- list(name = "value", other = "other value")
-#' format_metadata(metadata)
-format_metadata <- function(metadata) {
+#' metadata <- list(
+#'   tables = list(
+#'     list(
+#'       nom = "example_table",
+#'       description = "An example table",
+#'       variables = list(
+#'         list(
+#'           nom = "var1",
+#'           libelle_court = "V1",
+#'           description = "First variable"
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#' table <- data.frame(var1_sum = 1:3)
+#' format_metadata(metadata, table, "example_table")
+#' @import purrr
+
+format_metadata <- function(metadata, table, nom_table) {
+    # Initialiser un vecteur pour stocker toutes les variables pertinentes
+    all_relevant_vars <- list()
+    
+    # Chercher la table spécifique dans metadata$tables
+    table_meta <- purrr::detect(metadata$tables, ~ .$nom == nom_table)
+    
+    if (!is.null(table_meta)) {
+        # Pour chaque colonne de la table
+        for (col in colnames(table)) {
+            # Extraire le nom de base de la variable (avant le dernier underscore)
+            base_var_name <- sub("_[^_]+$", "", col)
+            
+            # Chercher la variable dans les métadonnées, d'abord par nom puis par libelle_court
+            matching_var <- purrr::detect(
+                table_meta$variables,
+                ~ .$nom == base_var_name || .$libelle_court == base_var_name
+            )
+            
+            if (!is.null(matching_var)) {
+                # Ajouter le suffixe à la description si présent
+                suffix <- sub(".*_([^_]+)$", "\\1", col)
+                if (suffix != col) {  # Si un suffixe a été trouvé
+                    matching_var$description <- paste0(
+                        matching_var$description,
+                        " (", suffix, ")"
+                    )
+                    matching_var$nom <- col
+                } else {
+                    # Si pas de suffixe, utiliser le nom de colonne tel quel
+                    matching_var$nom <- col
+                }
+                all_relevant_vars <- c(all_relevant_vars, list(matching_var))
+            }
+        }
+    }
+    
     formatted <- "MÉTADONNÉES : \n"
-    for(name in names(metadata)) {
-    formatted <- paste0(formatted, "- ", name, " : ", metadata[[name]], " \n")
+    
+    # Ajouter la description de la table si elle existe
+    if (!is.null(table_meta$description)) {
+        formatted <- paste0(
+            formatted,
+            "Description de la table : ", table_meta$description, "\n\n"
+        )
+    }
+    
+    # Ajouter l'explication des suffixes spéciaux
+    formatted <- paste0(
+        formatted,
+        "Note sur les suffixes : \n",
+        "- _sum : indique la somme par catégorie\n",
+        "- _tot : indique le total sur les variables de croisement\n\n"
+    )
+    
+    # Pour chaque variable pertinente, ajouter sa description
+    for (var in all_relevant_vars) {
+        formatted <- paste0(
+            formatted,
+            "- ", var$nom, " (", var$libelle_court, ") : ", 
+            var$description, "\n"
+        )
     }
     return(formatted)
 }
@@ -51,7 +141,7 @@ format_metadata <- function(metadata) {
 #' table <- data.frame(x = 1:3, y = letters[1:3])
 #' metadata <- list(source = "example", date = "2024-03-20")
 #' preparer_prompt(table, metadata)
-preparer_prompt <- function(table, metadata,
+preparer_prompt <- function(table, nom_table,metadata,
     prompt_header = "Je souhaite une analyse concise d'un tableau de données. \n\n",
     prompt_instruction = "INSTRUCTION : \nVeuillez fournir une analyse très brève des faits saillants de ce tableau. Juste un paragraphe, pas
     de référence au tableau en soit mais juste aux faits délivrés par ce dernier."
@@ -64,7 +154,7 @@ preparer_prompt <- function(table, metadata,
     #)
 
     # Composants du prompt
-    prompt_metadata <- format_metadata(metadata)
+    prompt_metadata <- format_metadata(metadata, table, nom_table)
     prompt_data <- paste0("DONNÉES : \n", df_to_text(table), "\n\n")
         # Assemblage du prompt final
         prompt_final <- paste0(
@@ -75,4 +165,5 @@ preparer_prompt <- function(table, metadata,
     )
 
     prompt_final
+    # cat(prompt_final)
 }

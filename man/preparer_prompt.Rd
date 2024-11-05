@@ -6,6 +6,7 @@
 \usage{
 preparer_prompt(
   table,
+  nom_table,
   metadata,
   prompt_header = "Je souhaite une analyse concise d'un tableau de données. \\n\\n",
   prompt_instruction =

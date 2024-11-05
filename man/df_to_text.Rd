@@ -13,7 +13,8 @@ df_to_text(df)
 A string containing the CSV representation of the data.frame
 }
 \description{
-Convert a data.frame to CSV text with line breaks
+Takes a data frame and converts it to a CSV-formatted string with line breaks,
+where columns are separated by commas and rows by newlines.
 }
 \examples{
 df <- data.frame(a = 1:3, b = letters[1:3])

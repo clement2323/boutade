@@ -99,7 +99,7 @@ calculer_agregat_sur_croisement <- function(table, var_croisement, var_croisemen
       result <- gerer_agregation_sum(table, var_croisement, var_croisement_relative, variable)
       # Renommer les colonnes pour inclure le nom de la variable
       setnames(result, old = c("sous_tot", "tot", "part"), 
-               new = c(paste0(variable, "_sum"), paste0(variable, "_tot"), paste0(variable, "_part")))
+               new = c(paste0(variable, "-sum"), paste0(variable, "-tot"), paste0(variable, "-part")))
     } else {
       # Calculer l'agrégation pour la variable avec la fonction spécifiée
       result <- table[,
@@ -107,7 +107,7 @@ calculer_agregat_sur_croisement <- function(table, var_croisement, var_croisemen
                       by = var_group_by
       ]
       # Renommer la colonne 'value' avec le nom de la variable et de la fonction
-      setnames(result, "value", paste0(variable, "_", fonction_name))
+      setnames(result, "value", paste0(variable, "-", fonction_name))
     }
     res_group_by[[i]] <- result
   }
@@ -124,8 +124,8 @@ calculer_agregat_sur_croisement <- function(table, var_croisement, var_croisemen
     # Trouver les colonnes concernées
     if (identical(liste_fonction_agregation[[i]], sum)) {
       # Colonnes: variable_sum, variable_tot
-      sum_col <- paste0(variable, "_sum")
-      tot_col <- paste0(variable, "_tot")
+      sum_col <- paste0(variable, "-sum")
+      tot_col <- paste0(variable, "-tot")
       if (sum_col %in% names(out)) {
         out[[sum_col]] <- rounding_func(out[[sum_col]])
       }
@@ -135,7 +135,7 @@ calculer_agregat_sur_croisement <- function(table, var_croisement, var_croisemen
       # 'part' est déjà arrondi à une décimale dans gerer_agregation_sum
     } else {
       # Colonne: variable_fonctionname
-      func_col <- paste0(variable, "_", names(liste_fonction_agregation)[i])
+      func_col <- paste0(variable, "-", names(liste_fonction_agregation)[i])
       if (func_col %in% names(out)) {
         out[[func_col]] <- rounding_func(out[[func_col]])
       }
