@@ -37,11 +37,11 @@ Chaque element de la liste doit correspondre à un titre dans \code{table_demand
 
 \item{prompt_instruction}{Instructions optionnelles pour les prompts Ollama.}
 
-\item{model_name}{Nom optionnel du modèle Ollama à utiliser.}
-
 \item{output_dir}{Chemin du répertoire de sortie où sera sauvegardé le rapport. Par défaut "output/".}
 
 \item{nom_rapport}{Nom du fichier RMarkdown généré. Par défaut "rapport_automatique.Rmd".}
+
+\item{model_name}{Nom optionnel du modèle Ollama à utiliser.}
 }
 \value{
 Cette fonction ne retourne pas de valeur, mais écrit un fichier RMarkdown dans le répertoire spécifié.
