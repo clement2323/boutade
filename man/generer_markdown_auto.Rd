@@ -12,7 +12,9 @@ generer_markdown_auto(
   metadata = NULL,
   prompt_header = NULL,
   prompt_instruction = NULL,
-  model_name = NULL
+  model_name = NULL,
+  output_dir = "output/",
+  nom_rapport = "rapport_automatique.Rmd"
 )
 }
 \arguments{
@@ -37,34 +39,40 @@ Chaque element de la liste doit correspondre à un titre dans \code{table_demand
 \item{prompt_instruction}{Instructions optionnelles pour les prompts Ollama.}
 
 \item{model_name}{Nom optionnel du modèle Ollama à utiliser.}
+
+\item{output_dir}{Chemin du répertoire de sortie où sera sauvegardé le rapport. Par défaut "output/".}
+
+\item{nom_rapport}{Nom du fichier RMarkdown généré. Par défaut "rapport_automatique.Rmd".}
 }
 \value{
-Cette fonction ne retourne pas de valeur, mais ecrit un fichier RMarkdown dans le repertoire \code{output}.
+Cette fonction ne retourne pas de valeur, mais écrit un fichier RMarkdown dans le répertoire spécifié.
 }
 \description{
 Cette fonction cree un fichier RMarkdown structure qui inclut des graphiques ggplot2 et des tables, organises par sous-titres et titres.
 Les graphiques et les tables sont fournis dans une liste, et les titres et sous-titres sont extraits de la table de demandes.
 }
 \details{
-La fonction genere un fichier RMarkdown nomme \code{rapport_automatique.Rmd} dans le repertoire \code{output}.
-Le rapport est structure avec des sous-titres (niveaux 2) et des titres (niveaux 3) correspondant respectivement à \code{nom_onglet} et \code{titre}.
-Les graphiques et les tables sont inseres sous leurs titres correspondants.
-Si le repertoire \code{output} n'existe pas, il sera cre automatiquement.
+La fonction génère un fichier RMarkdown dans le répertoire spécifié par \code{output_dir}.
+Le rapport est structuré avec des sous-titres (niveaux 2) et des titres (niveaux 3) correspondant respectivement à \code{nom_onglet} et \code{titre}.
+Les graphiques et les tables sont insérés sous leurs titres correspondants.
+Si le répertoire de sortie n'existe pas, il sera créé automatiquement.
 
-Si des parametres Ollama sont fournis, la fonction peut enrichir le rapport avec des commentaires generes par l'IA.
+Si des paramètres Ollama sont fournis, la fonction peut enrichir le rapport avec des commentaires générés par l'IA.
 }
 \examples{
 \dontrun{
 # Exemple d'utilisation de generer_markdown_auto
 
-# Preparation de la table des demandes
+# Préparation de la table des demandes
 table_demandes <- data.frame(
   titre = c("Graphique 1", "Tableau 1", "Graphique 2"),
   nom_onglet = c("Section A", "Section A", "Section B"),
+  nom_fichier_xls = c("", "", ""),  # Ajout de cette colonne manquante
+  table = c("table1", "table2", "table3"),  # Ajout de cette colonne manquante
   stringsAsFactors = FALSE
 )
 
-# Creation des graphiques et tables
+# Création des graphiques et tables
 library(ggplot2)
 plot1 <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
 table1 <- head(mtcars)
@@ -73,8 +81,21 @@ plot2 <- ggplot(iris, aes(x = Sepal.Length, y = Petal.Length)) + geom_point()
 # Liste des objets à inclure
 out <- list(plot1, table1, plot2)
 
-# Generation du rapport
+# Génération simple du rapport
 generer_markdown_auto(table_demandes, out)
+
+# Exemple avec Ollama (si disponible)
+out_ollama <- list(table1, table1, table1)
+fonction_ask_ollama <- function(prompt, model_name) { 
+  return("Analyse générée par IA") 
+}
+generer_markdown_auto(
+  table_demandes, 
+  out,
+  out_ollama = out_ollama,
+  fonction_ask_ollama = fonction_ask_ollama,
+  model_name = "mon_modele"
+)
 
 # Rendu du rapport en HTML
 rmarkdown::render("output/rapport_automatique.Rmd")
