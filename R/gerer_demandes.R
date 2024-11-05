@@ -115,7 +115,7 @@ gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) 
     unites = unite
   )
 
-  if(var_annee != "") print("CODER CETTE PARTIE POUR EVOLUTION")
+  if(var_evolution != "") print("CODER CETTE PARTIE POUR EVOLUTION")
   # TODO
   
 
