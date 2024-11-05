@@ -34,7 +34,6 @@ ecrire_etude <- function(
     model_name = "mistral-small"
 ) {
   
-  nom_etude <- dir_etude
   dir_etude <- paste0(dir_etude,"/")
   # Chargement des scripts nécessaires
   source(paste0(dir_etude,dir_codes, nom_code_setup), encoding="UTF-8")
@@ -97,5 +96,5 @@ ecrire_etude <- function(
   )
   
   # Retourne le chemin vers le rapport généré
-  return(paste0("Le rapport de l'étude ",nom_etude," a été généré dans ",paste0(dir_output, nom_rapport)))
+  return(paste0("Le rapport de l'étude a été généré dans ",paste0(dir_output, nom_rapport)))
 }
