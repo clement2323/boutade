@@ -37,11 +37,11 @@ ecrire_etude <- function(
   nom_etude <- dir_etude
   dir_etude <- paste0(dir_etude,"/")
   # Chargement des scripts nécessaires
-  source(paste0(dir_etudes,dir_codes, nom_code_setup), encoding="UTF-8")
-  source(paste0(dir_etudes,dir_codes, nom_code_preparation), encoding = "UTF-8")
+  source(paste0(dir_etude,dir_codes, nom_code_setup), encoding="UTF-8")
+  source(paste0(dir_etude,dir_codes, nom_code_preparation), encoding = "UTF-8")
 
   # Lecture et préparation des données
-  table_demandes <- read.csv(paste0(dir_etudes,dir_input, nom_fichier_demandes))
+  table_demandes <- read.csv(paste0(dir_etude,dir_input, nom_fichier_demandes))
   table_demandes$var_evolution[is.na(table_demandes$var_evolution)] <- ""
 
   if(BoutadE::controler_demandes(table_demandes)%>%nrow() != 0) 
@@ -51,7 +51,7 @@ ecrire_etude <- function(
   metadata <- NULL
   if(!is.null(nom_fichier_metadonnees)){
     metadata <- jsonlite::fromJSON(
-      paste0(dir_etudes,dir_input, nom_fichier_metadonnees),
+      paste0(dir_etude,dir_input, nom_fichier_metadonnees),
       simplifyDataFrame = FALSE
     )
   }
