@@ -20,26 +20,21 @@
 #' ecrire_etude()
 #' ecrire_etude(nom_fichier_demandes = "autres_demandes.csv", use_ia = FALSE)
 ecrire_etude <- function(
+    dir_etude,
     dir_input = "input/",
-    nom_fichier_demandes = "fichier_demandes_titanic.csv",
+    nom_fichier_demandes = "fichier_demandes.csv",
     nom_fichier_metadonnees = "metadonnees.json",
     dir_codes = "codes/",
-    nom_code_setup = "0.Setup.R",
-    nom_code_preparation = "1.Preparation_donnees.R",
+    nom_code_setup = "Setup.R",
+    nom_code_preparation = "Preparation_donnees.R",
     dir_output = "output/",
-    nom_rapport = "rapport_titanic_ollame.Rmd",
-    environnement = "local",
-    use_ia = TRUE,
+    nom_rapport = "rapport.Rmd",
+    use_ia = FALSE,
     fonction_ask_ia = NULL,
     model_name = "mistral-small"
 ) {
-  # Configuration du proxy si environnement local
-  if(environnement == "local"){
-    Sys.setenv(no_proxy = "")
-    Sys.setenv(https_proxy ="http://proxy-rie.http.insee.fr:8080")
-    Sys.setenv(http_proxy ="http://proxy-rie.http.insee.fr:8080")
-  }
-
+  
+  setwd(dir_etude)
   # Chargement des scripts nécessaires
   source(paste0(dir_codes, nom_code_setup), encoding="UTF-8")
   source(paste0(dir_codes, nom_code_preparation), encoding = "UTF-8")
