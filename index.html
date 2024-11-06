@@ -13,12 +13,13 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="What the Package Does (One Line, Title Case)">
 <meta name="description" content="Generalisation des reportings statistiques. C'est facile les reportings statistiques.">
 <meta property="og:description" content="Generalisation des reportings statistiques. C'est facile les reportings statistiques.">
+<meta property="og:image" content="https://clement2323.github.io/BoutadE/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
+    <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
     <a class="navbar-brand me-2" href="index.html">BoutadE</a>
 
@@ -35,7 +36,9 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/tutoriel-utilisation.html">tutoriel-utilisation</a></li>
+<li><a class="dropdown-item" href="articles/demo-utilisation.html">tutoriel d'utilisation</a></li>
+    <li><a class="dropdown-item" href="articles/remplir_le_fichier_demande.html">Remplir le fichier de demandes</a></li>
+    <li><a class="dropdown-item" href="articles/TODO.html">TO DO</a></li>
   </ul>
 </li>
       </ul>
@@ -50,45 +53,18 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9"><div class="section level2">
-<h2 id="informations-générales">Informations générales<a class="anchor" aria-label="anchor" href="#informations-g%C3%A9n%C3%A9rales"></a>
-</h2>
-<ol style="list-style-type: decimal">
-<li>toujours choisir entre type_output graphique ou tableau quitte à dupliquer les lignes</li>
-<li>quand aucun nom_fichier_xls n’est renseigné, je suppose que l’on part sur markdown avec kable</li>
-<li>Ne pas renseigner de foichier xlsx pour les graphiques</li>
-<li>workflow :
-<ul>
-<li>autant rester sur github :
-<ol style="list-style-type: lower-alpha">
-<li>telecharger le zip du package dans le repo github</li>
-<li>mettre ce zip dans un dossier sur aus</li>
-<li>installation manuelle du package agrace au zip ?</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>il y a autant de fonctions que de variables (l’application est parallele), la somme est gérée differemmment par rapport aux autres</li>
-<li>pareil, autant d’unites que de variables unités possibles -&gt; centieme,dixieme,unite,millier,million</li>
-</ol>
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header">
+<img src="logo.png" class="logo" alt=""><h1 id="boutade--boîte-à-outils-à-disposition-des-etudes-">BoutadE : Boîte à outils à disposition des Etudes :<a class="anchor" aria-label="anchor" href="#boutade--bo%C3%AEte-%C3%A0-outils-%C3%A0-disposition-des-etudes-"></a>
+</h1>
 </div>
 <div class="section level2">
-<h2 id="to-do">TO DO<a class="anchor" aria-label="anchor" href="#to-do"></a>
+<h2 id="desciption-">Desciption :<a class="anchor" aria-label="anchor" href="#desciption-"></a>
 </h2>
-<ul>
-<li>prompt avec l’angle d’attaque rajouter titre et sous titre dans le contexte -&gt; idée à partir d’un plan détaillé d’étude bien structuré avec markdown, générer le fichier demande et donc l’étude demandée ?</li>
-<li>calculer evolution</li>
-<li>parametre type graphique</li>
-<li>Autoriser graphique meme pour indicateurs simples, si plusieurs indicateurs demandés faire le graphique associé avec un facet ou un patchwork?</li>
-<li>Prompt global de synthèe par nom onglet sous titre de rmarkdown pour éviter les répétitions detc..</li>
-<li>Travailler les éléments de langage, on peut centrer des postes sur l’analyse seulement ! par exemple les personnes qui ne souhaitent pas coder</li>
-<li>chargement et decoupage d’un dictionnaire de dionnée (lien avec hermes) pour générer la metadonnées</li>
-<li>ecrire les regles de remplissage du fichier demande bien au cliar, pour engendrer la fonction associée</li>
-<li>mettre en place des vignettes d’utilisation</li>
-<li>chaénger la référence au repertoire dans esane_ent ou ttianic par un getwd() ?</li>
-</ul>
+<p>L’objectif du package est d’automatiser, la production d’outputs simples pour des études statistiques : à savoir : - des tableaux - des fichiers excels avec tableau écrits aux bon formats - des graphiques</p>
+<p>DES BISOUS MA TITOU</p>
 </div>
-
+</div>
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
