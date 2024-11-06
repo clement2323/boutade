@@ -37,3 +37,23 @@ for (i in 1:nrow(table_demandes)){
 # Attention peut etre qu'on a pas controler tous les cas de merde possible donc ça ne veut pas forcement direr que gerer_une_demande va passer (mais ça nous rassur un peu)
 # gerer les demandes valides : 
 #Option plus compact en mode non debugage
+
+
+# Lire le fichier CSV
+df <- read.csv("input/table_demandes_affamique.csv")
+
+# Réorganiser les lignes selon l'ordre souhaité
+new_order <- c()
+for (i in seq(1, nrow(df), by = 2)) {
+  if (i + 1 <= nrow(df)) {
+    new_order <- c(new_order, i + 1, i)  # Ajouter i + 1 puis i
+  } else {
+    new_order <- c(new_order, i)          # Ajouter i si i + 1 n'existe pas
+  }
+}
+
+# Créer un nouveau DataFrame avec l'ordre modifié
+new_df <- df[new_order, ]
+
+# Écrire le DataFrame réorganisé dans le même fichier CSV
+write.csv(new_df, "input/table_demandes_affamique.csv", row.names = FALSE)
