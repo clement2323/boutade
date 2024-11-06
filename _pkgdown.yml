@@ -23,3 +23,5 @@ tutorials:
     title: "Mon Premier Tutoriel"
     description: >
       Apprenez les bases de R avec ce tutoriel interactif.
+    url: tutorials/mon-premier-tutoriel/mon-premier-tutoriel.html
+    source: inst/tutorials/mon-premier-tutoriel/mon-premier-tutoriel.Rmd
