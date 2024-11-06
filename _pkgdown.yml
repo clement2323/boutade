@@ -1,8 +1,18 @@
 url: https://clement2323.github.io/BoutadE/
 template:
   bootstrap: 5
+  params:
+    bootswatch: flatly
 
 navbar:
   structure:
     left:  [intro, reference, articles, tutorials, news]
     right: [search, github]
+  components:
+    logo:
+      image: man/figures/logo.png
+      href: index.html
+
+home:
+  sidebar:
+    structure: [links, license, community, citation, authors, dev]

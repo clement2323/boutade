@@ -11,5 +11,18 @@ pkgdown::clean_site()
 usethis::use_pkgdown()
 pkgdown::build_site()
 
+# vignettes
+devtools::build()
+devtools::install()
+browseVignettes("BoutadE")
+
 # Crée le workflow GitHub Actions pour pkgdown
 usethis::use_github_action("pkgdown")
+
+# Installer learnr si nécessaire
+install.packages("learnr")
+
+# Créer un nouveau tutoriel interactif :o :o
+usethis::use_tutorial("mon-premier-tutoriel", "Mon Premier Tutoriel")
+
+# dans inst/tutorials

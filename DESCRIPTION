@@ -20,5 +20,6 @@ Imports:
 Suggests: 
     BoutadE,
     knitr,
+    learnr,
     rmarkdown
 VignetteBuilder: knitr
