@@ -3,7 +3,7 @@ Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
     person("Clement", "Guillo", , "clement.guillo@insee.Fr", role = c("aut", "cre"),
-           comment = c(ORCID = "TITOU"))
+           comment = c(ORCID = "TITOU")),
     person("Valentine", "Chieze", , "valentine.chieze-devivier@insee.Fr", role = c("aut", "cre"),
            comment = c(ORCID = "TITOU2"))
 Description: Generalisation des reportings statistiques. C'est facile les reportings statistiques.
