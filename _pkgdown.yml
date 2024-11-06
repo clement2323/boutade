@@ -18,3 +18,9 @@ home:
     structure: [links, license, community, citation, authors, dev]
 
 # hello
+
+tutorials:
+  - name: mon-premier-tutoriel
+    title: "Mon Premier Tutoriel"
+    description: >
+      Apprenez les bases de R avec ce tutoriel interactif.
