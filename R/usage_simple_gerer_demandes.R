@@ -160,7 +160,7 @@ gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) 
     return(table_agrege)
   }
 
-  if(for_ollama) return(table_agrege)
+  if(for_ollama) return(table_agrege) # seul et unique référence à ollama ici
 
   var_part <- grep("-part|Part",colnames(table_agrege),value = TRUE)
   

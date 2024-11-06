@@ -72,7 +72,45 @@ creer_table_minimale <- function(n = 8) {
   EP_FI_AG
 }
 
-creer_tables_demandes <- function(EP_FI_AG) {
+#' Créer des tables de demandes pour les tests
+#'
+#' @description
+#' Génère deux tables de données pour tester le traitement des demandes :
+#' - Une table de demandes valides avec différentes combinaisons de paramètres
+#' - Une table de demandes invalides pour tester la gestion des erreurs
+#'
+#' @return Une liste contenant deux data.frames :
+#' \describe{
+#'   \item{table_demandes_valides}{20 exemples de demandes valides avec différentes combinaisons de :
+#'     \itemize{
+#'       \item Variables de croisement et relatives
+#'       \item Variables quantitatives
+#'       \item Fonctions d'agrégation
+#'       \item Types de sortie (table/graphique)
+#'     }
+#'   }
+#'   \item{table_demandes_erreurs}{20 exemples de demandes invalides illustrant différents cas d'erreur :
+#'     \itemize{
+#'       \item Variables inexistantes
+#'       \item Combinaisons invalides
+#'       \item Fonctions d'agrégation incorrectes
+#'       \item Formats de sortie incompatibles
+#'     }
+#'   }
+#' }
+#'
+#' @examples
+#' # Créer les tables de test
+#' tables <- creer_tables_demandes()
+#'
+#' # Accéder aux demandes valides
+#' demandes_valides <- tables$table_demandes_valides
+#'
+#' # Accéder aux demandes avec erreurs
+#' demandes_erreurs <- tables$table_demandes_erreurs
+#'
+#' @export
+creer_tables_demandes <- function() {
   # Création d'une table de demandes valides (20 exemples)
   table_demandes_valides <- data.frame(
     id_demande = 1:20,
@@ -210,7 +248,6 @@ creer_tables_demandes <- function(EP_FI_AG) {
 
   # Retourner la liste des objets créés
   return(list(
-    EP_FI_AG = EP_FI_AG,
     table_demandes_valides = table_demandes_valides,
     table_demandes_erreurs = table_demandes_erreurs
   ))
