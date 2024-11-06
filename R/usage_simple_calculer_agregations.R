@@ -166,7 +166,7 @@ calculer_agregat_sur_croisement <- function(table, var_croisement, var_croisemen
 #'
 #' @return Un \code{data.frame} contenant les colonnes de croisement, les colonnes de croisement relative,
 #'         et la colonne d'évolution calculée.
-#' @import tidyr  # Ajout de l'importation de tidyr
+#' @import tidyr  
 #' @export
 calculer_evolution_from_table_agrege <- function(table_agrege,var_evolution,var_croisement,var_croisement_relative,var_quanti_selec){
 
