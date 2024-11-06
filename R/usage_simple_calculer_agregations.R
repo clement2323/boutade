@@ -177,7 +177,7 @@ calculer_evolution_from_table_agrege <- function(table_agrege,var_evolution,var_
       
   indice_col_evolution <- grep("^[0-9]{4}$",colnames(table_evolution))
   colnames(table_evolution)[indice_col_evolution] <- paste0(
-    nom_var_sum,"-",
+    var_quanti_selec,"-",
     colnames(table_evolution)[indice_col_evolution]
   )
 
