@@ -19,6 +19,7 @@ library(BoutadE)
 ```
 
 ## TO DO 
+- Faire un tutoriel interactif !!
 - prompt avec l'angle d'attaque rajouter titre et sous titre dans le contexte -> idée à partir d'un plan détaillé d'étude bien structuré avec markdown, générer le fichier demande et donc l'étude demandée ?
 - calculer evolution
 - parametre type graphique 
