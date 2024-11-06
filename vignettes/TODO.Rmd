@@ -29,4 +29,7 @@ library(BoutadE)
 - chargement et decoupage d'un dictionnaire de dionnée (lien avec hermes) pour générer la metadonnées
 - ecrire les regles de remplissage du fichier demande bien au cliar, pour engendrer la fonction associée
 - mettre en place des vignettes d'utilisation
-- chaénger la référence au repertoire dans esane_ent ou ttianic par un getwd() ?
+- changer la référence au repertoire dans esane_ent ou ttianic par un getwd() ?
+- peaufiner la fonction controle
+- peaufiner les exemples minimaux.. 
+- rendre l'ensemble agnostique à l'ordre des colonnes dans le csv fichier_demande

@@ -3,30 +3,37 @@ Sys.setenv(https_proxy ="http://proxy-rie.http.insee.fr:8080")
 Sys.setenv(http_proxy ="http://proxy-rie.http.insee.fr:8080")
 
 install.packages("devtools") # aide au developpement de package
-devtools::load_all() # elle permet de charger toutes les fonctions contenues dans le dossier R, comme si tu avais fait un "library(Boutade)"
-
-EP_FI_AG <- BoutadE::creer_table_minimale(50) # créer une fausse table
-setDT(EP_FI_AG)
-table_demandes <- (BoutadE:::creer_tables_demandes(EP_FI_AG))$table_demandes_valides # créer la fausse table de demande associée
-
-BoutadE::controler_demandes(table_demandes) # rréalise des contrôles sur la table demandes pour vérifier qu'elle est bien écrite
+devtools::load_all() # simuler un library(BoutadE) aveec les codes du dossier R modifiés.
 
 
-# boucle qui applique la fonction gere_une_demande à toutes les demandes
+EP_FI_AG <- creer_table_minimale(50) # créer une fausse table
+setDT(EP_FI_AG) # transfoen data.table obligatoire
+
+# test calculer agregat
+calculer_agregat_sur_croisement(
+  EP_FI_AG,
+  "dep_FI",
+  "dep_EP",
+  "redi_r310_FI",
+  list("sum"=sum),
+  "unite",
+  condition = NULL
+)
+
+table_demandes <- read.csv("input/table_demandes.csv")
+
+#write.csv(table_demandes_valide,"input/table_demandes.csv",quote = FALSE,row.names=FALSE)
+if(controler_demandes(table_demandes) |> nrow() >0) stop("Des demandes ne sont pas valides")
+out <- pbapply(table_demandes,1,gerer_une_demande)
+
+# Premiere option de lancement pour debugage (on prit le numero de la demande à chaque fois au cas ou ça bugg, on sait laquelle déconne et on essaie de "debugger la demande")
+out <- list()
 for (i in 1:nrow(table_demandes)){
-    print(i)
-    BoutadE::gerer_une_demande(table_demandes[i,]%>% unlist())
+    print(i) # si une commande bug je vois où ça debugge 
+    res <- gerer_une_demande(table_demandes[i,]%>% unlist())
+    out <- c(out,res)
 }
 
-out <- apply(table_demandes,1,gerer_une_demande)
-
-devtools::install_github("clement2323/ollamax")
-library(ollamax) #??ollamax
-
-table <- out[[1]]
-metadata <- jsonlite::fromJSON("input/metadonnees.json", simplifyDataFrame = FALSE)  # Ajout de la lecture du JSON
-nom_table <- table_demandes[1,]$table
-
-prompt <- preparer_prompt(table,nom_table,metadata)
-#cat(prompt)
-ask_ollama(prompt)
+# Attention peut etre qu'on a pas controler tous les cas de merde possible donc ça ne veut pas forcement direr que gerer_une_demande va passer (mais ça nous rassur un peu)
+# gerer les demandes valides : 
+#Option plus compact en mode non debugage

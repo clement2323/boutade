@@ -16,7 +16,8 @@ Imports:
     openxlsx,
     purrr,
     zeallot,
-    learnr
+    learnr,
+    tidyr
 Suggests: 
     BoutadE,
     knitr,
