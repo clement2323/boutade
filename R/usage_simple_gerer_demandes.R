@@ -149,13 +149,15 @@ gerer_une_demande <- function(vecteur_demande, metadata = NULL, for_ollama = FAL
   if(type_output == "table" & !for_ollama ){
     if (!is.null(nom_fichier_xls)) {
       if(type_output == "graphique") stop("pas de graphique dans les fichiers xls")
+      if(nchar(var_evolution) == 0) var_evolution = NULL
+
         ecrire_xls(
           nom_fichier_xls=nom_fichier_xls,
           nom_onglet = nom_onglet,
           table = table_agrege,
           titre = titre,
           var_group_by = c(var_croisement,var_croisement_relative),
-          var_evolution = ifelse(nchar(var_evolution)==0,NULL,var_evolution)
+          var_evolution = var_evolution
         )  
     }
     return(table_agrege)
