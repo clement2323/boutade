@@ -16,3 +16,8 @@ Imports:
     ggplot2,
     openxlsx,
     zeallot
+Suggests: 
+    BoutadE,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
