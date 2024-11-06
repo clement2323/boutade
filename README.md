@@ -13,6 +13,13 @@
 
 
 ## TO DO 
-1) gérer la demande d'évolution via fichier
-2) créer des méta données nomvar description longue description courte quiv vont venir remplacer les noms de colonnes
-3) utilisation chatGPT pour analyse apres par onglet ?
+- prompt avec l'angle d'attaque rajouter titre et sous titre dans le contexte -> idée à partir d'un plan détaillé d'étude bien structuré avec markdown, générer le fichier demande et donc l'étude demandée ?
+- calculer evolution
+- parametre type graphique 
+- Autoriser graphique meme pour indicateurs simples, si plusieurs indicateurs demandés faire le graphique associé avec un facet ou un patchwork?
+- Prompt global de synthèe par nom onglet sous titre de rmarkdown pour éviter les répétitions detc..
+- Travailler les éléments de langage, on peut centrer des postes sur l'analyse seulement ! par exemple les personnes qui ne souhaitent pas coder
+- chargement et decoupage d'un dictionnaire de dionnée (lien avec hermes) pour générer la metadonnées
+- ecrire les regles de remplissage du fichier demande bien au cliar, pour engendrer la fonction associée
+- mettre en place des vignettes d'utilisation
+- chaénger la référence au repertoire dans esane_ent ou ttianic par un getwd() ?
