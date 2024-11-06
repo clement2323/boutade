@@ -155,6 +155,7 @@ gerer_une_demande <- function(vecteur_demande, metadata = NULL, for_ollama = FAL
           table = table_agrege,
           titre = titre,
           var_group_by = c(var_croisement,var_croisement_relative)
+          var_evolution = ifelse(nchar(var_evolution)==0,NULL,var_evolution)
         )  
     }
     return(table_agrege)
