@@ -8,7 +8,7 @@ get_rounding_function(unite)
 }
 \arguments{
 \item{unite}{Character. L'unité d'arrondi souhaitée. Valeurs possibles :
-"unite", "dixieme", "centieme", "millieme", "million"}
+"unite", "dixieme", "centieme", "millier", "million"}
 }
 \value{
 Une fonction qui prend un nombre et retourne sa valeur arrondie
@@ -22,6 +22,6 @@ f_arrondi <- get_rounding_function("dixieme")
 f_arrondi(3.14159)  # Retourne 3.1
 
 f_millions <- get_rounding_function("million")
-f_millions(1234567)  # Retourne 1 e
+f_millions(1234567)  # Retourne 1
  eeee
 }

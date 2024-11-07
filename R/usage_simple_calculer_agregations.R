@@ -2,7 +2,7 @@
 #' Obtenir une fonction d'arrondi selon l'unité spécifiée
 #'
 #' @param unite Character. L'unité d'arrondi souhaitée. Valeurs possibles : 
-#'   "unite", "dixieme", "centieme", "millieme", "million"
+#'   "unite", "dixieme", "centieme", "millier", "million"
 #' @return Une fonction qui prend un nombre et retourne sa valeur arrondie
 #'   selon l'unité spécifiée
 #' @examples
@@ -10,7 +10,7 @@
 #' f_arrondi(3.14159)  # Retourne 3.1
 #'
 #' f_millions <- get_rounding_function("million")
-#' f_millions(1234567)  # Retourne 1 e
+#' f_millions(1234567)  # Retourne 1
 #'  eeee
 #' @export
 get_rounding_function <- function(unite) {
@@ -90,6 +90,7 @@ calculer_agregat_sur_croisement <- function(table, var_croisement, var_croisemen
   
   # Parcourir chaque variable quantitative, sa fonction d'agrégation correspondante, et son unité
   for (i in seq_along(var_quanti)) {
+    # i <-1
     variable <- var_quanti[i]
     fonction <- liste_fonction_agregation[[i]]
     fonction_name <- names(liste_fonction_agregation)[i]
@@ -97,6 +98,7 @@ calculer_agregat_sur_croisement <- function(table, var_croisement, var_croisemen
     
     # Si la fonction est 'sum', utiliser gerer_agregation_sum
     if (identical(fonction, sum)) {
+  
       result <- gerer_agregation_sum(table, var_croisement, var_croisement_relative, variable)
       # Renommer les colonnes pour inclure le nom de la variable
       setnames(result, old = c("sous_tot", "tot", "part"), 
@@ -148,4 +150,39 @@ calculer_agregat_sur_croisement <- function(table, var_croisement, var_croisemen
     arrange(across(all_of(var_group_by)))
   
   return(out)
+}
+
+
+#' Calculer l'évolution à partir d'une table agrégée
+#'
+#' Cette fonction calcule l'évolution d'une variable quantitative sur la base d'une table agrégée.
+#' Elle transforme les données en un format large et calcule le pourcentage d'évolution entre les années.
+#'
+#' @param table_agrege Un \code{data.frame} contenant les données agrégées.
+#' @param var_evolution Un caractère spécifiant la variable d'évolution.
+#' @param var_croisement Un vecteur de caractères spécifiant les variables de croisement.
+#' @param var_croisement_relative Un vecteur de caractères spécifiant les variables de croisement relatives.
+#' @param var_quanti Un caractère spécifiant la variable quantitative pour laquelle l'évolution est calculée.
+#'
+#' @return Un \code{data.frame} contenant les colonnes de croisement, les colonnes de croisement relative,
+#'         et la colonne d'évolution calculée.
+#' @import tidyr  
+#' @export
+calculer_evolution_from_table_agrege <- function(table_agrege,var_evolution,var_croisement,var_croisement_relative,var_quanti_selec){
+
+
+  table_evolution <- table_agrege%>%
+      select(all_of(c(var_croisement,var_croisement_relative,var_quanti_selec))) %>%
+      pivot_wider(names_from = var_evolution,values_from = var_quanti_selec)
+      
+  indice_col_evolution <- grep("^[0-9]{4}$",colnames(table_evolution))
+  colnames(table_evolution)[indice_col_evolution] <- paste0(
+    var_quanti_selec,"-",
+    colnames(table_evolution)[indice_col_evolution]
+  )
+
+  table_evolution <- table_evolution %>%
+      mutate(evolution = (.[[ncol(.)]] / .[[ncol(.) - 1]]) - 1) %>%
+      mutate(evolution = round(evolution * 100, 1))
+  
 }

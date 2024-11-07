@@ -58,7 +58,7 @@
 #' }
 #'
 #' @export
-ecrire_xls <- function(nom_fichier_xls, nom_onglet, table, titre, var_group_by, dir = "output/") {
+ecrire_xls <- function(nom_fichier_xls, nom_onglet, table, titre, var_group_by, var_evolution = NULL, dir = "output/") {
   
   # Vérifier si le package openxlsx est installé
   if (!requireNamespace("openxlsx", quietly = TRUE)) {
@@ -108,7 +108,9 @@ ecrire_xls <- function(nom_fichier_xls, nom_onglet, table, titre, var_group_by, 
   openxlsx::addStyle(wb, nom_onglet, style = titleStyle, rows = startRow, cols = startCol)
   
   # données
-  wb <- ecrire_tableau_formate(wb,nom_onglet, table,startRow+2, startCol,length(var_group_by))
+  n_colonnes_en_italique_gauche <- length(var_group_by)
+  if(!is.null(var_evolution)) n_colonnes_en_italique_gauche <- n_colonnes_en_italique_gauche - 1
+  wb <- ecrire_tableau_formate(wb,nom_onglet, table,startRow+2, startCol,n_colonnes_en_italique_gauche)
   
   # Sauvegarder le classeur
   openxlsx::saveWorkbook(wb, chemin_complet, overwrite = TRUE)

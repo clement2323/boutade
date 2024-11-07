@@ -147,12 +147,12 @@ creer_tables_demandes <- function() {
       "table", "table", "table", "table", "table"
     ),
     nom_fichier_xls = c(
-      "rapport1.xlsx", "", "rapport3.xlsx", "", "rapport5.xlsx",
-      "", "rapport7.xlsx", "", "rapport9.xlsx", "",
+      "rapport1.xlsx", "", "rapport1.xlsx", "", "rapport1.xlsx",
+      "", "rapport1.xlsx", "", "rapport9.xlsx", "",
       "rapport11.xlsx", "", "rapport13.xlsx", "", "rapport15.xlsx",
       "", "rapport17.xlsx", "", "rapport19.xlsx", ""
     ),
-    nom_onglet = paste0("analyse", 1:20),
+    nom_onglet = rep("analyse",20),
     titre = paste("Analyse", c(
       "multi-indicateurs", "sectorielle", "départementale", "comparative",
       "statistique", "géographique", "temporelle", "structurelle",
@@ -170,7 +170,7 @@ creer_tables_demandes <- function() {
       "annee", "", "", "", "",
       "", "", "", "", "",
       "", "", "", "", "",
-      "", "", "", "", "annee"
+      "", "", "", "", ""
     ),
     stringsAsFactors = FALSE
   )

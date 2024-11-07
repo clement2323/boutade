@@ -60,13 +60,10 @@
 #'
 #' @importFrom zeallot %<-%
 #' @export
-gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) {
+gerer_une_demande <- function(vecteur_demande, metadata = NULL, for_ollama = FALSE) {
   
-  # EP_FI_AG <-creer_table_minimale(20)
-  # setDT(EP_FI_AG)
-  # table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_valides
   # i <-1
-  # vecteur_demande <- table_demandes[i,]%>% unlist()
+  # vecteur_demande <- table_demandes_from_csv[i,]%>% unlist()
   c(
     id_demande,
     nom_table,
@@ -85,7 +82,6 @@ gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) 
   # Charger la table de donnees correspondante
   table <- get(nom_table)
   
-  
   # Extraire les variables de croisement
   var_croisement <- strsplit(var_croisement, "-")[[1]]
   var_quanti <- strsplit(var_quanti, "-")[[1]]
@@ -98,8 +94,8 @@ gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) 
   # evaluer la condition si elle existe
   condition_texte <- condition
   condition <- with(table, eval(parse(text = condition_texte)))
+  if (!is.null(condition) && sum(is.na(condition))!=0) condition <- NULL # si condition = NA -> remet là à NULL
   
-  if (!is.null(condition) && sum(is.na(condition))!=0) condition <- NULL
   if(nchar(nom_fichier_xls)==0) nom_fichier_xls <- NULL
 
   if(nchar(var_croisement_relative)==0) var_croisement_relative <- c()
@@ -115,10 +111,14 @@ gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) 
     unites = unite
   )
 
-  #if(var_evolution != "") #print("CODER CETTE PARTIE POUR EVOLUTION")
-  # TODO
+  if(nchar(var_evolution) != 0){
+    col_select <- colnames(table_agrege)[
+      !colnames(table_agrege) %in% grep("part|tot", colnames(table_agrege), value = TRUE)
+    ]
+    var_quanti_selec <- grep(var_quanti,col_select,value = TRUE)
+    table_agrege <- calculer_evolution_from_table_agrege(table_agrege,var_evolution,var_croisement,var_croisement_relative,var_quanti_selec)
+  }
   
-
   # Transformer les noms de colonnes si metadata existe dans l'environnement
   if (!is.null(metadata)) {
     nouveaux_noms <- transformer_noms_colonnes(
@@ -149,12 +149,15 @@ gerer_une_demande <- function(vecteur_demande,metadata = NULL,for_ollama=FALSE) 
   if(type_output == "table" & !for_ollama ){
     if (!is.null(nom_fichier_xls)) {
       if(type_output == "graphique") stop("pas de graphique dans les fichiers xls")
+      if(nchar(var_evolution) == 0) var_evolution = NULL
+
         ecrire_xls(
           nom_fichier_xls=nom_fichier_xls,
           nom_onglet = nom_onglet,
           table = table_agrege,
           titre = titre,
-          var_group_by = c(var_croisement,var_croisement_relative)
+          var_group_by = c(var_croisement,var_croisement_relative),
+          var_evolution = var_evolution
         )  
     }
     return(table_agrege)
