@@ -2,13 +2,12 @@ pandoc: 3.1.11
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
-  demo-utilisation: demo-utilisation.html
   Exemple_complet_utilisation: Exemple_complet_utilisation.html
   fonctions_adhoc_creation_narm: fonctions_adhoc_creation_narm.html
   metadonnees: metadonnees.html
   remplir_le_fichier_demande: remplir_le_fichier_demande.html
   TODO: TODO.html
-last_built: 2024-11-07T23:37Z
+last_built: 2024-11-07T23:43Z
 urls:
   reference: https://clement2323.github.io/BoutadE/reference
   article: https://clement2323.github.io/BoutadE/articles
