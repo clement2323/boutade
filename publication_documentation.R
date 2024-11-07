@@ -22,7 +22,14 @@ usethis::use_github_action("pkgdown")
 # Installer learnr si nécessaire
 install.packages("learnr")
 
+
+usethis::use_tutorial("titou_tuto", "Tutoriel de Titou")
+
+
 # Créer un nouveau tutoriel interactif :o :o
-usethis::use_tutorial("mon-premier-tutoriel", "Mon Premier Tutoriel")
+
+
 
 # dans inst/tutorials
+
+

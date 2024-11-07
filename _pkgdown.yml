@@ -17,11 +17,10 @@ home:
   sidebar:
     structure: [links, license, community, citation, authors, dev]
 
-
 tutorials:
   - name: mon-premier-tutoriel
     title: "Mon Premier Tutoriel"
-    description: >
-      Apprenez les bases de R avec ce tutoriel interactif.
-    url: tutorials/mon-premier-tutoriel/mon-premier-tutoriel.html
-    source: inst/tutorials/mon-premier-tutoriel/mon-premier-tutoriel.Rmd
+    url: https://clement2323.github.io/boutade/premier_tuto/
+  - name: titou-tuto
+    title: "Tutoriel de titou"
+    url: https://clement2323.github.io/boutade/titoututo/
