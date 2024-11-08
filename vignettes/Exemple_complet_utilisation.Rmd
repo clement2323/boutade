@@ -9,21 +9,45 @@ vignette: >
 
 ```{r setup}
 library(BoutadE)
-library(pbapply)
-# Créer un dossier temporaire pour les exemples
-temp_dir <- tempdir()
-dir_etudes <- file.path(temp_dir, "etudes_jouet")
 
-# Copier toutes les études exemples
-etudes_source <- system.file("extdata", "etudes_jouet", package = "BoutadE")
-file.copy(etudes_source, temp_dir, recursive = TRUE)
+install.packages(c("data.table","pbapply","dplyr"))
+library(data.table);library(pbapply);library(dplyr)
 
-etudes <- list.dirs(dir_etudes, full.names = TRUE, recursive = FALSE)
+devtools::install_github("clement2323/ollamax")
+library(ollamax) #??ollamax
+
 ```
-
 
 
 ```{r}
-etude <- etudes[1]
-resultat <- ecrire_etude(dir_etude = etude, use_ia = FALSE)
+# ecrire_etude()  à réserver pour plus tard
+EP_FI_AG <- creer_table_minimale(100)
+EP_FI_AG %>% head(10)
 ```
+
+```{r}
+demandes <- creer_tables_demandes()
+demandes <- demandes$table_demandes_valides
+
+if(controler_demandes(demandes)|>nrow()!=0){ 
+  demandes
+  stop("une demande n'est pas valide")
+  }
+```
+
+```{r}
+apply(demandes,1,gerer_une_demande)
+```
+```
+
+```{r}
+setDT(EP_FI_AG)
+
+for (i in 1:nrow(demandes)){
+  # i <-1
+  print(i)
+  gerer_une_demande(unlist(demandes[i,]))
+}
+
+```
+
