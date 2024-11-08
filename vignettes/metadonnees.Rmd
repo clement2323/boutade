@@ -1,5 +1,5 @@
 ---
-title: "Les méta données"
+title: "Les métadonnées"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{tutoriel-utilisation}

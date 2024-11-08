@@ -6,6 +6,12 @@ install.packages("devtools") # aide au developpement de package
 devtools::load_all() # simuler un library(BoutadE) aveec les codes du dossier R modifiés.
 
 
+# lire metadonnees dans input avec jsonlite
+metadonnees <- jsonlite::fromJSON("input/metadonnees.json",simplifyVector = FALSE)
+metadonnees_tables <- metadonnees$etude$tables
+description_etude<- metadonnees$etude$description
+metadonnees_role <- metadonnees$etude$public_cible
+
 EP_FI_AG <- creer_table_minimale(50) # créer une fausse table
 setDT(EP_FI_AG) # transfoen data.table obligatoire
 

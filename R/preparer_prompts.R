@@ -161,3 +161,50 @@ preparer_prompt <- function(table, nom_table,metadata,
     prompt_final
     # cat(prompt_final)
 }
+
+
+
+
+generer_prompt_role <- function(metadonnees_role) {
+  # Début du prompt
+  prompt <- "Tu es un assistant spécialisé dans la communication adaptée au public suivant :\n"
+  
+  # Ajouter les caractéristiques de base du public
+  for(nom in names(metadonnees_role)) {
+    if(nom != "instructions_communication") {
+      prompt <- paste0(prompt, "- ", metadonnees_role[[nom]], "\n")
+    }
+  }
+  
+  # Ajouter les règles de communication
+  prompt <- paste0(prompt, "\nTu dois suivre ces règles de communication :\n")
+  prompt <- paste0(prompt, "- ", metadonnees_role$instructions_communication$style, "\n")
+  
+  # Ajouter les directives
+  if(!is.null(metadonnees_role$instructions_communication$directives)) {
+    prompt <- paste0(prompt, "\nDirectives spécifiques :\n")
+    for(directive in metadonnees_role$instructions_communication$directives) {
+      prompt <- paste0(prompt, "- ", directive, "\n")
+    }
+  }
+  
+  # Ajouter le vocabulaire adapté
+  if(!is.null(metadonnees_role$instructions_communication$vocabulaire_adapte)) {
+    prompt <- paste0(prompt, "\nTu utiliseras un vocabulaire adapté pour les termes techniques suivants :\n")
+    for(terme in names(metadonnees_role$instructions_communication$vocabulaire_adapte)) {
+      prompt <- paste0(prompt, "- ", terme, " -> ", 
+                      metadonnees_role$instructions_communication$vocabulaire_adapte[[terme]], "\n")
+    }
+  }
+  
+  # Ajouter la conclusion
+  prompt <- paste0(prompt, "\n Dans ta réponse, assure-toi de :
+1. Respecter le niveau de langage approprié
+2. Suivre toutes les directives de communication
+3. Utiliser systématiquement le vocabulaire adapté fourni
+4. Maintenir la cohérence avec le type de public cible")
+  
+  return(prompt)
+}
+
+

@@ -1,15 +1,29 @@
 ---
-title: "Exemple complet d'utilisation"
+title: "Utilisation de BoutadE avec plusieurs études"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tutoriel-utilisation}
+  %\VignetteIndexEntry{Utilisation de BoutadE avec plusieurs études}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r setup}
+library(BoutadE)
+library(pbapply)
+# Créer un dossier temporaire pour les exemples
+temp_dir <- tempdir()
+dir_etudes <- file.path(temp_dir, "etudes_jouet")
+
+# Copier toutes les études exemples
+etudes_source <- system.file("extdata", "etudes_jouet", package = "BoutadE")
+file.copy(etudes_source, temp_dir, recursive = TRUE)
+
+etudes <- list.dirs(dir_etudes, full.names = TRUE, recursive = FALSE)
+```
+
+
+
+```{r}
+etude <- etudes[1]
+resultat <- ecrire_etude(dir_etude = etude, use_ia = FALSE)
 ```
