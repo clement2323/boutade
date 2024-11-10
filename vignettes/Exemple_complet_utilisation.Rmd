@@ -48,6 +48,5 @@ for (i in 1:nrow(demandes)){
   print(i)
   gerer_une_demande(unlist(demandes[i,]))
 }
-
 ```
 

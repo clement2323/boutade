@@ -1,198 +1,225 @@
-#' Gerer une demande d'agregation a partir d'un vecteur de parametres
+#' Préparer les paramètres d'une demande de traitement
 #'
-#' Cette fonction traite une demande specifique d'agregation en utilisant un vecteur de parametres. Elle recupere les informations necessaires, calcule l'agregat en fonction des parametres specifies et retourne le resultat.
-#'
-#' @param vecteur_demande Un vecteur contenant les parametres de la demande. Les elements du vecteur doivent être dans l'ordre suivant :
-#' \enumerate{
-#'   \item \code{id_demande} : Identifiant de la demande.
-#'   \item \code{table} : Nom de la table de donnees a utiliser.
-#'   \item \code{var_croisement} : Variables de croisement, separees par des tirets.
-#'   \item \code{var_croisement_relative} : Variable de croisement relative (unique).
-#'   \item \code{var_quanti} : Variable quantitative sur laquelle effectuer les agregations.
-#'   \item \code{fonctions_agregations} : Fonctions d'agregation a appliquer, separees par des tirets.
-#'   \item \code{condition} : Condition a appliquer pour filtrer les donnees (expression R sous forme de texte).
-#'   \item \code{type_output} : Type de sortie souhaite (par exemple, \code{"table"}, \code{"graph"}).
-#'   \item \code{nom_fichier_xls} : Nom du fichier Excel de sortie.
-#'   \item \code{nom_onglet} : Nom de l'onglet dans le fichier Excel.
-#'   \item \code{titre} : Titre pour la sortie (par exemple, titre du graphique).
-#'   \item \code{unite} : Unites de mesure, separees par des tirets.
-#' }
-#' @param for_ollama Logical. Si TRUE, retourne uniquement la table agregee sans traitement supplementaire.
-#'
-#' @return Selon les parametres :
-#' \itemize{
-#'   \item Un \code{data.frame} contenant le resultat de l'agregation si \code{type_output = "table"} ou \code{for_ollama = TRUE}
-#'   \item Un objet \code{ggplot} si \code{type_output = "graphique"}
-#' }
-#'
-#' @details
-#' La fonction effectue les etapes suivantes :
-#' \enumerate{
-#'   \item Decompose le \code{vecteur_demande} en variables individuelles.
-#'   \item Charge la table de donnees correspondante en utilisant \code{get()}.
-#'   \item Extrait les variables de croisement et les fonctions d'agregation.
-#'   \item evalue la condition fournie pour filtrer les donnees si necessaire.
-#'   \item Calcule l'agregat en appelant la fonction \code{calculer_agregat_sur_croisement()} avec les parametres extraits.
-#' }
-#'
-#' @examples
-#' \dontrun{
-#' # Exemple d'utilisation de gerer_une_demande
-#' # Supposons que vecteur_demande soit un vecteur correctement formate
-#' vecteur_demande <- c(
-#'   id_demande = 1,
-#'   table = "donnees_ventes",
-#'   var_croisement = "region-produit",
-#'   var_croisement_relative = "region",
-#'   var_quanti = "chiffre_affaires",
-#'   fonctions_agregations = "sum-mean",
-#'   condition = "annee == 2023",
-#'   type_output = "table",
-#'   nom_fichier_xls = "rapport_ventes.xlsx",
-#'   nom_onglet = "Synthese",
-#'   titre = "Rapport des ventes 2023",
-#'   unite = "euros"
-#' )
-#' resultat <- gerer_une_demande(vecteur_demande)
-#' }
-#'
-#' @seealso \code{\link{calculer_agregat_sur_croisement}}
-#'
-#' @importFrom zeallot %<-%
+#' @param vecteur_demande Un vecteur nommé contenant les paramètres de la demande
+#' @return Une liste structurée des paramètres traités
 #' @export
-gerer_une_demande <- function(vecteur_demande, metadata = NULL, for_ollama = FALSE) {
-  
-  # i <-1
-  # vecteur_demande <- table_demandes_from_csv[i,]%>% unlist()
-  c(
-    id_demande,
-    nom_table,
-    var_croisement,
-    var_croisement_relative,
-    var_quanti,
-    fonctions_agregations,
-    condition,
-    type_output,
-    nom_fichier_xls,
-    nom_onglet,
-    titre,
-    unite,
-    var_evolution
-  ) %<-% vecteur_demande
-  # Charger la table de donnees correspondante
-  table <- get(nom_table)
-  
-  # Extraire les variables de croisement
-  var_croisement <- strsplit(var_croisement, "-")[[1]]
-  var_quanti <- strsplit(var_quanti, "-")[[1]]
-  unite <- strsplit(unite, "-")[[1]]
-  # Extraire les fonctions d'agregation
-  vecteur_nom_fonction <- strsplit(fonctions_agregations, "-")[[1]]  
-  liste_fonction_agregation <- lapply(vecteur_nom_fonction, get)
-  names(liste_fonction_agregation) <- vecteur_nom_fonction
-  
-  # evaluer la condition si elle existe
-  condition_texte <- condition
-  condition <- with(table, eval(parse(text = condition_texte)))
-  if (!is.null(condition) && sum(is.na(condition))!=0) condition <- NULL # si condition = NA -> remet là à NULL
-  
-  if(nchar(nom_fichier_xls)==0) nom_fichier_xls <- NULL
-
-  if(nchar(var_croisement_relative)==0) var_croisement_relative <- c()
-  
-  # Calculer l'agregat
-  table_agrege <- calculer_agregat_sur_croisement(
-    table = table,
-    var_croisement = var_croisement,
-    var_croisement_relative = var_croisement_relative,
-    var_quanti = var_quanti ,
-    liste_fonction_agregation = liste_fonction_agregation,
-    condition = condition,
-    unites = unite
+preparer_parametres_demande <- function(vecteur_demande) {
+  # Définition des paramètres attendus par type
+  parametres_communs <- c(
+    "var_croisement",
+    "var_quanti",
+    "fonctions_agregations",
+    "titre",
+    "var_croisement_relative",
+    "condition",
+    "unite"
   )
+  
+  parametres_excel <- c(
+    "nom_fichier_xls",
+    "nom_onglet"
+  )
+  
+  parametres_rmd <- c(
+    "partie",
+    "sous_partie",
+    "titre_figure"
+  )
+  
+  # Conversion en named vector si ce n'est pas déjà le cas
+  if (is.null(names(vecteur_demande))) {
+    stop("Le vecteur de demande doit avoir des noms de colonnes")
+  }
+  
+  # Fonction helper pour extraire et formater un paramètre
+  extraire_param <- function(nom, defaut = NULL) {
+    valeur <- vecteur_demande[[nom]]
+    if (is.null(valeur) || is.na(valeur) || valeur == "") return(defaut)
+    valeur
+  }
+  
+  # Traitement des paramètres spéciaux
+  params_split <- list(
+    var_croisement = strsplit(extraire_param("var_croisement", ""), "-")[[1]],
+    var_quanti = strsplit(extraire_param("var_quanti", ""), "-")[[1]],
+    unite = strsplit(extraire_param("unite", ""), "-")[[1]],
+    var_croisement_relative = {
+      val <- extraire_param("var_croisement_relative", "")
+      if (nchar(val) == 0) c() else val
+    }
+  )
+  
+  # Traitement des fonctions d'agrégation
+  fns <- strsplit(extraire_param("fonctions_agregations", ""), "-")[[1]]
+  params_split$liste_fonction_agregation <- if (length(fns) > 0) {
+    stats::setNames(lapply(fns, get), fns)
+  } else {
+    list()
+  }
+  
+  # Construction de la condition
+  params_split$condition <- {
+    cond_text <- extraire_param("condition", "")
+    if (nchar(cond_text) == 0) {
+      NULL
+    } else {
+      tryCatch({
+        cond <- with(get(extraire_param("table")), eval(parse(text = cond_text)))
+        if (!is.null(cond) && sum(is.na(cond)) != 0) NULL else cond
+      }, error = function(e) NULL)
+    }
+  }
+  
+  # Paramètres pour Excel
+  params_excel <- list(
+    nom_fichier_xls = extraire_param("nom_fichier_xls"),
+    nom_onglet = extraire_param("nom_onglet")
+  )
+  
+  # Paramètres pour RMD
+  params_rmd <- list(
+    partie = extraire_param("partie"),
+    sous_partie = extraire_param("sous_partie"),
+    titre_figure = extraire_param("titre_figure")
+  )
+  
+  # Autres paramètres
+  params_autres <- list(
+    titre = extraire_param("titre"),
+    type_output = extraire_param("type_output", "table"),
+    var_evolution = extraire_param("var_evolution", "")
+  )
+  
+  # Assemblage final
+  c(
+    params_split,
+    list(
+      table = get(extraire_param("table")),
+      excel = params_excel,
+      rmd = params_rmd,
+      autres = params_autres
+    )
+  )
+}
 
-  if(nchar(var_evolution) != 0){
+#' Générer une table agrégée à partir d'une demande
+#'
+#' @param vecteur_demande Un vecteur nommé contenant les paramètres de la demande
+#' @param metadata Liste optionnelle des métadonnées pour la transformation des noms
+#' @return Une liste contenant la table agrégée et ses paramètres associés
+#' @export
+renvoyer_table_from_demande <- function(vecteur_demande, metadata = NULL) {
+  # i <- 1
+  # vecteur_demande <- table_demandes[i,]
+  params <- preparer_parametres_demande(vecteur_demande)
+  
+  # Calcul de la table agrégée
+  table_agrege <- calculer_agregat_sur_croisement(
+    table = params$table,
+    var_croisement = params$var_croisement,
+    var_croisement_relative = params$var_croisement_relative,
+    var_quanti = params$var_quanti,
+    liste_fonction_agregation = params$liste_fonction_agregation,
+    condition = params$condition,
+    unites = params$unite
+  )
+  
+  # Calcul de l'évolution si nécessaire
+  if (nchar(params$autres$var_evolution) != 0) {
     col_select <- colnames(table_agrege)[
       !colnames(table_agrege) %in% grep("part|tot", colnames(table_agrege), value = TRUE)
     ]
-    var_quanti_selec <- grep(var_quanti,col_select,value = TRUE)
-    table_agrege <- calculer_evolution_from_table_agrege(table_agrege,var_evolution,var_croisement,var_croisement_relative,var_quanti_selec)
+    var_quanti_selec <- grep(params$var_quanti, col_select, value = TRUE)
+    table_agrege <- calculer_evolution_from_table_agrege(
+      table_agrege,
+      params$autres$var_evolution,
+      params$var_croisement,
+      params$var_croisement_relative,
+      var_quanti_selec
+    )
   }
   
-  # Transformer les noms de colonnes si metadata existe dans l'environnement
+  # Transformation des noms de colonnes avec les métadonnées
   if (!is.null(metadata)) {
     nouveaux_noms <- transformer_noms_colonnes(
       noms_colonnes = colnames(table_agrege),
       metadata = metadata,
-      nom_table = nom_table
+      nom_table = params$nom_table
     )
     colnames(table_agrege) <- nouveaux_noms
     
-    # Transformer les noms des variables de croisement
-    var_croisement <- transformer_noms_colonnes(
-      noms_colonnes = var_croisement,
+    # Transformation des variables de croisement
+    params$var_croisement <- transformer_noms_colonnes(
+      noms_colonnes = params$var_croisement,
       metadata = metadata,
-      nom_table = nom_table
+      nom_table = params$nom_table
     )
     
-    if (length(var_croisement_relative) > 0) {
-      var_croisement_relative <- transformer_noms_colonnes(
-        noms_colonnes = var_croisement_relative,
+    if (length(params$var_croisement_relative) > 0) {
+      params$var_croisement_relative <- transformer_noms_colonnes(
+        noms_colonnes = params$var_croisement_relative,
         metadata = metadata,
-        nom_table = nom_table
+        nom_table = params$nom_table
       )
     }
   }
-
-  # for_ollama = FALSE
-  # Retourner le resultat si pas de graphique demande
-  if(type_output == "table" & !for_ollama ){
-    if (!is.null(nom_fichier_xls)) {
-      if(type_output == "graphique") stop("pas de graphique dans les fichiers xls")
-      if(nchar(var_evolution) == 0) var_evolution = NULL
-
-        ecrire_xls(
-          nom_fichier_xls=nom_fichier_xls,
-          nom_onglet = nom_onglet,
-          table = table_agrege,
-          titre = titre,
-          var_group_by = c(var_croisement,var_croisement_relative),
-          var_evolution = var_evolution
-        )  
-    }
-    return(table_agrege)
-  }
-
-  if(for_ollama) return(table_agrege) # seul et unique référence à ollama ici
-
-  var_part <- grep("-part|Part",colnames(table_agrege),value = TRUE)
   
-  p <- creer_graphique_bar(
-      data = table_agrege,
-      var_x = var_croisement ,
-      var_y = var_part,
-      var_fill = var_croisement_relative,
-      lab_x = var_croisement,
-      lab_y = "Pourcentage",
-      titre = titre,
-      labels_fill = c(),
-      param_position = "dodge"
-      )
-  
-  return(p) 
+  # Retourner la table agrégée avec les paramètres associés
+  return(list(
+    table = table_agrege,
+    params = params
+  ))
 }
 
+#' Écrire une table agrégée dans un fichier Excel
+#'
+#' @param element_table_param Liste contenant la table et ses paramètres
+#' @return NULL (effet de bord : création fichier Excel)
+#' @export
+ecrire_demande_sur_xls <- function(element_table_param) {
+  table_agrege <- element_table_param$table
+  params <- element_table_param$params
+  
+  ecrire_xls(
+    nom_fichier_xls = params$excel$nom_fichier_xls,
+    nom_onglet = params$excel$nom_onglet,
+    table = table_agrege,
+    titre = params$autres$titre,
+    var_group_by = c(params$var_croisement, params$var_croisement_relative),
+    var_evolution = params$autres$var_evolution
+  )
+}
+
+#' Générer un graphique en barres à partir d'une table agrégée
+#'
+#' @param element_table_param Liste contenant la table et ses paramètres
+#' @return Un objet ggplot2
+#' @importFrom ggplot2 ggplot geom_bar
+#' @export
+generer_graphique_from_table <- function(element_table_param) {
+  table_agrege <- element_table_param$table
+  params <- element_table_param$params
+  
+  creer_graphique_bar(
+    data = table_agrege,
+    var_x = params$var_croisement,
+    var_y = grep("-part|Part", colnames(table_agrege), value = TRUE),
+    var_fill = params$var_croisement_relative,
+    lab_x = params$var_croisement,
+    lab_y = "Pourcentage",
+    titre = params$rmd$titre_figure %||% params$autres$titre,
+    labels_fill = c(),
+    param_position = "dodge"
+  )
+}
 
 #' Transformer les noms de colonnes avec les métadonnées
 #'
-#' @description
-#' Transforme les noms de colonnes bruts en libellés plus compréhensibles en utilisant
-#' les métadonnées et en gérant les suffixes spéciaux (_sum, _part, etc.).
-#'
-#' @param noms_colonnes Un vecteur de noms de colonnes à transformer
-#' @param metadata La liste des métadonnées contenant les descriptions des variables
-#' @param nom_table Le nom de la table dans les métadonnées
-#' @return Un vecteur de noms de colonnes transformés
+#' @param noms_colonnes Vecteur de noms de colonnes à transformer
+#' @param metadata Liste des métadonnées contenant les descriptions des variables
+#' @param nom_table Nom de la table dans les métadonnées
+#' @return Vecteur de noms de colonnes transformés
+#' @importFrom purrr detect
 #' @export
 transformer_noms_colonnes <- function(noms_colonnes, metadata, nom_table) {
   # noms_colonnes <- colnames(table_agrege)

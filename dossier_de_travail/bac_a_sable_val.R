@@ -5,12 +5,17 @@ Sys.setenv(http_proxy ="http://proxy-rie.http.insee.fr:8080")
 install.packages("devtools") # aide au developpement de package
 devtools::load_all() # simuler un library(BoutadE) aveec les codes du dossier R modifiés.
 
+dir <- "inst/extdata/etudes_jouet/etude_jouet_1/input/"
 
 # lire metadonnees dans input avec jsonlite
-metadonnees <- jsonlite::fromJSON("input/metadonnees.json",simplifyVector = FALSE)
-metadonnees_tables <- metadonnees$etude$tables
-description_etude<- metadonnees$etude$description
-metadonnees_role <- metadonnees$etude$public_cible
+metadonnees <- jsonlite::fromJSON(
+  paste0(dir,"metadonnees.json"),
+  simplifyVector = FALSE
+  )
+
+metadonnees_tables <- metadonnees$tables
+description_etude<- metadonnees$description
+metadonnees_role <- metadonnees$public_cible
 
 EP_FI_AG <- creer_table_minimale(50) # créer une fausse table
 setDT(EP_FI_AG) # transfoen data.table obligatoire
@@ -26,7 +31,7 @@ calculer_agregat_sur_croisement(
   condition = NULL
 )
 
-table_demandes <- read.csv("input/table_demandes.csv")
+table_demandes <- read.csv(paste0(dir,"fichier_demandes.csv"))
 
 #write.csv(table_demandes_valide,"input/table_demandes.csv",quote = FALSE,row.names=FALSE)
 if(controler_demandes(table_demandes) |> nrow() >0) stop("Des demandes ne sont pas valides")

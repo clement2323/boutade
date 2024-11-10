@@ -19,6 +19,12 @@ library(BoutadE)
 ```
 
 ## TO DO 
+- Maintenant on a un tableau de demandes : 
+  - celui pour excel avec les variables communes et onglet nom fichier.
+  - celui pour markdown sans onglet et nom fichier, mais avec type putput = kable, hbar, camembert etc..
+    - on garde toujours les params de la demande en output
+- mettre les métadata tables sous forme de tableau
+
 - Faire un tutoriel interactif !!
 - prompt avec l'angle d'attaque rajouter titre et sous titre dans le contexte -> idée à partir d'un plan détaillé d'étude bien structuré avec markdown, générer le fichier demande et donc l'étude demandée ?
 - calculer evolution

@@ -1,0 +1,20 @@
+{
+  "nom": "Analyse EP-FI Antilles-Guyane",
+  "description": "Étude des relations entre entreprises profilées et leurs filiales dans les Antilles-Guyane",
+  "public_cible": {
+    "type": "enfant de 8-12 ans",
+    "instructions_communication": {
+      "style": "pédagogique",
+      "directives": ["Réponds comme si tu parlais à un enfant",
+       "Utilise des métaphores simples", 
+       "Évite le jargon technique",
+        "Inclus des exemples du quotidien",
+         "Garde les phrases courtes"],
+      "vocabulaire_adapte": {
+        "entreprise_profilée": "grande entreprise",
+        "filiale": "petite entreprise qui appartient à la grande",
+        "chiffre_affaires": "argent gagné"
+      }
+    }
+  }
+}

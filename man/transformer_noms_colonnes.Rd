@@ -7,16 +7,15 @@
 transformer_noms_colonnes(noms_colonnes, metadata, nom_table)
 }
 \arguments{
-\item{noms_colonnes}{Un vecteur de noms de colonnes à transformer}
+\item{noms_colonnes}{Vecteur de noms de colonnes à transformer}
 
-\item{metadata}{La liste des métadonnées contenant les descriptions des variables}
+\item{metadata}{Liste des métadonnées contenant les descriptions des variables}
 
-\item{nom_table}{Le nom de la table dans les métadonnées}
+\item{nom_table}{Nom de la table dans les métadonnées}
 }
 \value{
-Un vecteur de noms de colonnes transformés
+Vecteur de noms de colonnes transformés
 }
 \description{
-Transforme les noms de colonnes bruts en libellés plus compréhensibles en utilisant
-les métadonnées et en gérant les suffixes spéciaux (_sum, _part, etc.).
+Transformer les noms de colonnes avec les métadonnées
 }

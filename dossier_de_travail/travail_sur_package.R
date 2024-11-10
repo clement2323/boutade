@@ -8,16 +8,17 @@ rm(list=ls())
 
 devtools::load_all()
 EP_FI_AG <-creer_table_minimale(20)
+setDT(EP_FI_AG)
 table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_valides
 #table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_erreurs
 
 erreurs <- controler_demandes(table_demandes)
 if(nrow(erreurs)!=0) erreurs; stop("il ya des erreurs dans les demandes")
 
-setDT(EP_FI_AG)
 for (i in 1:nrow(table_demandes)){
+    # i <-1
     print(i)
-    gerer_une_demande(table_demandes[i,]%>% unlist())
+    renvoyer_table_from_demande(table_demandes[i,])
 }
 
 out <- pbapply(table_demandes,1,gerer_une_demande)
@@ -77,5 +78,37 @@ rmarkdown::render(
 #$env:http_proxy = "http://proxy-rie.http.insee.fr:8080"
 #$env:https_proxy = "http://proxy-rie.http.insee.fr:8080"
 #$env:no_proxy = ""
+
+
+
+jsonlite::fromJSON("inst/extdata/Etudes_jouet/etude_jouet_1/input/metadonnees_etudes.json")
+# Création d'une liste
+
+metadonnees_etude <- list(
+  nom = "Analyse EP-FI Antilles-Guyane",
+  description = "Étude des relations entre entreprises profilées et leurs filiales dans les Antilles-Guyane",
+  public_cible = list(
+    type = "enfant de 8-12 ans",
+    instructions_communication = list(
+      style = "pédagogique",
+      directives = c(
+        "Réponds comme si tu parlais à un enfant",
+        "Utilise des métaphores simples",
+        "Évite le jargon technique",
+        "Inclus des exemples du quotidien",
+        "Garde les phrases courtes"
+      ),
+      vocabulaire_adapte = list(
+        entreprise_profilée = "grande entreprise",
+        filiale = "petite entreprise qui appartient à la grande",
+        chiffre_affaires = "argent gagné"
+      )
+    )
+  )
+)
+
+# Sauvegarde dans data/
+usethis::use_data(metadonnees_etude, overwrite = TRUE)
+metadonnees_tables <- read.csv("dossier_de_travail/metadata_tables.csv")
 
 

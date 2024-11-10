@@ -12,3 +12,10 @@ pkgdown::build_site()
 
 # Crée le workflow GitHub Actions pour pkgdown
 usethis::use_github_action("pkgdown")
+
+usethis::use_data(
+    EP_FI_AG,
+    table_demandes_valides,
+    table_demandes_erreurs,
+    overwrite=TRUE
+    )

@@ -10,6 +10,7 @@ ecrire_xls(
   table,
   titre,
   var_group_by,
+  var_evolution = NULL,
   dir = "output/"
 )
 }
