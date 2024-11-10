@@ -6,20 +6,33 @@ library(pbapply)
 # Mettre tous les éléments de la liste dans l'environnement global
 rm(list=ls())
 
+data(package = "BoutadE")
 devtools::load_all()
-EP_FI_AG <-creer_table_minimale(20)
-setDT(EP_FI_AG)
-table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_valides
-#table_demandes <-(creer_tables_demandes(EP_FI_AG))$table_demandes_erreurs
 
+data("metadonnees_etude") #  metadonnee d'une etude
+str(metadonnees_etude)
+
+data("metadonnees_tables") #  metadonnee d'une etude
+metadonnees_tables %>% head(10)
+
+data("EP_FI_AG")
+EP_FI_AG %>% head(5)
+setDT(EP_FI_AG)
+
+data("table_demandes_valides") 
+data("table_demandes_erreurs")
+
+table_demandes <- table_demandes_valides
 erreurs <- controler_demandes(table_demandes)
 if(nrow(erreurs)!=0) erreurs; stop("il ya des erreurs dans les demandes")
+
+# gestion excel ok <- 
 
 for (i in 1:nrow(table_demandes)){
     # i <-1
     print(i)
-    renvoyer_table_from_demande(table_demandes[i,])
-}
+    (renvoyer_table_from_demande(table_demandes[i,]))
+    }
 
 out <- pbapply(table_demandes,1,gerer_une_demande)
 generer_markdown_auto(table_demandes,out)
@@ -68,18 +81,6 @@ rmarkdown::render(
   input = "output/rapport_automatique.Rmd",
   envir = globalenv(),
 )
-
-
-
-#devtools::document()
-#devtools::check()
-
-#[System.Net.WebRequest]::DefaultWebProxy = New-Object System.Net.WebProxy("http://proxy-rie.http.insee.fr:8080")
-#$env:http_proxy = "http://proxy-rie.http.insee.fr:8080"
-#$env:https_proxy = "http://proxy-rie.http.insee.fr:8080"
-#$env:no_proxy = ""
-
-
 
 jsonlite::fromJSON("inst/extdata/Etudes_jouet/etude_jouet_1/input/metadonnees_etudes.json")
 # Création d'une liste

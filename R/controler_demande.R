@@ -1,37 +1,27 @@
 #' Contrôler la validité des demandes d'agrégation
 #'
 #' @description
-#' Vérifie la cohérence et la validité des demandes d'agrégation en contrôlant :
-#' - La cohérence entre fonctions, variables et unités
-#' - L'existence des fonctions et variables
-#' - Les règles métier (ex: somme avec variable relative)
-#' - La compatibilité des types de sortie
+#' Vérifie la validité des demandes d'agrégation selon plusieurs critères :
+#' 1. Cohérence des dimensions (fonctions/variables/unités)
+#' 2. Existence des fonctions et variables
+#' 3. Règles métier spécifiques
+#' 4. Cohérence des variables de croisement
 #'
-#' @param table_demandes data.frame contenant les demandes à contrôler avec les colonnes :
-#'   \describe{
-#'     \item{id_demande}{Identifiant unique de la demande}
-#'     \item{fonctions_agregations}{Liste de fonctions séparées par "-"}
-#'     \item{var_quanti}{Liste de variables séparées par "-"}
-#'     \item{unite}{Liste d'unités séparées par "-"}
-#'     \item{var_croisement}{Variables de croisement (optionnel)}
-#'     \item{var_croisement_relative}{Variable pour calcul relatif (optionnel)}
-#'     \item{type_output}{Type de sortie ("table" ou "graphique")}
-#'   }
+#' @param table_demandes data.frame avec colonnes :
+#'   - id_demande : Identifiant unique
+#'   - fonctions_agregations : Fonctions séparées par "-"
+#'   - var_quanti : Variables séparées par "-"
+#'   - unite : Unités séparées par "-"
+#'   - var_croisement : Variables de croisement (optionnel)
+#'   - var_croisement_relative : Variable pour calcul relatif (optionnel)
+#'   - var_evolution : Variable d'évolution temporelle (optionnel)
+#'   - type_output : "table" ou "graphique"
 #'
-#' @return data.frame des erreurs détectées avec les colonnes :
-#'   \describe{
-#'     \item{id_demande}{Identifiant de la demande en erreur}
-#'     \item{raison}{Description détaillée de l'erreur}
-#'   }
+#' @return data.frame des erreurs avec colonnes id_demande et raison
 #'
 #' @examples
-#' # Créer des données de test
 #' donnees <- creer_exemple_minimal()
-#' 
-#' # Contrôler des demandes valides
 #' erreurs_valides <- controler_demandes(donnees$table_demandes_valides)
-#' 
-#' # Contrôler des demandes avec erreurs
 #' erreurs_invalides <- controler_demandes(donnees$table_demandes_erreurs)
 #'
 #' @export
@@ -85,28 +75,7 @@ controler_demandes <- function(table_demandes) {
       ))
     }
     
-    # 4. Output graphique incompatible avec sum
-    if((!identical(fonctions,"sum")) && demande$type_output == "graphique") {
-      erreurs <- rbind(erreurs, data.frame(
-        id_demande = demande$id_demande,
-        raison = "Output graphique non autorisé si pas de fonction sum uniquement",
-        stringsAsFactors = FALSE
-      ))
-    }
-    
-    # 5. Pas plus d'une variable de croisement pour un output graphique
-    if(demande$type_output == "graphique" && demande$var_croisement != "") {
-      vars_croisement <- strsplit(demande$var_croisement, "-")[[1]]
-      if(length(vars_croisement) > 1) {
-        erreurs <- rbind(erreurs, data.frame(
-          id_demande = demande$id_demande,
-          raison = "Output graphique non autorisé avec plus d'une variable de croisement",
-          stringsAsFactors = FALSE
-        ))
-      }
-    }
-    
-    # 6. Vérification de l'existence de la table et des variables
+    # 4. Vérification de l'existence de la table et des variables
     # Vérification de l'existence de la table
     nom_table <- table_demandes[i,]$table
     if (!exists(nom_table)) {
@@ -120,7 +89,7 @@ controler_demandes <- function(table_demandes) {
     
     table_donnees <- get(nom_table)
     
-    # Variables quantitatives
+    # 5. Vérification des variables quantitatives
     vars_quanti_manquantes <- variables[!variables %in% names(table_donnees)]
     if(length(vars_quanti_manquantes) > 0) {
       erreurs <- rbind(erreurs, data.frame(
@@ -131,7 +100,7 @@ controler_demandes <- function(table_demandes) {
       ))
     }
     
-    # Variables de croisement
+    # 6. Vérification des variables de croisement
     if(demande$var_croisement != "") {
       vars_croisement <- strsplit(demande$var_croisement, "-")[[1]]
       vars_croisement_manquantes <- vars_croisement[!vars_croisement %in% names(table_donnees)]
@@ -145,7 +114,7 @@ controler_demandes <- function(table_demandes) {
       }
     }
     
-    # Variable de croisement relative
+    # 7. Vérification de la variable relative
     if(demande$var_croisement_relative != "" && 
        !demande$var_croisement_relative %in% names(table_donnees)) {
       erreurs <- rbind(erreurs, data.frame(
@@ -155,17 +124,16 @@ controler_demandes <- function(table_demandes) {
       ))
     }
     
-          
-  # Vérifier que la variable d'évolution est dans les variables de croisement
-      if(demande$var_evolution != "" &  
-         !grepl(demande$var_evolution, demande$var_croisement, fixed = TRUE)) {
-        erreurs <- rbind(erreurs, data.frame(
-          id_demande = demande$id_demande,
-          raison = "La variable d'évolution doit être incluse dans les variables de croisement",
-          stringsAsFactors = FALSE
-        ))
-      }
+    # 8. Vérification de la variable d'évolution
+    if(demande$var_evolution != "" &  
+       !grepl(demande$var_evolution, demande$var_croisement, fixed = TRUE)) {
+      erreurs <- rbind(erreurs, data.frame(
+        id_demande = demande$id_demande,
+        raison = "La variable d'évolution doit être incluse dans les variables de croisement",
+        stringsAsFactors = FALSE
+      ))
     }
+  }
   
   return(erreurs)
 }

@@ -7,41 +7,33 @@
 controler_demandes(table_demandes)
 }
 \arguments{
-\item{table_demandes}{data.frame contenant les demandes à contrôler avec les colonnes :
-\describe{
-\item{id_demande}{Identifiant unique de la demande}
-\item{fonctions_agregations}{Liste de fonctions séparées par "-"}
-\item{var_quanti}{Liste de variables séparées par "-"}
-\item{unite}{Liste d'unités séparées par "-"}
-\item{var_croisement}{Variables de croisement (optionnel)}
-\item{var_croisement_relative}{Variable pour calcul relatif (optionnel)}
-\item{type_output}{Type de sortie ("table" ou "graphique")}
+\item{table_demandes}{data.frame avec colonnes :
+\itemize{
+\item id_demande : Identifiant unique
+\item fonctions_agregations : Fonctions séparées par "-"
+\item var_quanti : Variables séparées par "-"
+\item unite : Unités séparées par "-"
+\item var_croisement : Variables de croisement (optionnel)
+\item var_croisement_relative : Variable pour calcul relatif (optionnel)
+\item var_evolution : Variable d'évolution temporelle (optionnel)
+\item type_output : "table" ou "graphique"
 }}
 }
 \value{
-data.frame des erreurs détectées avec les colonnes :
-\describe{
-\item{id_demande}{Identifiant de la demande en erreur}
-\item{raison}{Description détaillée de l'erreur}
-}
+data.frame des erreurs avec colonnes id_demande et raison
 }
 \description{
-Vérifie la cohérence et la validité des demandes d'agrégation en contrôlant :
-\itemize{
-\item La cohérence entre fonctions, variables et unités
-\item L'existence des fonctions et variables
-\item Les règles métier (ex: somme avec variable relative)
-\item La compatibilité des types de sortie
+Vérifie la validité des demandes d'agrégation selon plusieurs critères :
+\enumerate{
+\item Cohérence des dimensions (fonctions/variables/unités)
+\item Existence des fonctions et variables
+\item Règles métier spécifiques
+\item Cohérence des variables de croisement
 }
 }
 \examples{
-# Créer des données de test
 donnees <- creer_exemple_minimal()
-
-# Contrôler des demandes valides
 erreurs_valides <- controler_demandes(donnees$table_demandes_valides)
-
-# Contrôler des demandes avec erreurs
 erreurs_invalides <- controler_demandes(donnees$table_demandes_erreurs)
 
 }
