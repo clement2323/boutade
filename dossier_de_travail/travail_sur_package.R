@@ -45,6 +45,7 @@ liste_info_chunk <- lapply(
 
 liste_figures <- lapply(out,function(element)element$figure)
 
+generer_markdown_auto_simple(liste_info_chunk)
  
 # avec ollama 
 data("table_demandes_rmd")
@@ -58,6 +59,7 @@ liste_info_chunk <- pblapply(
             metadonnees_etude = metadonnees_etude
             )
     )
+
 
 
 
