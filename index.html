@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>What the Package Does (One Line, Title Case) • BoutadE</title>
+<title>BoutadE • BoutadE</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="What the Package Does (One Line, Title Case)">
-<meta name="description" content="Generalisation des reportings statistiques. C'est facile les reportings statistiques.">
-<meta property="og:description" content="Generalisation des reportings statistiques. C'est facile les reportings statistiques.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="BoutadE">
+<meta name="description" content="Automatisation de reportings statistiques">
+<meta property="og:description" content="Automatisation de reportings statistiques">
 <meta property="og:image" content="https://clement2323.github.io/BoutadE/logo.png">
 </head>
 <body>
@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="index.html">BoutadE</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,9 +36,9 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="articles/Exemple_complet_utilisation.html">Exemple complet d'utilisation</a></li>
+<li><a class="dropdown-item" href="articles/Exemple_complet_utilisation.html">Utilisation de BoutadE avec plusieurs études</a></li>
     <li><a class="dropdown-item" href="articles/fonctions_adhoc_creation_narm.html">Créer des fonctions ad hoc</a></li>
-    <li><a class="dropdown-item" href="articles/metadonnees.html">Les méta données</a></li>
+    <li><a class="dropdown-item" href="articles/metadonnees.html">Les métadonnées</a></li>
     <li><a class="dropdown-item" href="articles/remplir_le_fichier_demande.html">Remplir le fichier de demandes</a></li>
     <li><a class="dropdown-item" href="articles/TODO.html">TO DO</a></li>
   </ul>
@@ -63,9 +63,14 @@
 <div class="section level2">
 <h2 id="desciption-">Desciption :<a class="anchor" aria-label="anchor" href="#desciption-"></a>
 </h2>
-<p>L’objectif du package est d’automatiser, la production d’outputs simples pour des études statistiques : à savoir : - des tableaux - des fichiers excels avec tableau écrits aux bon formats - des graphiques - des rapports automatisés à partir de ces éléments</p>
-<p>Pour ce faire une fonction ecrire_etude est applicable à un sous dossier donné. Ce sous-dossier doit contenir : - un dossier input : contenant les données en entrée de l’étude si besoin : - un fichier de metadonnées au format json qui contient des métadonnées</p>
-<p>DES BISOUS MA TITOU</p>
+<p>L’objectif du package est d’automatiser, la production d’outputs simples pour des études statistiques : à savoir :</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="sc">-</span> des tableaux</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="sc">-</span> des fichiers excels avec tableau écrits aux bon formats</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="sc">-</span> des graphiques</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="sc">-</span> des rapports automatisés à partir de ces éléments</span></code></pre></div>
+<p>Pour ce faire une fonction ecrire_etude est applicable à un sous dossier donné. Ce sous-dossier doit contenir :</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="sc">-</span> un dossier input <span class="sc">:</span> contenant les données en entrée de l<span class="st">'étude si besoin :</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="st">- un fichier de metadonnées au format json qui contient des métadonnées</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">

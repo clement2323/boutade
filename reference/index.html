@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BoutadE</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,9 +18,9 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Exemple_complet_utilisation.html">Exemple complet d'utilisation</a></li>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/Exemple_complet_utilisation.html">Utilisation de BoutadE avec plusieurs études</a></li>
     <li><a class="dropdown-item" href="../articles/fonctions_adhoc_creation_narm.html">Créer des fonctions ad hoc</a></li>
-    <li><a class="dropdown-item" href="../articles/metadonnees.html">Les méta données</a></li>
+    <li><a class="dropdown-item" href="../articles/metadonnees.html">Les métadonnées</a></li>
     <li><a class="dropdown-item" href="../articles/remplir_le_fichier_demande.html">Remplir le fichier de demandes</a></li>
     <li><a class="dropdown-item" href="../articles/TODO.html">TO DO</a></li>
   </ul></li>
@@ -49,6 +49,12 @@
 
       <dl><dt>
 
+          <code><a href="EP_FI_AG.html">EP_FI_AG</a></code>
+
+        </dt>
+        <dd>Données de relations Entreprises-Filiales en Antilles-Guyane</dd>
+      </dl><dl><dt>
+
           <code><a href="calculer_agregat_sur_croisement.html">calculer_agregat_sur_croisement()</a></code>
 
         </dt>
@@ -73,22 +79,16 @@
         <dd>Creer un graphique a barres avec ggplot2 et le sauvegarder automatiquement</dd>
       </dl><dl><dt>
 
-          <code><a href="creer_table_minimale.html">creer_table_minimale()</a></code>
-
-        </dt>
-        <dd>Créer un jeu de données minimal pour tester les fonctions du package</dd>
-      </dl><dl><dt>
-
-          <code><a href="creer_tables_demandes.html">creer_tables_demandes()</a></code>
-
-        </dt>
-        <dd>Créer des tables de demandes pour les tests</dd>
-      </dl><dl><dt>
-
           <code><a href="df_to_text.html">df_to_text()</a></code>
 
         </dt>
         <dd>Convert a data.frame to CSV text with line breaks</dd>
+      </dl><dl><dt>
+
+          <code><a href="ecrire_demande_sur_xls.html">ecrire_demande_sur_xls()</a></code>
+
+        </dt>
+        <dd>Écrire une table agrégée dans un fichier Excel</dd>
       </dl><dl><dt>
 
           <code><a href="ecrire_etude.html">ecrire_etude()</a></code>
@@ -115,6 +115,12 @@
         <dd>Format metadata as a text string</dd>
       </dl><dl><dt>
 
+          <code><a href="generer_figure_from_demande.html">generer_figure_from_demande()</a></code>
+
+        </dt>
+        <dd>Générer un graphique en barres à partir d'une table agrégée</dd>
+      </dl><dl><dt>
+
           <code><a href="generer_markdown_auto.html">generer_markdown_auto()</a></code>
 
         </dt>
@@ -125,12 +131,6 @@
 
         </dt>
         <dd>Gérer l'agrégation avec la fonction sum</dd>
-      </dl><dl><dt>
-
-          <code><a href="gerer_une_demande.html">gerer_une_demande()</a></code>
-
-        </dt>
-        <dd>Gerer une demande d'agregation a partir d'un vecteur de parametres</dd>
       </dl><dl><dt>
 
           <code><a href="get_rounding_function.html">get_rounding_function()</a></code>
@@ -145,10 +145,52 @@
         <dd>Installer un package s'il n'est pas dejà installe</dd>
       </dl><dl><dt>
 
+          <code><a href="metadonnees_etude.html">metadonnees_etude</a></code>
+
+        </dt>
+        <dd>Métadonnées générales de l'étude EP-FI Antilles-Guyane</dd>
+      </dl><dl><dt>
+
+          <code><a href="metadonnees_tables.html">metadonnees_tables</a></code>
+
+        </dt>
+        <dd>Métadonnées des tables de l'étude EP-FI Antilles-Guyane</dd>
+      </dl><dl><dt>
+
+          <code><a href="preparer_parametres_demande.html">preparer_parametres_demande()</a></code>
+
+        </dt>
+        <dd>Préparer les paramètres d'une demande de traitement</dd>
+      </dl><dl><dt>
+
           <code><a href="preparer_prompt.html">preparer_prompt()</a></code>
 
         </dt>
         <dd>Prepare a prompt for data analysis</dd>
+      </dl><dl><dt>
+
+          <code><a href="renvoyer_table_from_demande.html">renvoyer_table_from_demande()</a></code>
+
+        </dt>
+        <dd>Générer une table agrégée à partir d'une demande</dd>
+      </dl><dl><dt>
+
+          <code><a href="table_demandes_erreurs.html">table_demandes_erreurs</a></code>
+
+        </dt>
+        <dd>Table des demandes avec erreurs pour tests</dd>
+      </dl><dl><dt>
+
+          <code><a href="table_demandes_rmd.html">table_demandes_rmd</a></code>
+
+        </dt>
+        <dd>Tables de demandes pour l'analyse des entreprises antillaises</dd>
+      </dl><dl><dt>
+
+          <code><a href="table_demandes_valides.html">table_demandes_valides</a></code>
+
+        </dt>
+        <dd>Table des demandes valides pour l'analyse</dd>
       </dl><dl><dt>
 
           <code><a href="transformer_noms_colonnes.html">transformer_noms_colonnes()</a></code>

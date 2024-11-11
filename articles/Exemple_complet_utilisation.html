@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Exemple complet d'utilisation • BoutadE</title>
+<title>Utilisation de BoutadE avec plusieurs études • BoutadE</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Exemple complet d'utilisation">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Utilisation de BoutadE avec plusieurs études">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">BoutadE</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,9 +33,9 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/Exemple_complet_utilisation.html">Exemple complet d'utilisation</a></li>
+<li><a class="dropdown-item" href="../articles/Exemple_complet_utilisation.html">Utilisation de BoutadE avec plusieurs études</a></li>
     <li><a class="dropdown-item" href="../articles/fonctions_adhoc_creation_narm.html">Créer des fonctions ad hoc</a></li>
-    <li><a class="dropdown-item" href="../articles/metadonnees.html">Les méta données</a></li>
+    <li><a class="dropdown-item" href="../articles/metadonnees.html">Les métadonnées</a></li>
     <li><a class="dropdown-item" href="../articles/remplir_le_fichier_demande.html">Remplir le fichier de demandes</a></li>
     <li><a class="dropdown-item" href="../articles/TODO.html">TO DO</a></li>
   </ul>
@@ -57,7 +57,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Exemple complet d'utilisation</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Utilisation de BoutadE avec plusieurs études</h1>
             
       
 
@@ -66,7 +66,56 @@
 
     
     
-
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">BoutadE</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: replacing previous import 'data.table::first' by 'dplyr::first' when</span></span>
+<span><span class="co">## loading 'BoutadE'</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: replacing previous import 'data.table::last' by 'dplyr::last' when</span></span>
+<span><span class="co">## loading 'BoutadE'</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: replacing previous import 'data.table::between' by 'dplyr::between'</span></span>
+<span><span class="co">## when loading 'BoutadE'</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: replacing previous import 'data.table::transpose' by</span></span>
+<span><span class="co">## 'purrr::transpose' when loading 'BoutadE'</span></span></code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Attaching package: 'dplyr'</span></span></code></pre>
+<pre><code><span><span class="co">## The following objects are masked from 'package:stats':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     filter, lag</span></span></code></pre>
+<pre><code><span><span class="co">## The following objects are masked from 'package:base':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     intersect, setdiff, setequal, union</span></span></code></pre>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#devtools::install_github("clement2323/ollamax")</span></span>
+<span><span class="co">#library(ollamax) #??ollamax</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># ecrire_etude()  à réserver pour plus tard</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"EP_FI_AG"</span><span class="op">)</span></span>
+<span><span class="va">EP_FI_AG</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    annee  siren_EP     denom_EP dep_EP              s4_EP redi_r310_EP siren_FI</span></span>
+<span><span class="co">## 1   2022 123456789 Entreprise A    971          Industrie         4184      FI1</span></span>
+<span><span class="co">## 2   2022 987654321 Entreprise B    972 Services marchands         1880      FI2</span></span>
+<span><span class="co">## 3   2022 123456789 Entreprise A    971          Industrie         3873      FI3</span></span>
+<span><span class="co">## 4   2022 987654321 Entreprise B    972 Services marchands         2107      FI4</span></span>
+<span><span class="co">## 5   2022 123456789 Entreprise A    971          Industrie         4866      FI5</span></span>
+<span><span class="co">## 6   2022 987654321 Entreprise B    972 Services marchands         4175      FI6</span></span>
+<span><span class="co">## 7   2022 123456789 Entreprise A    971          Industrie         1695      FI7</span></span>
+<span><span class="co">## 8   2022 987654321 Entreprise B    972 Services marchands         1360      FI8</span></span>
+<span><span class="co">## 9   2022 123456789 Entreprise A    971          Industrie         4897      FI9</span></span>
+<span><span class="co">## 10  2022 987654321 Entreprise B    972 Services marchands         1974     FI10</span></span>
+<span><span class="co">##      denom_FI dep_FI              s4_FI redi_r310_FI poids  dep_FI_relatif</span></span>
+<span><span class="co">## 1   Filiale 1    971          Industrie         1366     1       interieur</span></span>
+<span><span class="co">## 2   Filiale 2    972       Construction         1813     1       interieur</span></span>
+<span><span class="co">## 3   Filiale 3    973          Commerces          609     1 antilles-guyane</span></span>
+<span><span class="co">## 4   Filiale 4    974 Services marchands         1857     1          autres</span></span>
+<span><span class="co">## 5   Filiale 5    971          Industrie          574     1       interieur</span></span>
+<span><span class="co">## 6   Filiale 6    972       Construction          781     1       interieur</span></span>
+<span><span class="co">## 7   Filiale 7    973          Commerces          536     1 antilles-guyane</span></span>
+<span><span class="co">## 8   Filiale 8    974 Services marchands         1760     1          autres</span></span>
+<span><span class="co">## 9   Filiale 9    971          Industrie         1647     1       interieur</span></span>
+<span><span class="co">## 10 Filiale 10    972       Construction         1844     1       interieur</span></span></code></pre>
+<p>```</p>
   </main>
 </div>
 
