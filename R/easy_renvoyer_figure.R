@@ -13,6 +13,7 @@ retourner_figure <- function(table_agrege,nouveaux_noms_colonnes,params) {
   
   if (length(var_y) == 0) var_y <- setdiff(colnames(table_agrege), c(var_croisement, var_fill))
   
+  type_figure <- params$rmd$type_figure
   # Configuration du graphique selon le type
   if (type_figure == "kable") {
     out <- table_agrege
@@ -37,68 +38,80 @@ retourner_figure <- function(table_agrege,nouveaux_noms_colonnes,params) {
   
   # type_figure = "camembert"
   # Création du graphique selon le type
-  graph <- do.call(creer_graphique_bar, c(
+  graph <- do.call(creer_graphique, c(
     params_graph,
     list(type = switch(type_figure,
       "camembert" = "pie",
       "hbar" = "hbar",
-      "vbar" = "vbar"
+      "vbar" = "vbar",
+      "graphique"="vbar" # sorte de par défaut
     ))
   ))
   
   # Ajout de facet si plusieurs variables de croisement
-  if (length(vars_croisement) > 1) {
+  if (length(var_croisement) > 1) {
     graph <- graph + facet_wrap(as.formula(paste("~", nouveaux_noms_colonnes[[var_croisement[2]]])))
   }
   
   return(graph)
 }
 
-#' Creer un graphique a barres avec ggplot2 et le sauvegarder automatiquement
+#' Créer un graphique avec ggplot2
 #'
-#' Cette fonction genere un graphique a barres a partir d'un jeu de donnees en utilisant ggplot2.
-#' Le graphique est automatiquement sauvegarde dans un repertoire 'output' avec un nom de fichier
-#' genere a partir du titre du graphique.
+#' Génère différents types de graphiques (barres verticales/horizontales, camembert) 
+#' à partir d'un jeu de données en utilisant ggplot2.
 #'
-#' @param data \code{data.frame} contenant lesgit push -u origin main donnees a representer.
-#' @param var_x Chaîne de caracteres specifiant le nom de la variable pour l'axe des abscisses dans \code{data}.
-#' @param var_y Chaîne de caracteres sgipecifiant le nom de la variable pour l'axe des ordonnees dans \code{data}.
-#' @param var_fill Chaîne de caracteres specifiant le nom de la variable de remplissage (couleur) dans \code{data}.
-#' @param lab_x Chaîne de caracteres pour le label de l'axe des abscisses.
-#' @param lab_y Chaîne de caracteres pour le label de l'axe des ordonnees.
-#' @param titre Chaîne de caracteres pour le titre du graphique.
-#' @param labels_fill Vecteur de chaînes de caracteres pour les labels de la legende des couleurs.
-#' @param soustitre (Optionnel) Chaîne de caracteres pour le sous-titre du graphique. Par defaut : \code{NULL}.
-#' @param color_theme Vecteur de codes couleurs hexadecimaux pour le graphique. Par defaut : palette de couleurs predefinie.
-#' @param param_position Chaîne de caracteres specifiant la position des barres (\code{"stack"}, \code{"dodge"}, etc.). Par defaut : \code{"stack"}.
-#' @param save booleen permettant de choisir si l'on veut sauvegarder ou non.
-#' @return Un objet \code{ggplot2} representant le graphique a barres.
+#' @param data data.frame contenant les données
+#' @param var_x Nom de la variable pour l'axe X
+#' @param var_y Nom de la variable pour l'axe Y
+#' @param var_fill Nom de la variable pour le remplissage (couleurs)
+#' @param lab_x Label de l'axe X
+#' @param lab_y Label de l'axe Y
+#' @param titre_legende_fill Titre de la légende des couleurs
+#' @param titre Titre du graphique
+#' @param type Type de graphique ("vbar", "hbar", "pie"). Défaut: "vbar"
+#' @param color_theme Vecteur de couleurs hexadécimales
+#' @param param_position Position des barres ("stack", "dodge"). Défaut: "stack"
+#' @param save Booléen pour sauvegarder le graphique. Défaut: FALSE
 #'
-#' @details
-#' La fonction cree un graphique a barres en utilisant ggplot2 et le sauvegarde automatiquement dans un repertoire 'output'.
-#' Le nom du fichier est genere a partir du titre du graphique en remplaçant les espaces par des underscores.
-#'
-#' Les couleurs utilisees pour le remplissage sont determinees par \code{color_theme}, et les labels de la legende sont specifies par \code{labels_fill}.
-#' Si le repertoire 'output' n'existe pas, il sera cre automatiquement.
+#' @return Un objet ggplot2
 #'
 #' @examples
 #' \dontrun{
+#' # Graphique en barres verticales
 #' creer_graphique_bar(
-#'   data = taux_global_long,
-#'   var_x = "dep_EP",
-#'   var_y = "percentage",
-#'   var_fill = "region",
-#'   lab_x = "Departement",
-#'   lab_y = "Pourcentage",
-#'   titre = "Structure globale de detention",
-#'   labels_fill = c("filiales 971", "filiales 972")
+#'   data = df,
+#'   var_x = "categorie",
+#'   var_y = "valeur",
+#'   var_fill = "groupe",
+#'   lab_x = "Catégories",
+#'   lab_y = "Valeurs",
+#'   titre_legende_fill = "Groupes",
+#'   titre = "Mon graphique"
+#' )
+#'
+#' # Graphique en barres horizontales
+#' creer_graphique_bar(
+#'   data = df,
+#'   var_x = "categorie",
+#'   var_y = "valeur", 
+#'   var_fill = "groupe",
+#'   type = "hbar"
+#' )
+#'
+#' # Camembert
+#' creer_graphique_bar(
+#'   data = df,
+#'   var_x = "categorie",
+#'   var_y = "valeur",
+#'   var_fill = "groupe", 
+#'   type = "pie"
 #' )
 #' }
 #'
 #' @import ggplot2
-#' @importFrom stats setNames
 #' @export
-creer_graphique_bar <- function(
+creer_graphique <- function(
   data,
   var_x,
   var_y,

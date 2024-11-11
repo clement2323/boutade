@@ -27,8 +27,6 @@ erreurs <- controler_demandes(table_demandes)
 if(nrow(erreurs)!=0) erreurs; stop("il ya des erreurs dans les demandes")
 
 # gestion excel ok <- 
-table_demandes_valides
-
 for (i in 1:nrow(table_demandes)){
     print(i)
     ecrire_demande_sur_xls(table_demandes[i,],metadonnees_tables)
