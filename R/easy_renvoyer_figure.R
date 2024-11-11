@@ -1,3 +1,59 @@
+retourner_figure <- function(table_agrege,nouveaux_noms_colonnes,params) {
+  # Extraction des variables de croisement
+  var_croisement <- params$var_croisement
+  var_x <- var_croisement[1]
+  lab_x <- nouveaux_noms_colonnes[var_x]
+  
+  var_fill <- params$var_croisement_relative
+  lab_fill <- nouveaux_noms_colonnes[var_fill]
+  
+  # Détection si on travaille avec des parts
+  is_part <- any(grepl("-part|Part", colnames(table_agrege)))
+  var_y <- grep("-part|Part", colnames(table_agrege), value = TRUE)
+  
+  if (length(var_y) == 0) var_y <- setdiff(colnames(table_agrege), c(var_croisement, var_fill))
+  
+  # Configuration du graphique selon le type
+  if (type_figure == "kable") {
+    out <- table_agrege
+    colnames(out)<- nouveaux_noms_colonnes
+    return(knitr::kable(out))
+  }
+  
+  lab_y <- ifelse(is_part, "Pourcentage", "Valeur")
+  
+  # Paramètres communs pour les graphiques
+  params_graph <- list(
+    data = table_agrege,
+    var_x = var_x,
+    var_y = var_y,
+    var_fill = var_fill,
+    titre_legende_fill = lab_fill,
+    lab_x = lab_x,
+    lab_y = lab_y,
+    titre = params$autres$titre,
+    param_position = ifelse(is_part, "stack", "dodge")
+  )
+  
+  # type_figure = "camembert"
+  # Création du graphique selon le type
+  graph <- do.call(creer_graphique_bar, c(
+    params_graph,
+    list(type = switch(type_figure,
+      "camembert" = "pie",
+      "hbar" = "hbar",
+      "vbar" = "vbar"
+    ))
+  ))
+  
+  # Ajout de facet si plusieurs variables de croisement
+  if (length(vars_croisement) > 1) {
+    graph <- graph + facet_wrap(as.formula(paste("~", nouveaux_noms_colonnes[[var_croisement[2]]])))
+  }
+  
+  return(graph)
+}
+
 #' Creer un graphique a barres avec ggplot2 et le sauvegarder automatiquement
 #'
 #' Cette fonction genere un graphique a barres a partir d'un jeu de donnees en utilisant ggplot2.
@@ -49,16 +105,15 @@ creer_graphique_bar <- function(
   var_fill,
   lab_x,
   lab_y,
+  titre_legende_fill,
   titre,
-  labels_fill = NULL,
-  soustitre = NULL,
+  type = "vbar",
   color_theme = c("#FF4858", "#1B7F79", "#00CCC0", "#72F2EB", "#747F7F"),
   param_position = "stack",
   save = FALSE
 ) { 
-  
+  # data <- table_agrege
   # Preparation des labels pour la legende
-  if (!is.null(labels_fill)) lab_fill <- setNames(labels_fill, sort(unique(data[[var_fill]])))
   n_color <- length(unique(data[[var_fill]]))
   colors_to_use <- color_theme[1:n_color]
 
@@ -66,33 +121,38 @@ creer_graphique_bar <- function(
   labs_args <- list(
     title = titre,
     x = lab_x,
-    y = lab_y
+    y = lab_y,
+    fill = titre_legende_fill 
   )
-
-  # Ajouter le sous-titre si 'soustitre' n'est pas NULL ou vide
-  if (!is.null(soustitre) && soustitre != "") {
-    labs_args$subtitle <- soustitre
-  }
 
   # Application automatique aux variables
   var_y <- add_backticks(var_y)
   var_x <- add_backticks(var_x)
   var_fill <- add_backticks(var_fill)
 
-  # Creation du graphique
-  p <-ggplot(data, aes_string(x = var_x, y = var_y, fill = var_fill)) +
-    geom_bar(stat = "identity", position = param_position) 
-  
-  if(!is.null(labels_fill)) {
-    p <- p + scale_fill_manual(values = colors_to_use, labels = labels_fill)
-  }else{
-    p <- p + scale_fill_manual(values = colors_to_use)
-  }
-
-  p <- p +
+  # Base commune pour tous les graphiques
+  p <- ggplot(data, aes_string(x = var_x, y = var_y, fill = var_fill)) +
+    scale_fill_manual(values = colors_to_use) +
     theme_minimal() +
-    theme(legend.title = element_text(face = "italic")) +
     do.call(labs, labs_args)
+  
+  # Ajout des éléments spécifiques selon le type
+  p <- p + switch(type,
+    "vbar" = geom_bar(stat = "identity", position = param_position),
+    "hbar" = list(
+      geom_bar(stat = "identity", position = param_position),
+      coord_flip()
+    ),
+    "pie" = list(
+      geom_bar(stat = "identity", width = 1),
+      coord_polar("y"),
+      theme(axis.text = element_blank(),
+            axis.title = element_blank(),
+            axis.ticks = element_blank())
+    ),
+    # Par défaut: barres verticales
+    geom_bar(stat = "identity", position = param_position)
+  )
 
   # Creation du dossier output s'il n'existe pas
   if (!dir.exists("output")) {

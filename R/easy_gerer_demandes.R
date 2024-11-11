@@ -89,44 +89,37 @@ ecrire_demande_sur_xls <- function(vecteur_demande, metadata = NULL) {
 generer_figure_from_demande <- function(vecteur_demande,metadonnees_tables,
 ollama = FALSE,fonction_ask = NULL, metadonnees_etude) {
 
-
-  # figure, soit graphique soit kable
-  #
-  data("metadonnees_tables"); data("metadonnees_etude")
-  # metadata si on veut des noms de colonne etelement graphiques propres, ollama si on veut un commentaire
-  #vecteur_demande <- table_demandes_rmd[1,]
-  
+  #data("metadonnees_tables"); data("metadonnees_etude")
+  #vecteur_demande <- table_demandes_rmd[4,]
   liste_resultat <- renvoyer_table_from_demande(vecteur_demande)
   table_agrege <- liste_resultat$table
   params <- liste_resultat$params
-  
-  
-  # Transformation des noms de colonnes avec les métadonnées
-  if (!is.null(metadata)) {
-    
+
+  #récupération des noms de colonne courts
+  if (!is.null(metadonnees_tables)) {
     # Transformation unique
-    nouveaux_noms <- transformer_noms_colonnes(
+    nouveaux_noms_colonnes <- transformer_noms_colonnes(
       noms_colonnes = colnames(table_agrege),
-      metadata = metadata,
+      metadata = metadonnees_tables,
       nom_table = params$table
     )
-    
-    # Application des transformations
-    colnames(table_agrege) <- nouveaux_noms
   }
-  # rajouter param type_graphique pour le triage et dans gérer parametres aussi
-  # si plus d'une var croisement -> pads de graphique comme ça, généraliser, 2 vars => facet ?
-  creer_graphique_bar(
-    data = table_agrege,
-    var_x = params$var_croisement,
-    var_y = grep("-part|Part", colnames(table_agrege), value = TRUE),
-    var_fill = params$var_croisement_relative,
-    lab_x = params$var_croisement,
-    lab_y = "Pourcentage",
-    titre = params$rmd$titre_figure %||% params$autres$titre,
-    labels_fill = c(),
-    param_position = "dodge"
+  
+  figure <- retourner_figure(table_agrege,nouveaux_noms_colonnes,params)
+
+  if(ollama) {
+
+    preparer_prompt(table,metadonnees_tables,metadonnees_etude)
+    rep_ollama
+  }
+  
+  out <- list(
+    table_agrege = table_agrege,
+    rep_ollama = rep_ollame,
+    params = params,
   )
+
+  return 
 }
 
 

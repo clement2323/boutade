@@ -9,7 +9,7 @@ vignette: >
 
 ```{r setup}
 library(BoutadE)
-
+library(dplyr)
 #devtools::install_github("clement2323/ollamax")
 #library(ollamax) #??ollamax
 

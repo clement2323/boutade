@@ -4,28 +4,7 @@
 #' @return Une liste structurée des paramètres traités
 #' @export
 preparer_parametres_demande <- function(vecteur_demande) {
-  # Définition des paramètres attendus par type
-  parametres_communs <- c(
-    "var_croisement",
-    "var_quanti",
-    "fonctions_agregations",
-    "titre",
-    "var_croisement_relative",
-    "condition",
-    "unite"
-  )
-  
-  parametres_excel <- c(
-    "nom_fichier_xls",
-    "nom_onglet"
-  )
-  
-  parametres_rmd <- c(
-    "partie",
-    "sous_partie",
-    "titre_figure"
-  )
-  
+ 
   # Conversion en named vector si ce n'est pas déjà le cas
   if (is.null(names(vecteur_demande))) {
     stop("Le vecteur de demande doit avoir des noms de colonnes")
@@ -79,13 +58,13 @@ preparer_parametres_demande <- function(vecteur_demande) {
   params_rmd <- list(
     partie = extraire_param("partie"),
     sous_partie = extraire_param("sous_partie"),
-    titre_figure = extraire_param("titre_figure")
+    titre_figure = extraire_param("titre_figure"),
+    type_figure = extraire_param("type_figure", "table")
   )
   
   # Autres paramètres
   params_autres <- list(
     titre = extraire_param("titre"),
-    type_output = extraire_param("type_output", "table"),
     var_evolution = extraire_param("var_evolution", "")
   )
   
