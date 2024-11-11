@@ -4,7 +4,7 @@
 \alias{transformer_noms_colonnes}
 \title{Transformer les noms de colonnes avec les métadonnées}
 \usage{
-transformer_noms_colonnes(noms_colonnes, nom_table)
+transformer_noms_colonnes(noms_colonnes, nom_table, metadata)
 }
 \arguments{
 \item{noms_colonnes}{Vecteur de noms de colonnes à transformer}

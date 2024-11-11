@@ -1,3 +1,25 @@
+#' Tables de demandes pour l'analyse des entreprises antillaises
+#'
+#' @format ## table_demandes_rmd
+#' Un data frame avec 20 lignes et 13 colonnes:
+#' \describe{
+#'   \item{id_demande}{Identifiant unique de la demande}
+#'   \item{table}{Nom de la table source (EP_FI_AG)}
+#'   \item{condition}{Conditions de filtrage}
+#'   \item{var_croisement}{Variables de croisement pour l'analyse}
+#'   \item{var_croisement_relative}{Variable relative pour le croisement}
+#'   \item{var_evolution}{Variable d'évolution temporelle}
+#'   \item{var_quanti}{Variables quantitatives à analyser}
+#'   \item{unite}{Unité de mesure ('millier' ou 'unite')}
+#'   \item{fonctions_agregations}{Fonctions d'agrégation utilisées (sum, mean, max)}
+#'   \item{titre}{Titre de l'analyse}
+#'   \item{partie}{Section principale du rapport}
+#'   \item{sous_partie}{Sous-section du rapport}
+#'   \item{type_figure}{Type de visualisation ('kable' ou 'graphique')}
+#' }
+#' @source Données internes INSEE
+"table_demandes_rmd"
+
 #' Données de relations Entreprises-Filiales en Antilles-Guyane
 #'
 #' @format ## EP_FI_AG

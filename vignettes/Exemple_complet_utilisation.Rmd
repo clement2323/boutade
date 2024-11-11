@@ -10,43 +10,25 @@ vignette: >
 ```{r setup}
 library(BoutadE)
 
-install.packages(c("data.table","pbapply","dplyr"))
-library(data.table);library(pbapply);library(dplyr)
-
-devtools::install_github("clement2323/ollamax")
-library(ollamax) #??ollamax
+#devtools::install_github("clement2323/ollamax")
+#library(ollamax) #??ollamax
 
 ```
 
 
 ```{r}
 # ecrire_etude()  à réserver pour plus tard
-EP_FI_AG <- creer_table_minimale(100)
+data("EP_FI_AG")
 EP_FI_AG %>% head(10)
 ```
 
 ```{r}
-demandes <- creer_tables_demandes()
-demandes <- demandes$table_demandes_valides
-
-if(controler_demandes(demandes)|>nrow()!=0){ 
-  demandes
-  stop("une demande n'est pas valide")
-  }
 ```
 
 ```{r}
-apply(demandes,1,gerer_une_demande)
 ```
 ```
 
 ```{r}
-setDT(EP_FI_AG)
-
-for (i in 1:nrow(demandes)){
-  # i <-1
-  print(i)
-  gerer_une_demande(unlist(demandes[i,]))
-}
 ```
 

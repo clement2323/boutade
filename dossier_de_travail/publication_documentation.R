@@ -20,3 +20,4 @@ usethis::use_data(
     overwrite=TRUE
     )
 
+usethis::use_data(table_demandes_rmd)
