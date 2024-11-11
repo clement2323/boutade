@@ -44,7 +44,6 @@ liste_info_chunk <- lapply(
     )
 
 liste_figures <- lapply(out,function(element)element$figure)
-
 generer_markdown_auto_simple(liste_info_chunk)
  
 # avec ollama 
@@ -60,6 +59,12 @@ liste_info_chunk <- pblapply(
             )
     )
 
+generer_markdown_auto_simple(liste_info_chunk)
 
+rmarkdown::render(
+    input = paste0("output/", "rapport_automatique.Rmd"),
+    envir = environment()
+)
+  
 
 
