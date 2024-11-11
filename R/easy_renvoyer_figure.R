@@ -50,7 +50,7 @@ retourner_figure <- function(table_agrege,nouveaux_noms_colonnes,params) {
   
   # Ajout de facet si plusieurs variables de croisement
   if (length(var_croisement) > 1) {
-    graph <- graph + facet_wrap(as.formula(paste("~", nouveaux_noms_colonnes[[var_croisement[2]]])))
+    graph <- graph + facet_grid(as.formula(paste("~", var_croisement[2])))
   }
   
   return(graph)

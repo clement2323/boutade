@@ -1,6 +1,9 @@
 Sys.setenv(no_proxy = "")
 Sys.setenv(https_proxy ="http://proxy-rie.http.insee.fr:8080")
 Sys.setenv(http_proxy ="http://proxy-rie.http.insee.fr:8080")
+
+devtools::install_github("clement2323/ollamax")
+library(ollamax) #??ollamax
 library(pbapply)
 
 # Mettre tous les éléments de la liste dans l'environnement global
@@ -32,4 +35,29 @@ for (i in 1:nrow(table_demandes)){
     ecrire_demande_sur_xls(table_demandes[i,],metadonnees_tables)
     }
 
+# sans ollama
+
 data("table_demandes_rmd")
+liste_info_chunk <- lapply(
+        1:nrow(table_demandes_rmd),
+        function(i) generer_figure_from_demande(table_demandes_rmd[i,],metadonnees_tables)
+    )
+
+liste_figures <- lapply(out,function(element)element$figure)
+
+ 
+# avec ollama 
+data("table_demandes_rmd")
+liste_info_chunk <- pblapply(
+        1:nrow(table_demandes_rmd),
+        function(i) generer_figure_from_demande(
+            table_demandes_rmd[i,],
+            metadonnees_tables,
+            ollama  = TRUE,
+            fonction_ask = function(prompt) ask_ollama(prompt,"mistral-small"),
+            metadonnees_etude = metadonnees_etude
+            )
+    )
+
+
+

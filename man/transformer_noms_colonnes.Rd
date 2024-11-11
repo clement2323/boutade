@@ -7,14 +7,14 @@
 transformer_noms_colonnes(noms_colonnes, nom_table, metadata)
 }
 \arguments{
-\item{noms_colonnes}{Vecteur de noms de colonnes à transformer}
+\item{noms_colonnes}{Vecteur des noms de colonnes à transformer}
 
 \item{nom_table}{Nom de la table dans les métadonnées}
 
-\item{metadata}{Liste des métadonnées contenant les descriptions des variables}
+\item{metadata}{Liste des métadonnées avec descriptions des variables}
 }
 \value{
-Vecteur de noms de colonnes transformés
+Vecteur des noms de colonnes transformés
 }
 \description{
 Transformer les noms de colonnes avec les métadonnées

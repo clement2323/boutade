@@ -2,7 +2,7 @@
 % Please edit documentation in R/easy_gerer_demandes.R
 \name{generer_figure_from_demande}
 \alias{generer_figure_from_demande}
-\title{Générer un graphique en barres à partir d'une table agrégée}
+\title{Générer une figure à partir d'une table agrégée}
 \usage{
 generer_figure_from_demande(
   vecteur_demande,
@@ -13,11 +13,19 @@ generer_figure_from_demande(
 )
 }
 \arguments{
-\item{element_table_param}{Liste contenant la table et ses paramètres}
+\item{vecteur_demande}{Vecteur nommé des paramètres de la demande}
+
+\item{metadonnees_tables}{Liste des métadonnées des tables}
+
+\item{ollama}{Booléen indiquant si utiliser Ollama}
+
+\item{fonction_ask}{Fonction de requête optionnelle}
+
+\item{metadonnees_etude}{Liste des métadonnées de l'étude}
 }
 \value{
-Un objet ggplot2
+Liste contenant la table agrégée, la réponse Ollama et les paramètres
 }
 \description{
-Générer un graphique en barres à partir d'une table agrégée
+Générer une figure à partir d'une table agrégée
 }

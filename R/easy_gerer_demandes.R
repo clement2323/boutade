@@ -93,7 +93,7 @@ generer_figure_from_demande <- function(vecteur_demande, metadonnees_tables,
                                       metadonnees_etude) {
 
   #data("metadonnees_tables"); data("metadonnees_etude")
-  #vecteur_demande <- table_demandes_rmd[4,]
+  #vecteur_demande <- table_demandes_rmd[20,]
   liste_resultat <- renvoyer_table_from_demande(vecteur_demande)
   table_agrege <- liste_resultat$table
   params <- liste_resultat$params
@@ -107,19 +107,26 @@ generer_figure_from_demande <- function(vecteur_demande, metadonnees_tables,
       nom_table = params$table
     )
   }
-  
+  table_demandes_valides
   figure <- retourner_figure(table_agrege,nouveaux_noms_colonnes,params)
 
   rep_ollama <- NULL
   if(ollama) {
-    prompt <- preparer_prompt(table,metadonnees_tables,metadonnees_etude)
-    rep_ollama <- ask_ollama(prompt)
+    prompt <- preparer_prompt(
+      table_agrege,
+      metadonnees_tables,
+      metadonnees_etude,
+      params
+      )
+    #cat(prompt) # fonction_ask <- function(prompt) { ask_ollama(prompt,"mistral-small")}
+    rep_ollama <- fonction_ask(prompt)
+    cat(rep_ollama)
   }
   
   out <- list(
-    table_agrege = table_agrege,
+    figure = figure,
     rep_ollama = rep_ollama,
-    params = params,
+    params = params
   )
 
   out
@@ -166,24 +173,3 @@ transformer_noms_colonnes <- function(noms_colonnes, nom_table, metadata) {
 
 
 
-## TO DO nettoyer !!
-
-
-#' Convertir un data.frame en texte CSV
-#' @param df data.frame à convertir
-#' @return Chaîne de caractères au format CSV
-#' @export
-df_to_text <- function(df) {
-    # Convertir les noms de colonnes en texte
-    header <- paste(colnames(df), collapse = ",")
-
-    # Convertir chaque ligne en texte
-    rows <- apply(df, 1, function(row) {
-    paste(row, collapse = ",")
-    })
-
-    # Combiner l'en-tête et les lignes avec des sauts de ligne
-    text <- paste(c(header, rows), collapse = "\n")
-
-    return(text)
-}

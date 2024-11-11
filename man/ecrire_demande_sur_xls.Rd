@@ -7,10 +7,12 @@
 ecrire_demande_sur_xls(vecteur_demande, metadata = NULL)
 }
 \arguments{
-\item{element_table_param}{Liste contenant la table et ses paramètres}
+\item{vecteur_demande}{Vecteur nommé des paramètres de la demande}
+
+\item{metadata}{Liste des métadonnées pour la transformation des noms}
 }
 \value{
-NULL (effet de bord : création fichier Excel)
+NULL (effet de bord : création d'un fichier Excel)
 }
 \description{
 Écrire une table agrégée dans un fichier Excel

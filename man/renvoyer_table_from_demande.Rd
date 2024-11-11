@@ -7,12 +7,12 @@
 renvoyer_table_from_demande(vecteur_demande, metadata = NULL)
 }
 \arguments{
-\item{vecteur_demande}{Un vecteur nommé contenant les paramètres de la demande}
+\item{vecteur_demande}{Vecteur nommé des paramètres de la demande}
 
-\item{metadata}{Liste optionnelle des métadonnées pour la transformation des noms}
+\item{metadata}{Liste des métadonnées pour la transformation des noms}
 }
 \value{
-Une liste contenant la table agrégée et ses paramètres associés
+Liste contenant la table agrégée (table) et ses paramètres (params)
 }
 \description{
 Générer une table agrégée à partir d'une demande
