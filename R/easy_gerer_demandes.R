@@ -120,7 +120,7 @@ generer_figure_from_demande <- function(vecteur_demande, metadonnees_tables,
       )
     #cat(prompt) # fonction_ask <- function(prompt) { ask_ollama(prompt,"mistral-small")}
     rep_ollama <- fonction_ask(prompt)
-    cat(rep_ollama)
+    #cat(rep_ollama)
   }
   
   out <- list(
