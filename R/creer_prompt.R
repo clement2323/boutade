@@ -92,8 +92,8 @@ preparer_prompt <- function(table_agrege, metadonnees_tables,metadonnees_etude,p
   # Ajouter les instructions d'analyse
   instructions <- paste(
     "INSTRUCTION :",
-    "Décris les points importants que l'on peut observer dans ces données.",
-    "Utilise un langage simple et direct. Tu dois être le plus concis possible, un paragraphe maximum",
+    "Décris les points importants que l'on peut observer dans ces données.
+     Ne fais jamais mention des données en tant que telles décri sjuste les faits que tu observes.",
     paste(metadonnees_etude$public_cible$instructions_communication$directives, 
           collapse = ". "),
     sep = "\n"
