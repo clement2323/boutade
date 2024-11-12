@@ -98,6 +98,7 @@ generer_figure_from_demande <- function(vecteur_demande, metadonnees_tables,
   table_agrege <- liste_resultat$table
   params <- liste_resultat$params
 
+  nouveaux_noms_colonne <- colnames(table_agrege)
   #récupération des noms de colonne courts
   if (!is.null(metadonnees_tables)) {
     # Transformation unique
@@ -107,7 +108,7 @@ generer_figure_from_demande <- function(vecteur_demande, metadonnees_tables,
       nom_table = params$table
     )
   }
-  table_demandes_valides
+
   figure <- retourner_figure(table_agrege,nouveaux_noms_colonnes,params)
 
   rep_ollama <- NULL
@@ -120,7 +121,7 @@ generer_figure_from_demande <- function(vecteur_demande, metadonnees_tables,
       )
     #cat(prompt) # fonction_ask <- function(prompt) { ask_ollama(prompt,"mistral-small")}
     rep_ollama <- fonction_ask(prompt)
-    #cat(rep_ollama)
+    #cat(rep_ollama)  ; ask_ollama(prompt)
   }
   
   out <- list(
