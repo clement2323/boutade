@@ -3,7 +3,7 @@
 #' @param metadata Liste des métadonnées pour la transformation des noms
 #' @return Liste contenant la table agrégée (table) et ses paramètres (params)
 #' @export
-renvoyer_table_from_demande <- function(vecteur_demande, metadata = NULL) {
+renvoyer_table_from_demande <- function(vecteur_demande) {
   # i <- 1
   # metadata  <- metadonnees_tables
   # vecteur_demande <- table_demandes[i,]

@@ -88,7 +88,7 @@ figure
 
 ```{r}
 nom_rapport <- "rapport_titou.rmd"
-# genere le .rmd rapport titou
+# genere le .rmd rapport titou  
 generer_markdown_auto_simple(liste_info_chunk, nom_rapport = nom_rapport)
 
 ```
@@ -99,6 +99,16 @@ rmarkdown::render(input = paste0("output/", nom_rapport),envir = environment())
 ```
 
 ```{r}
-
 table_demandes_rmd
+```
+
+```{r}
+
+# gestion excel ok <-
+liste_tables_params <- lapply(1:nrow(table_demandes), function(i)renvoyer_table_from_demande(table_demandes[i,],metadonnees_tables))
+liste_tables <- lapply(liste_tables_params,function(table_param) table_param$table)
+
+liste_tables[[2]] 
+liste_tables[[3]] 
+liste_tables[[14]] 
 ```
