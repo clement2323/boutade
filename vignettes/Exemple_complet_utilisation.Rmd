@@ -75,7 +75,7 @@ for (i in 1:nrow(table_demandes)){
 
 ```{r}
 
-liste_info_chunk <- pblapply(1:nrow(table_demandes_rmd), function(i){ generer_figure_from_demande(table_demandes_rmd[i,], metadonnees_tables)
+liste_info_chunk <- pblapply(1:nrow(table_demandes_rmd), function(i){ generer_figure_from_demande(table_demandes_rmd[i,])
 }
 )
 ```
