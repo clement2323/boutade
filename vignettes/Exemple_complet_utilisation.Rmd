@@ -10,7 +10,7 @@ vignette: >
 ```{r setup}
 library(BoutadE)
 library(dplyr)
-devtools::install_github("clement2323/ollamax")
+#devtools::install_github("clement2323/ollamax")
 library(ollamax) #??ollamax
 library(pbapply)
 library(data.table)
@@ -95,13 +95,14 @@ generer_markdown_auto_simple(liste_info_chunk, nom_rapport = nom_rapport)
 
 ```{r}
 
-rmarkdown::render(input = paste0("output/", nom_rapport),envir = environment())
+#rmarkdown::render(input = paste0("output/", nom_rapport),envir = environment())
 ```
 
 ```{r}
 table_demandes_rmd
 ```
 
+# Courage ma titou !!
 ```{r}
 
 # gestion excel ok <-
