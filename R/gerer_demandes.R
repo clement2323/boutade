@@ -156,7 +156,8 @@ transformer_noms_colonnes <- function(noms_colonnes, nom_table, metadata) {
   remplacements <- list(
     "poids-sum" = "Effectif",
     "poids-tot" = "Effectif Total",
-    "poids-part" = "Part"
+    "poids-part" = "Part",
+    "evolution" = "Evolution"
   )
 
   # nom_table <- "EP_FI_AG"; nom_colonnes <- colnames(table_agrege)
