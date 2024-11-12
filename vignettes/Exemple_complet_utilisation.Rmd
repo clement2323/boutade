@@ -11,7 +11,7 @@ vignette: >
 library(BoutadE)
 library(dplyr)
 #devtools::install_github("clement2323/ollamax")
-library(ollamax) #??ollamax
+#{library(ollamax) #??ollamax
 library(pbapply)
 library(data.table)
 ```

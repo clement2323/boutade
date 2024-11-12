@@ -17,7 +17,8 @@ Imports:
     purrr,
     zeallot,
     learnr,
-    tidyr
+    tidyr,
+    pbapply
 Suggests: 
     BoutadE,
     knitr,
