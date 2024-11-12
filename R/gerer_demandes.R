@@ -49,7 +49,10 @@ renvoyer_table_from_demande <- function(vecteur_demande, metadata = NULL) {
 #' @export
 ecrire_demande_sur_xls <- function(vecteur_demande, metadata = NULL) {
 
-# vecteur_demande <- table_demandes[2,]
+# vecteur_demande <- table_demandes[1,]
+# EP_FI_AG$poids <- 1
+# vecteur_demande$var_quanti <- "poids"
+# metadata <- metadonnees_tables
   liste_resultat <- renvoyer_table_from_demande(vecteur_demande)
   table_agrege <- liste_resultat$table
   params <- liste_resultat$params
@@ -149,12 +152,34 @@ transformer_noms_colonnes <- function(noms_colonnes, nom_table, metadata) {
     "max" = "Max",
     "min" = "Min"
   )
+
+  remplacements <- list(
+    "poids-sum" = "Effectif",
+    "poids-tot" = "Effectif Total",
+    "poids-part" = "Part"
+  )
+
   # nom_table <- "EP_FI_AG"; nom_colonnes <- colnames(table_agrege)
   # Filtrer les métadonnées pour la table concernée
   meta_vars <- metadata[metadata$nom_table == nom_table, c("nom_variable", "libelle_court")]
   
+  # Fonction pour remplacer les chaînes dans le texte
+  remplacer_chaines <- function(texte, remplacements) {
+    for (ancien in names(remplacements)) {
+      texte <- gsub(ancien, remplacements[[ancien]], texte)
+    }
+    return(texte)
+  }
+
   # Transformer chaque nom
-  sapply(noms_colonnes, function(col) {
+  nouveaux_noms <- sapply(noms_colonnes, function(col) {
+  # col <- noms_colonnes[3]
+  # col <- "poids-sum-2022"
+  # col <- "redi_r310_EP-mean-2019"
+    
+    if(any(sapply(names(remplacements),function(name) grepl(name, col)))){
+      return(remplacer_chaines(col, remplacements))  # Retourner directement le nouveau nom
+    }
     # col <- nom_colonnes[4]
     parties <- strsplit(col, "-")[[1]]
     nom_base <- parties[1]
@@ -167,9 +192,13 @@ transformer_noms_colonnes <- function(noms_colonnes, nom_table, metadata) {
     if (length(parties) > 1 && parties[2] %in% names(suffixes)) {
       nouveau_nom <- paste(suffixes[parties[2]], nouveau_nom)
     }
+
+    if(length(parties) == 3) nouveau_nom <- paste(nouveau_nom, parties[3])
     
-    nouveau_nom
+    return(nouveau_nom)
   })
+  
+  nouveaux_noms
 }
 
 

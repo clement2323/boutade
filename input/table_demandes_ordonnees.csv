@@ -1,0 +1,43 @@
+id_demande,table,var_croisement,var_croisement_relative,var_quanti,fonctions_agregations,condition,type_output,nom_fichier_xls,nom_onglet,titre,unite,var_evolution
+1,table_finale,dept_agreg-AN,IND_AGRIC,poids,sum,,table,premiers_croisements.xlsx,caract_demo,Effectifs des non salariés (agriculture inclus),unite,AN
+1,table_finale,dept_agreg-AN,IND_AGRIC,poids,sum,,table,premiers_croisements.xlsx,caract_demo,Effectifs des non salariés (agriculture inclus),unite,
+1,table_finale,dept_agreg-AN,SX,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,caract_demo,Effectifs des non salariés par sexe (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN,SX,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,caract_demo,Effectifs des non salariés par sexe (hors agriculture),unite,
+1,table_finale,dept_agreg-AN,age_categ2,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,caract_demo,Effectifs des non salariés par âge (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN,age_categ2,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,caract_demo,Effectifs des non salariés par âge (hors agriculture),unite,
+1,table_finale,dept_agreg-AN,sect,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,secteur,Effectifs des non salariés par secteur d’activité (hors agriculture) ,unite,AN
+1,table_finale,dept_agreg-AN,sect,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,secteur,Effectifs des non salariés par secteur d’activité (hors agriculture) ,unite,
+1,table_finale,dept_agreg-AN-sect,type,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,secteur,Effectifs des non salariés par secteur d’activité selon le type de statut (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-sect,type,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,secteur,Effectifs des non salariés par secteur d’activité selon le type de statut (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-sect,type_classique,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,secteur,Effectifs des non salariés classiques par secteur d’activité (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-sect,type_classique,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,secteur,Effectifs des non salariés classiques par secteur d’activité (hors agriculture),unite,
+1,table_finale,dept_agreg-AN,type,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés par type de statut (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN,type,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés par type de statut (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type,SX,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés par type de statut selon le sexe (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type,SX,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés par type de statut selon le sexe (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type_classique,SX,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés classiques selon le sexe (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type_classique,SX,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés classiques selon le sexe (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type,age_categ2,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés par type de statut selon l’âge (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type,age_categ2,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés par type de statut selon l’âge (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type_classique,age_categ2,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés par type de statut selon l’âge (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type_classique,age_categ2,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,type,Effectifs des non salariés par type de statut selon l’âge (hors agriculture),unite,
+1,table_finale,dept_agreg-AN,deficit,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,rev_nul,Effectifs des non salariés dont le revenu est nul (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN,deficit,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,rev_nul,Effectifs des non salariés dont le revenu est nul (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type,deficit,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,rev_nul,Effectifs des non salariés dont le revenu est nul par type de statut (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type,deficit,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,rev_nul,Effectifs des non salariés dont le revenu est nul par type de statut (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type_classique,deficit,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,rev_nul,Effectifs des non salariés classiques dont le revenu est nul (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type_classique,deficit,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,rev_nul,Effectifs des non salariés classiques dont le revenu est nul (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type_classique-sect,deficit,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,rev_nul,Effectifs des non salariés classiques dont le revenu est nul par secteur d’activité (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type_classique-sect,deficit,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,rev_nul,Effectifs des non salariés classiques dont le revenu est nul par secteur d’activité (hors agriculture),unite,
+1,table_finale,dept_agreg-AN,pluriact,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés pluriactifs (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN,pluriact,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés pluriactifs (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type,pluriact,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés pluriactifs par type de statut (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type,pluriact,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés pluriactifs par type de statut (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type_classique,pluriact,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés classiques pluriactifs par type de statut (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type_classique,pluriact,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés classiques pluriactifs par type de statut (hors agriculture),unite,
+1,table_finale,dept_agreg-AN,pluriact_categ,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés selon le type de pluriactivité  (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN,pluriact_categ,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés selon le type de pluriactivité  (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type_classique,pluriact_categ,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés classiques selon le type de pluriactivité  (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type_classique,pluriact_categ,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés classiques selon le type de pluriactivité  (hors agriculture),unite,
+1,table_finale,dept_agreg-AN-type,pluriact_categ,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés selon le type de pluriactivité par type de statut (hors agriculture),unite,AN
+1,table_finale,dept_agreg-AN-type,pluriact_categ,poids,sum,IND_AGRIC == 0,table,premiers_croisements.xlsx,pluri_act,Effectifs des non salariés selon le type de pluriactivité par type de statut (hors agriculture),unite,
