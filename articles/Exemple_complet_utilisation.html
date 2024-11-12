@@ -86,35 +86,371 @@
 <span><span class="co">##     intersect, setdiff, setequal, union</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#devtools::install_github("clement2323/ollamax")</span></span>
-<span><span class="co">#library(ollamax) #??ollamax</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># ecrire_etude()  à réserver pour plus tard</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"EP_FI_AG"</span><span class="op">)</span></span>
-<span><span class="va">EP_FI_AG</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##    annee  siren_EP     denom_EP dep_EP              s4_EP redi_r310_EP siren_FI</span></span>
-<span><span class="co">## 1   2022 123456789 Entreprise A    971          Industrie         4184      FI1</span></span>
-<span><span class="co">## 2   2022 987654321 Entreprise B    972 Services marchands         1880      FI2</span></span>
-<span><span class="co">## 3   2022 123456789 Entreprise A    971          Industrie         3873      FI3</span></span>
-<span><span class="co">## 4   2022 987654321 Entreprise B    972 Services marchands         2107      FI4</span></span>
-<span><span class="co">## 5   2022 123456789 Entreprise A    971          Industrie         4866      FI5</span></span>
-<span><span class="co">## 6   2022 987654321 Entreprise B    972 Services marchands         4175      FI6</span></span>
-<span><span class="co">## 7   2022 123456789 Entreprise A    971          Industrie         1695      FI7</span></span>
-<span><span class="co">## 8   2022 987654321 Entreprise B    972 Services marchands         1360      FI8</span></span>
-<span><span class="co">## 9   2022 123456789 Entreprise A    971          Industrie         4897      FI9</span></span>
-<span><span class="co">## 10  2022 987654321 Entreprise B    972 Services marchands         1974     FI10</span></span>
-<span><span class="co">##      denom_FI dep_FI              s4_FI redi_r310_FI poids  dep_FI_relatif</span></span>
-<span><span class="co">## 1   Filiale 1    971          Industrie         1366     1       interieur</span></span>
-<span><span class="co">## 2   Filiale 2    972       Construction         1813     1       interieur</span></span>
-<span><span class="co">## 3   Filiale 3    973          Commerces          609     1 antilles-guyane</span></span>
-<span><span class="co">## 4   Filiale 4    974 Services marchands         1857     1          autres</span></span>
-<span><span class="co">## 5   Filiale 5    971          Industrie          574     1       interieur</span></span>
-<span><span class="co">## 6   Filiale 6    972       Construction          781     1       interieur</span></span>
-<span><span class="co">## 7   Filiale 7    973          Commerces          536     1 antilles-guyane</span></span>
-<span><span class="co">## 8   Filiale 8    974 Services marchands         1760     1          autres</span></span>
-<span><span class="co">## 9   Filiale 9    971          Industrie         1647     1       interieur</span></span>
-<span><span class="co">## 10 Filiale 10    972       Construction         1844     1       interieur</span></span></code></pre>
-<p>```</p>
-  </main>
+<span><span class="co">#{library(ollamax) #??ollamax</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/psolymos/pbapply" class="external-link">pbapply</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">## Attaching package: 'data.table'</span></span></code></pre>
+<pre><code><span><span class="co">## The following objects are masked from 'package:dplyr':</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##     between, first, last</span></span></code></pre>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Sys.setenv(no_proxy = "")</span></span>
+<span><span class="co">#Sys.setenv(https_proxy ="http://proxy-rie.http.insee.fr:8080")</span></span>
+<span><span class="co">#Sys.setenv(http_proxy ="http://proxy-rie.http.insee.fr:8080")</span></span>
+<span></span>
+<span><span class="co"># voir toutes les tables jouets disponibles</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span>package <span class="op">=</span> <span class="st">"BoutadE"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"metadonnees_etude"</span><span class="op">)</span> <span class="co">#  metadonnee d'une etude</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">metadonnees_etude</span><span class="op">)</span>  <span class="co"># Que pour parler ollama (YODA)</span></span></code></pre></div>
+<pre><code><span><span class="co">## List of 3</span></span>
+<span><span class="co">##  $ nom         : chr "Analyse EP-FI Antilles-Guyane"</span></span>
+<span><span class="co">##  $ description : chr "Étude des relations entre entreprises profilées et leurs filiales dans les Antilles-Guyane"</span></span>
+<span><span class="co">##  $ public_cible:List of 2</span></span>
+<span><span class="co">##   ..$ type                      : chr "enfant de 8-12 ans"</span></span>
+<span><span class="co">##   ..$ instructions_communication:List of 3</span></span>
+<span><span class="co">##   .. ..$ style             : chr "pédagogique"</span></span>
+<span><span class="co">##   .. ..$ directives        : chr [1:5] "Réponds comme si tu parlais à un enfant" "Utilise des métaphores simples" "Évite le jargon technique" "Inclus des exemples du quotidien" ...</span></span>
+<span><span class="co">##   .. ..$ vocabulaire_adapte:List of 3</span></span>
+<span><span class="co">##   .. .. ..$ entreprise_profilée: chr "grande entreprise"</span></span>
+<span><span class="co">##   .. .. ..$ filiale            : chr "petite entreprise qui appartient à la grande"</span></span>
+<span><span class="co">##   .. .. ..$ chiffre_affaires   : chr "argent gagné"</span></span></code></pre>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"metadonnees_tables"</span><span class="op">)</span> <span class="co">#  metadonnee d'une etude</span></span>
+<span><span class="va">metadonnees_tables</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="co"># tu en as besoin</span></span></code></pre></div>
+<pre><code><span><span class="co">##                        nom_etude nom_table nom_variable</span></span>
+<span><span class="co">## 1  Analyse EP-FI Antilles-Guyane  EP_FI_AG        annee</span></span>
+<span><span class="co">## 2  Analyse EP-FI Antilles-Guyane  EP_FI_AG     siren_EP</span></span>
+<span><span class="co">## 3  Analyse EP-FI Antilles-Guyane  EP_FI_AG     denom_EP</span></span>
+<span><span class="co">## 4  Analyse EP-FI Antilles-Guyane  EP_FI_AG       dep_EP</span></span>
+<span><span class="co">## 5  Analyse EP-FI Antilles-Guyane  EP_FI_AG        s4_EP</span></span>
+<span><span class="co">## 6  Analyse EP-FI Antilles-Guyane  EP_FI_AG redi_r310_EP</span></span>
+<span><span class="co">## 7  Analyse EP-FI Antilles-Guyane  EP_FI_AG     siren_FI</span></span>
+<span><span class="co">## 8  Analyse EP-FI Antilles-Guyane  EP_FI_AG     denom_FI</span></span>
+<span><span class="co">## 9  Analyse EP-FI Antilles-Guyane  EP_FI_AG       dep_FI</span></span>
+<span><span class="co">## 10 Analyse EP-FI Antilles-Guyane  EP_FI_AG        s4_FI</span></span>
+<span><span class="co">##                                        libelle libelle_court</span></span>
+<span><span class="co">## 1                           Année de référence         Année</span></span>
+<span><span class="co">## 2        Numéro SIREN de l'entreprise profilée      SIREN EP</span></span>
+<span><span class="co">## 3        Dénomination de l'entreprise profilée        Nom EP</span></span>
+<span><span class="co">## 4         Département de l'entreprise profilée       Dép. EP</span></span>
+<span><span class="co">## 5  Secteur d'activité de l'entreprise profilée    Secteur EP</span></span>
+<span><span class="co">## 6  Chiffre d'affaires de l'entreprise profilée         CA EP</span></span>
+<span><span class="co">## 7                    Identifiant de la filiale         ID FI</span></span>
+<span><span class="co">## 8                   Dénomination de la filiale        Nom FI</span></span>
+<span><span class="co">## 9                    Département de la filiale       Dép. FI</span></span>
+<span><span class="co">## 10            Secteur d'activité de la filiale    Secteur FI</span></span>
+<span><span class="co">##                                                                                description</span></span>
+<span><span class="co">## 1                                                         Année des données (2022 ou 2023)</span></span>
+<span><span class="co">## 2                                 Identifiant unique à 9 chiffres de l'entreprise profilée</span></span>
+<span><span class="co">## 3                                                  Raison sociale de l'entreprise profilée</span></span>
+<span><span class="co">## 4                               Code département de l'entreprise profilée (971, 972, etc.)</span></span>
+<span><span class="co">## 5                     Secteur d'activité en 4 postes (Industrie, Services marchands, etc.)</span></span>
+<span><span class="co">## 6                                   Montant du chiffre d'affaires de l'entreprise profilée</span></span>
+<span><span class="co">## 7                                                         Identifiant unique de la filiale</span></span>
+<span><span class="co">## 8                                                             Raison sociale de la filiale</span></span>
+<span><span class="co">## 9                                      Code département de la filiale (971, 972, 973, 974)</span></span>
+<span><span class="co">## 10 Secteur d'activité en 4 postes (Industrie, Construction, Commerces, Services marchands)</span></span></code></pre>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"EP_FI_AG"</span><span class="op">)</span></span>
+<span><span class="va">EP_FI_AG</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   annee  siren_EP     denom_EP dep_EP              s4_EP redi_r310_EP siren_FI</span></span>
+<span><span class="co">## 1  2022 123456789 Entreprise A    971          Industrie         4184      FI1</span></span>
+<span><span class="co">## 2  2022 987654321 Entreprise B    972 Services marchands         1880      FI2</span></span>
+<span><span class="co">## 3  2022 123456789 Entreprise A    971          Industrie         3873      FI3</span></span>
+<span><span class="co">## 4  2022 987654321 Entreprise B    972 Services marchands         2107      FI4</span></span>
+<span><span class="co">## 5  2022 123456789 Entreprise A    971          Industrie         4866      FI5</span></span>
+<span><span class="co">##    denom_FI dep_FI              s4_FI redi_r310_FI poids  dep_FI_relatif</span></span>
+<span><span class="co">## 1 Filiale 1    971          Industrie         1366     1       interieur</span></span>
+<span><span class="co">## 2 Filiale 2    972       Construction         1813     1       interieur</span></span>
+<span><span class="co">## 3 Filiale 3    973          Commerces          609     1 antilles-guyane</span></span>
+<span><span class="co">## 4 Filiale 4    974 Services marchands         1857     1          autres</span></span>
+<span><span class="co">## 5 Filiale 5    971          Industrie          574     1       interieur</span></span></code></pre>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">EP_FI_AG</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"table_demandes_valides"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"table_demandes_erreurs"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="ecriture-sur-excel">Ecriture sur excel<a class="anchor" aria-label="anchor" href="#ecriture-sur-excel"></a>
+</h3>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">metadonnees_tables</span></span></code></pre></div>
+<pre><code><span><span class="co">##                        nom_etude nom_table   nom_variable</span></span>
+<span><span class="co">## 1  Analyse EP-FI Antilles-Guyane  EP_FI_AG          annee</span></span>
+<span><span class="co">## 2  Analyse EP-FI Antilles-Guyane  EP_FI_AG       siren_EP</span></span>
+<span><span class="co">## 3  Analyse EP-FI Antilles-Guyane  EP_FI_AG       denom_EP</span></span>
+<span><span class="co">## 4  Analyse EP-FI Antilles-Guyane  EP_FI_AG         dep_EP</span></span>
+<span><span class="co">## 5  Analyse EP-FI Antilles-Guyane  EP_FI_AG          s4_EP</span></span>
+<span><span class="co">## 6  Analyse EP-FI Antilles-Guyane  EP_FI_AG   redi_r310_EP</span></span>
+<span><span class="co">## 7  Analyse EP-FI Antilles-Guyane  EP_FI_AG       siren_FI</span></span>
+<span><span class="co">## 8  Analyse EP-FI Antilles-Guyane  EP_FI_AG       denom_FI</span></span>
+<span><span class="co">## 9  Analyse EP-FI Antilles-Guyane  EP_FI_AG         dep_FI</span></span>
+<span><span class="co">## 10 Analyse EP-FI Antilles-Guyane  EP_FI_AG          s4_FI</span></span>
+<span><span class="co">## 11 Analyse EP-FI Antilles-Guyane  EP_FI_AG   redi_r310_FI</span></span>
+<span><span class="co">## 12 Analyse EP-FI Antilles-Guyane  EP_FI_AG          poids</span></span>
+<span><span class="co">## 13 Analyse EP-FI Antilles-Guyane  EP_FI_AG dep_FI_relatif</span></span>
+<span><span class="co">##                                        libelle libelle_court</span></span>
+<span><span class="co">## 1                           Année de référence         Année</span></span>
+<span><span class="co">## 2        Numéro SIREN de l'entreprise profilée      SIREN EP</span></span>
+<span><span class="co">## 3        Dénomination de l'entreprise profilée        Nom EP</span></span>
+<span><span class="co">## 4         Département de l'entreprise profilée       Dép. EP</span></span>
+<span><span class="co">## 5  Secteur d'activité de l'entreprise profilée    Secteur EP</span></span>
+<span><span class="co">## 6  Chiffre d'affaires de l'entreprise profilée         CA EP</span></span>
+<span><span class="co">## 7                    Identifiant de la filiale         ID FI</span></span>
+<span><span class="co">## 8                   Dénomination de la filiale        Nom FI</span></span>
+<span><span class="co">## 9                    Département de la filiale       Dép. FI</span></span>
+<span><span class="co">## 10            Secteur d'activité de la filiale    Secteur FI</span></span>
+<span><span class="co">## 11            Chiffre d'affaires de la filiale         CA FI</span></span>
+<span><span class="co">## 12                      Poids de l'observation         Poids</span></span>
+<span><span class="co">## 13         Localisation relative de la filiale Loc. relative</span></span>
+<span><span class="co">##                                                                                      description</span></span>
+<span><span class="co">## 1                                                               Année des données (2022 ou 2023)</span></span>
+<span><span class="co">## 2                                       Identifiant unique à 9 chiffres de l'entreprise profilée</span></span>
+<span><span class="co">## 3                                                        Raison sociale de l'entreprise profilée</span></span>
+<span><span class="co">## 4                                     Code département de l'entreprise profilée (971, 972, etc.)</span></span>
+<span><span class="co">## 5                           Secteur d'activité en 4 postes (Industrie, Services marchands, etc.)</span></span>
+<span><span class="co">## 6                                         Montant du chiffre d'affaires de l'entreprise profilée</span></span>
+<span><span class="co">## 7                                                               Identifiant unique de la filiale</span></span>
+<span><span class="co">## 8                                                                   Raison sociale de la filiale</span></span>
+<span><span class="co">## 9                                            Code département de la filiale (971, 972, 973, 974)</span></span>
+<span><span class="co">## 10       Secteur d'activité en 4 postes (Industrie, Construction, Commerces, Services marchands)</span></span>
+<span><span class="co">## 11                                                   Montant du chiffre d'affaires de la filiale</span></span>
+<span><span class="co">## 12                                    Coefficient de pondération de l'observation (1 par défaut)</span></span>
+<span><span class="co">## 13 Position géographique de la filiale par rapport à son EP (interieur, antilles-guyane, autres)</span></span></code></pre>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">table_demandes</span> <span class="op">&lt;-</span> <span class="va">table_demandes_valides</span></span>
+<span><span class="va">erreurs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/controler_demandes.html">controler_demandes</a></span><span class="op">(</span><span class="va">table_demandes</span><span class="op">)</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">erreurs</span><span class="op">)</span><span class="op">!=</span><span class="fl">0</span><span class="op">)</span> <span class="kw"><a href="https://rdrr.io/r/base/stop.html" class="external-link">stop</a></span><span class="op">(</span><span class="st">"il ya des erreurs dans les demandes"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># metadonnees_tables &lt;- NULL</span></span>
+<span><span class="co"># gestion excel ok &lt;-</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">table_demandes</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/ecrire_demande_sur_xls.html">ecrire_demande_sur_xls</a></span><span class="op">(</span><span class="va">table_demandes</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>,<span class="va">metadonnees_tables</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 1</span></span>
+<span><span class="co">## [1] 2</span></span>
+<span><span class="co">## [1] 3</span></span>
+<span><span class="co">## [1] 4</span></span>
+<span><span class="co">## [1] 5</span></span>
+<span><span class="co">## [1] 6</span></span>
+<span><span class="co">## [1] 7</span></span>
+<span><span class="co">## [1] 8</span></span>
+<span><span class="co">## [1] 9</span></span>
+<span><span class="co">## [1] 10</span></span>
+<span><span class="co">## [1] 11</span></span>
+<span><span class="co">## [1] 12</span></span>
+<span><span class="co">## [1] 13</span></span>
+<span><span class="co">## [1] 14</span></span>
+<span><span class="co">## [1] 15</span></span>
+<span><span class="co">## [1] 16</span></span>
+<span><span class="co">## [1] 17</span></span>
+<span><span class="co">## [1] 18</span></span>
+<span><span class="co">## [1] 19</span></span>
+<span><span class="co">## [1] 20</span></span></code></pre>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ecrire_etude</span></span></code></pre></div>
+<pre><code><span><span class="co">## function (nom_etude, ollama) </span></span>
+<span><span class="co">## {</span></span>
+<span><span class="co">##     dir_etude &lt;- paste0("Etudes/", nom_etude, "/")</span></span>
+<span><span class="co">##     code_path &lt;- file.path(dir_etude, "codes")</span></span>
+<span><span class="co">##     source(file.path(code_path, "Preparation_donnees.R"), encoding = "UTF-8")</span></span>
+<span><span class="co">##     input_path &lt;- file.path(dir_etude, "input")</span></span>
+<span><span class="co">##     metadonnees_etude &lt;- jsonlite::fromJSON(file.path(input_path, </span></span>
+<span><span class="co">##         "metadonnees_etude.json"))</span></span>
+<span><span class="co">##     metadonnees_tables &lt;- read.csv(file.path(input_path, "metadonnees_tables.csv"))</span></span>
+<span><span class="co">##     table_demandes_rmd &lt;- read.csv(file.path(input_path, "fichier_demandes.csv"))</span></span>
+<span><span class="co">##     liste_info_chunk &lt;- pblapply(1:nrow(table_demandes_rmd), </span></span>
+<span><span class="co">##         function(i) {</span></span>
+<span><span class="co">##             if (ollama) {</span></span>
+<span><span class="co">##                 generer_figure_from_demande(table_demandes_rmd[i, </span></span>
+<span><span class="co">##                   ], metadonnees_tables, ollama = TRUE, fonction_ask = function(prompt) ask_ollama(prompt, </span></span>
+<span><span class="co">##                   "mistral-small"), metadonnees_etude = metadonnees_etude)</span></span>
+<span><span class="co">##             }</span></span>
+<span><span class="co">##             else {</span></span>
+<span><span class="co">##                 generer_figure_from_demande(table_demandes_rmd[i, </span></span>
+<span><span class="co">##                   ], metadonnees_tables)</span></span>
+<span><span class="co">##             }</span></span>
+<span><span class="co">##         })</span></span>
+<span><span class="co">##     nom_rapport &lt;- paste0("rapport_automatique_", nom_etude, </span></span>
+<span><span class="co">##         ".Rmd")</span></span>
+<span><span class="co">##     generer_markdown_auto_simple(liste_info_chunk, nom_rapport = nom_rapport)</span></span>
+<span><span class="co">##     rmarkdown::render(input = paste0("output/", nom_rapport), </span></span>
+<span><span class="co">##         envir = environment())</span></span>
+<span><span class="co">## }</span></span>
+<span><span class="co">## &lt;bytecode: 0x55a4ea0c5f28&gt;</span></span>
+<span><span class="co">## &lt;environment: namespace:BoutadE&gt;</span></span></code></pre>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># gestion excel ok &lt;-</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">table_demandes</span><span class="op">)</span><span class="op">)</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">i</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/ecrire_demande_sur_xls.html">ecrire_demande_sur_xls</a></span><span class="op">(</span><span class="va">table_demandes</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>,<span class="va">metadonnees_tables</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 1</span></span>
+<span><span class="co">## [1] 2</span></span>
+<span><span class="co">## [1] 3</span></span>
+<span><span class="co">## [1] 4</span></span>
+<span><span class="co">## [1] 5</span></span>
+<span><span class="co">## [1] 6</span></span>
+<span><span class="co">## [1] 7</span></span>
+<span><span class="co">## [1] 8</span></span>
+<span><span class="co">## [1] 9</span></span>
+<span><span class="co">## [1] 10</span></span>
+<span><span class="co">## [1] 11</span></span>
+<span><span class="co">## [1] 12</span></span>
+<span><span class="co">## [1] 13</span></span>
+<span><span class="co">## [1] 14</span></span>
+<span><span class="co">## [1] 15</span></span>
+<span><span class="co">## [1] 16</span></span>
+<span><span class="co">## [1] 17</span></span>
+<span><span class="co">## [1] 18</span></span>
+<span><span class="co">## [1] 19</span></span>
+<span><span class="co">## [1] 20</span></span></code></pre>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">liste_info_chunk</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/pbapply/man/pbapply.html" class="external-link">pblapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">table_demandes_rmd</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="op">{</span> <span class="fu"><a href="../reference/generer_figure_from_demande.html">generer_figure_from_demande</a></span><span class="op">(</span><span class="va">table_demandes_rmd</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span>,<span class="va">metadonnees_tables</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># etude d'un element</span></span>
+<span><span class="va">element</span> <span class="op">&lt;-</span> <span class="va">liste_info_chunk</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">figure</span> <span class="op">&lt;-</span> <span class="va">element</span><span class="op">$</span><span class="va">figure</span></span>
+<span><span class="va">figure</span></span></code></pre></div>
+<p><img src="Exemple_complet_utilisation_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">nom_rapport</span> <span class="op">&lt;-</span> <span class="st">"rapport_titou.rmd"</span></span>
+<span><span class="co"># genere le .rmd rapport titou  </span></span>
+<span><span class="fu"><a href="../reference/generer_markdown_auto_simple.html">generer_markdown_auto_simple</a></span><span class="op">(</span><span class="va">liste_info_chunk</span>, nom_rapport <span class="op">=</span> <span class="va">nom_rapport</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#rmarkdown::render(input = paste0("output/", nom_rapport),envir = environment())</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">table_demandes_rmd</span></span></code></pre></div>
+<pre><code><span><span class="co">##    id_demande    table condition var_croisement var_croisement_relative</span></span>
+<span><span class="co">## 1           1 EP_FI_AG             annee-dep_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 2           2 EP_FI_AG                    s4_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 3           3 EP_FI_AG                   dep_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 4           4 EP_FI_AG                    s4_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 5           5 EP_FI_AG            dep_EP-dep_FI          dep_FI_relatif</span></span>
+<span><span class="co">## 6           6 EP_FI_AG              s4_EP-s4_FI          dep_FI_relatif</span></span>
+<span><span class="co">## 7           7 EP_FI_AG                   dep_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 8           8 EP_FI_AG             s4_EP-dep_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 9           9 EP_FI_AG                   dep_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 10         10 EP_FI_AG                    s4_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 11         11 EP_FI_AG             dep_EP-s4_FI          dep_FI_relatif</span></span>
+<span><span class="co">## 12         12 EP_FI_AG                    s4_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 13         13 EP_FI_AG             dep_EP-s4_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 14         14 EP_FI_AG             s4_EP-dep_FI          dep_FI_relatif</span></span>
+<span><span class="co">## 15         15 EP_FI_AG                   dep_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 16         16 EP_FI_AG              s4_EP-s4_FI          dep_FI_relatif</span></span>
+<span><span class="co">## 17         17 EP_FI_AG            dep_EP-dep_FI          dep_FI_relatif</span></span>
+<span><span class="co">## 18         18 EP_FI_AG                    s4_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 19         19 EP_FI_AG                   dep_EP          dep_FI_relatif</span></span>
+<span><span class="co">## 20         20 EP_FI_AG              annee-s4_EP                        </span></span>
+<span><span class="co">##    var_evolution                var_quanti         unite fonctions_agregations</span></span>
+<span><span class="co">## 1          annee              redi_r310_EP       millier                   sum</span></span>
+<span><span class="co">## 2                redi_r310_EP-redi_r310_FI millier-unite              sum-mean</span></span>
+<span><span class="co">## 3                             redi_r310_EP       millier                   sum</span></span>
+<span><span class="co">## 4                             redi_r310_FI         unite                   sum</span></span>
+<span><span class="co">## 5                             redi_r310_EP       millier                   sum</span></span>
+<span><span class="co">## 6                redi_r310_EP-redi_r310_FI unite-millier              mean-sum</span></span>
+<span><span class="co">## 7                             redi_r310_EP       millier                   sum</span></span>
+<span><span class="co">## 8                             redi_r310_FI       millier                   sum</span></span>
+<span><span class="co">## 9                             redi_r310_EP       millier                   sum</span></span>
+<span><span class="co">## 10                            redi_r310_FI       millier                   sum</span></span>
+<span><span class="co">## 11               redi_r310_EP-redi_r310_FI unite-millier              mean-sum</span></span>
+<span><span class="co">## 12                            redi_r310_EP       millier                   sum</span></span>
+<span><span class="co">## 13                            redi_r310_FI       millier                   sum</span></span>
+<span><span class="co">## 14                            redi_r310_EP       millier                   sum</span></span>
+<span><span class="co">## 15                            redi_r310_FI         unite                   sum</span></span>
+<span><span class="co">## 16               redi_r310_EP-redi_r310_FI unite-millier              mean-sum</span></span>
+<span><span class="co">## 17                            redi_r310_EP       millier                   sum</span></span>
+<span><span class="co">## 18                            redi_r310_FI         unite                   sum</span></span>
+<span><span class="co">## 19                            redi_r310_EP       millier                   sum</span></span>
+<span><span class="co">## 20               redi_r310_EP-redi_r310_FI unite-millier              mean-max</span></span>
+<span><span class="co">##                        titre                                           partie</span></span>
+<span><span class="co">## 1  Analyse multi-indicateurs                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 2        Analyse sectorielle                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 3     Analyse départementale                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 4        Analyse comparative                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 5        Analyse statistique                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 6       Analyse géographique                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 7         Analyse temporelle                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 8       Analyse structurelle                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 9          Analyse détaillée                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 10           Analyse globale                  Etudes des filiales antillaises</span></span>
+<span><span class="co">## 11        Analyse spécifique etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">## 12           Analyse agrégée etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">## 13          Analyse ventilée etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">## 14           Analyse croisée etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">## 15       Analyse synthétique etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">## 16       Analyse approfondie etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">## 17        Analyse thématique etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">## 18        Analyse consolidée etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">## 19         Analyse segmentée etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">## 20       Analyse stratégique etude des détentions des entreprises antillaises</span></span>
+<span><span class="co">##               sous_partie type_figure</span></span>
+<span><span class="co">## 1   le chiffre d' affaire       kable</span></span>
+<span><span class="co">## 2   le chiffre d' affaire   graphique</span></span>
+<span><span class="co">## 3   le chiffre d' affaire       kable</span></span>
+<span><span class="co">## 4   le chiffre d' affaire   graphique</span></span>
+<span><span class="co">## 5   le chiffre d' affaire       kable</span></span>
+<span><span class="co">## 6   le chiffre d' affaire   graphique</span></span>
+<span><span class="co">## 7   le chiffre d' affaire       kable</span></span>
+<span><span class="co">## 8   le chiffre d' affaire   graphique</span></span>
+<span><span class="co">## 9   le chiffre d' affaire       kable</span></span>
+<span><span class="co">## 10  le chiffre d' affaire   graphique</span></span>
+<span><span class="co">## 11 en nombre d'entreprise       kable</span></span>
+<span><span class="co">## 12 en nombre d'entreprise   graphique</span></span>
+<span><span class="co">## 13 en nombre d'entreprise       kable</span></span>
+<span><span class="co">## 14 en nombre d'entreprise   graphique</span></span>
+<span><span class="co">## 15 en nombre d'entreprise       kable</span></span>
+<span><span class="co">## 16 en nombre d'entreprise   graphique</span></span>
+<span><span class="co">## 17 en nombre d'entreprise       kable</span></span>
+<span><span class="co">## 18 en nombre d'entreprise   graphique</span></span>
+<span><span class="co">## 19 en nombre d'entreprise       kable</span></span>
+<span><span class="co">## 20 en nombre d'entreprise       kable</span></span></code></pre>
+</div>
+<div class="section level2">
+<h2 id="courage-ma-titou">Courage ma titou !!<a class="anchor" aria-label="anchor" href="#courage-ma-titou"></a>
+</h2>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># gestion excel ok &lt;-</span></span>
+<span><span class="va">liste_tables_params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">table_demandes</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="fu"><a href="../reference/renvoyer_table_from_demande.html">renvoyer_table_from_demande</a></span><span class="op">(</span><span class="va">table_demandes</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">liste_tables</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">liste_tables_params</span>,<span class="kw">function</span><span class="op">(</span><span class="va">table_param</span><span class="op">)</span> <span class="va">table_param</span><span class="op">$</span><span class="va">table</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">liste_tables</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> </span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
+<span><span class="co">##   s4_EP dep_FI_relatif `redi_r310_EP-sum` `redi_r310_EP-tot` `redi_r310_EP-part`</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Indu… antilles-guya…                 39                 90                43.8</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Indu… interieur                      50                 90                56.2</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Serv… autres                         41                 83                50  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Serv… interieur                      41                 83                50  </span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: `redi_r310_FI-mean` &lt;dbl&gt;</span></span></span></code></pre>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">liste_tables</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> </span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 5</span></span></span>
+<span><span class="co">##   dep_EP dep_FI_relatif  `redi_r310_EP-sum` `redi_r310_EP-tot`</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> 971    antilles-guyane                 39                 90</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> 971    interieur                       50                 90</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> 972    autres                          41                 83</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> 972    interieur                       41                 83</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: `redi_r310_EP-part` &lt;dbl&gt;</span></span></span></code></pre>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">liste_tables</span><span class="op">[[</span><span class="fl">14</span><span class="op">]</span><span class="op">]</span> </span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
+<span><span class="co">##   s4_EP              dep_FI dep_FI_relatif `redi_r310_EP-sum` `redi_r310_EP-tot`</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> Industrie          971    interieur                      50                 50</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> Industrie          973    antilles-guya…                 39                 39</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> Services marchands 972    interieur                      41                 41</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> Services marchands 974    autres                         41                 41</span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: `redi_r310_EP-part` &lt;dbl&gt;</span></span></span></code></pre>
+</div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
