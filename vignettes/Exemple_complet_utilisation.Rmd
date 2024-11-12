@@ -75,7 +75,7 @@ for (i in 1:nrow(table_demandes)){
 
 ```{r}
 
-liste_info_chunk <- pblapply(1:nrow(table_demandes_rmd), function(i){ generer_figure_from_demande(table_demandes_rmd[i,])
+liste_info_chunk <- pblapply(1:nrow(table_demandes_rmd), function(i){ generer_figure_from_demande(table_demandes_rmd[i,],metadonnees_tables)
 }
 )
 ```
@@ -106,7 +106,7 @@ table_demandes_rmd
 ```{r}
 
 # gestion excel ok <-
-liste_tables_params <- lapply(1:nrow(table_demandes), function(i)renvoyer_table_from_demande(table_demandes[i,],metadonnees_tables))
+liste_tables_params <- lapply(1:nrow(table_demandes), function(i)renvoyer_table_from_demande(table_demandes[i,]))
 liste_tables <- lapply(liste_tables_params,function(table_param) table_param$table)
 
 liste_tables[[2]] 
