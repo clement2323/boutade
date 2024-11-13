@@ -104,18 +104,9 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"metadonnees_etude"</span><span class="op">)</span> <span class="co">#  metadonnee d'une etude</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">metadonnees_etude</span><span class="op">)</span>  <span class="co"># Que pour parler ollama (YODA)</span></span></code></pre></div>
-<pre><code><span><span class="co">## List of 3</span></span>
-<span><span class="co">##  $ nom         : chr "Analyse EP-FI Antilles-Guyane"</span></span>
-<span><span class="co">##  $ description : chr "Étude des relations entre entreprises profilées et leurs filiales dans les Antilles-Guyane"</span></span>
-<span><span class="co">##  $ public_cible:List of 2</span></span>
-<span><span class="co">##   ..$ type                      : chr "enfant de 8-12 ans"</span></span>
-<span><span class="co">##   ..$ instructions_communication:List of 3</span></span>
-<span><span class="co">##   .. ..$ style             : chr "pédagogique"</span></span>
-<span><span class="co">##   .. ..$ directives        : chr [1:5] "Réponds comme si tu parlais à un enfant" "Utilise des métaphores simples" "Évite le jargon technique" "Inclus des exemples du quotidien" ...</span></span>
-<span><span class="co">##   .. ..$ vocabulaire_adapte:List of 3</span></span>
-<span><span class="co">##   .. .. ..$ entreprise_profilée: chr "grande entreprise"</span></span>
-<span><span class="co">##   .. .. ..$ filiale            : chr "petite entreprise qui appartient à la grande"</span></span>
-<span><span class="co">##   .. .. ..$ chiffre_affaires   : chr "argent gagné"</span></span></code></pre>
+<pre><code><span><span class="co">## List of 2</span></span>
+<span><span class="co">##  $ nom        : chr "Analyse EP-FI Antilles-Guyane"</span></span>
+<span><span class="co">##  $ description: chr "Étude des relations entre entreprises profilées et leurs filiales dans les Antilles-Guyane"</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"metadonnees_tables"</span><span class="op">)</span> <span class="co">#  metadonnee d'une etude</span></span>
 <span><span class="va">metadonnees_tables</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="co"># tu en as besoin</span></span></code></pre></div>
@@ -168,7 +159,7 @@
 <span><span class="co">## 4 Filiale 4    974 Services marchands         1857     1          autres</span></span>
 <span><span class="co">## 5 Filiale 5    971          Industrie          574     1       interieur</span></span></code></pre>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">EP_FI_AG</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/setDT.html" class="external-link">setDT</a></span><span class="op">(</span><span class="va">EP_FI_AG</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"table_demandes_valides"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"table_demandes_erreurs"</span><span class="op">)</span></span></code></pre></div>
@@ -280,7 +271,7 @@
 <span><span class="co">##     rmarkdown::render(input = paste0("output/", nom_rapport), </span></span>
 <span><span class="co">##         envir = environment())</span></span>
 <span><span class="co">## }</span></span>
-<span><span class="co">## &lt;bytecode: 0x55a4ea0c5f28&gt;</span></span>
+<span><span class="co">## &lt;bytecode: 0x56551f80a118&gt;</span></span>
 <span><span class="co">## &lt;environment: namespace:BoutadE&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># gestion excel ok &lt;-</span></span>
