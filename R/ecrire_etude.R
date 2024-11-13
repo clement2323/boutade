@@ -9,7 +9,7 @@
 #' @import rmarkdown
 #' @importFrom jsonlite fromJSON
 #' @importFrom pbapply pblapply
-#' 
+#' @export 
 #' @examples
 #' ecrire_etude("titanic", ollama = TRUE, role = "analyste")
 ecrire_etude <- function(nom_etude, ollama = FALSE, model_name = "mistral-small", role = NULL) {
