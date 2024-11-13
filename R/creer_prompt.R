@@ -69,6 +69,8 @@ preparer_prompt <- function(table_agrege, metadonnees_tables,metadonnees_etude,m
   # Ajouter les instructions d'analyse
   instructions <- paste(
     "INSTRUCTION :",
+    "Décris les points importants que l'on peut observer dans ces données.
+     Ne fais jamais mention des données en tant que telles décris juste les faits que tu observes.",
     paste(metadonnees_role$instructions_communication$directives, 
           collapse = "\n"),
     sep = "\n"
