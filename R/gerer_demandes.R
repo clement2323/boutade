@@ -92,12 +92,12 @@ ecrire_demande_sur_xls <- function(vecteur_demande, metadata = NULL) {
 #' @return Liste contenant la table agrégée, la réponse Ollama et les paramètres
 #' @importFrom ggplot2 ggplot geom_bar
 #' @export
+
 generer_figure_from_demande <- function(vecteur_demande, metadonnees_tables,
                                       ollama = FALSE, fonction_ask = NULL, 
                                       metadonnees_role = NULL, metadonnees_etude = NULL) {
 
-  #data("metadonnees_tables"); data("metadonnees_role")
-  #vecteur_demande <- table_demandes_rmd[20,]
+  #vecteur_demande <- table_demandes_rmd[20,] setDT(EP_FI_AG)
   liste_resultat <- renvoyer_table_from_demande(vecteur_demande)
   table_agrege <- liste_resultat$table
   params <- liste_resultat$params
