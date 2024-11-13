@@ -1,68 +1,61 @@
-#' Génère un rapport automatique à partir des demandes d'analyse
-#'
-#' @param nom_etude Character. Nom du dossier d'étude dans le répertoire "Etudes/"
-#' @param ollama Logical. Si TRUE, utilise l'IA Ollama pour la génération des figures
-#'
-#' @details
-#' La fonction lit les métadonnées et demandes depuis les fichiers :
-#' - metadonnees_etude.json
-#' - metadonnees_tables.csv  
-#' - fichier_demandes.csv
-#'
-#' @return Génère un fichier Rmd dans le dossier output/ et le compile
-#' @export
-#'
+#' Génère un rapport automatique à partir des métadonnées d'une étude
+#' 
+#' @param nom_etude Nom de l'étude (chaîne de caractères)
+#' @param ollama Utilisation d'Ollama pour la génération (logique, défaut FALSE)
+#' @param model_name Nom du modèle Ollama (chaîne, défaut "mistral-small")
+#' @param role Rôle utilisateur pour personnalisation (chaîne, optionnel)
+#' 
+#' @return Génère un fichier Rmd et son rendu HTML dans le dossier output/
+#' @import rmarkdown
+#' @importFrom jsonlite fromJSON
+#' @importFrom pbapply pblapply
+#' 
 #' @examples
-#' \dontrun{
-#' ecrire_etude("mon_etude", ollama = FALSE)
-#' }
-ecrire_etude <- function(nom_etude, ollama) {
-  #nom_etude <- liste_dir_etude[[1]]
-  #ollama <- TRUE
+#' ecrire_etude("titanic", ollama = TRUE, role = "analyste")
+ecrire_etude <- function(nom_etude, ollama = FALSE, model_name = "mistral-small", role = NULL) {
   
-  dir_etude <- paste0("Etudes/",nom_etude,"/")
+  #nom_etude = "titanic"
+  #ollama = TRUE
+  #model_name = "mistral-small"
+  #role = "blase"
   
-  # source
-  # env <- new.env()
-  # env$dir_etude <- dir_etude
-
-  code_path <- file.path(dir_etude, "codes")
-  source(file.path(code_path,"Preparation_donnees.R"),#local = env,
-         encoding= "UTF-8")
-  
-  # Définition du chemin de base
-  input_path <- file.path(dir_etude, "input")
-  metadonnees_etude <- jsonlite::fromJSON(file.path(input_path, "metadonnees_etude.json"))
-  metadonnees_tables <- read.csv(file.path(input_path, "metadonnees_tables.csv"))
-  table_demandes_rmd <- read.csv(file.path(input_path, "fichier_demandes.csv"))
-  
-  #erreurs <- controler_demandes(table_demandes_rmd)
-  #if(nrow(erreurs)!=0) erreurs; stop("il ya des erreurs dans les demandes")
-  
-  
-  liste_info_chunk <- pblapply(1:nrow(table_demandes_rmd),function(i){
-    if(ollama){      
-      generer_figure_from_demande(
-        table_demandes_rmd[i,],
-        metadonnees_tables,
-        ollama  = TRUE,
-        fonction_ask = function(prompt) ask_ollama(prompt,"mistral-small"),
-        metadonnees_etude = metadonnees_etude
-      )
-    }else{
-      generer_figure_from_demande(
-        table_demandes_rmd[i,],
-        metadonnees_tables
-      )
-    }
+  return_filename <- function(dir,nom_etude){
+    paste0(dir,"/",grep(nom_etude,list.files(dir),value=TRUE))
   }
-  )
-  nom_rapport <- paste0("rapport_automatique_",nom_etude,".Rmd")
-  generer_markdown_auto_simple(liste_info_chunk,nom_rapport = nom_rapport)
+
+
+  source(return_filename("codes",nom_etude),encoding="UTF-8")
+  table_demandes <- read.csv(return_filename("metadonnees/demandes",nom_etude),encoding="UTF-8")
+  metadonnees_tables <- read.csv(return_filename("metadonnees/metadonnees_tables",nom_etude),encoding="UTF-8")
+  metadonnees_etude <- fromJSON(return_filename("metadonnees/metadonnees_etudes",nom_etude))
+  metadonnees_role <- fromJSON(paste0("metadonnees/roles/role_",role,".json"))
+
+  liste_info_chunk <- pblapply(
+    1:nrow(table_demandes), 
+    function(i) { 
+      # i <- 8
+      if(ollama){
+        generer_figure_from_demande(
+          table_demandes[i, ],
+          metadonnees_tables, 
+          ollama = TRUE,
+          fonction_ask = function(prompt) ask_ollama(prompt,model_name),
+          metadonnees_role = metadonnees_role,
+          metadonnees_etude = metadonnees_etude
+        )
+      }else{
+        generer_figure_from_demande(
+          table_demandes_rmd[i,],
+          metadonnees_tables
+          )
+      }
+  })
   
+  nom_rapport <- paste0("rapport_automatique_", nom_etude, "_",role,".Rmd")
+  generer_markdown_auto_simple(liste_info_chunk, nom_rapport = nom_rapport)
   rmarkdown::render(
-    input = paste0("output/", nom_rapport),
+    input = paste0("output/", nom_rapport), 
     envir = environment()
-  )
-  
+    )
 }
+  

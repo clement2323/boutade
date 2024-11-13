@@ -2,31 +2,30 @@
 % Please edit documentation in R/ecrire_etude.R
 \name{ecrire_etude}
 \alias{ecrire_etude}
-\title{Génère un rapport automatique à partir des demandes d'analyse}
+\title{Génère un rapport automatique à partir des métadonnées d'une étude}
 \usage{
-ecrire_etude(nom_etude, ollama)
+ecrire_etude(
+  nom_etude,
+  ollama = FALSE,
+  model_name = "mistral-small",
+  role = NULL
+)
 }
 \arguments{
-\item{nom_etude}{Character. Nom du dossier d'étude dans le répertoire "Etudes/"}
+\item{nom_etude}{Nom de l'étude (chaîne de caractères)}
 
-\item{ollama}{Logical. Si TRUE, utilise l'IA Ollama pour la génération des figures}
+\item{ollama}{Utilisation d'Ollama pour la génération (logique, défaut FALSE)}
+
+\item{model_name}{Nom du modèle Ollama (chaîne, défaut "mistral-small")}
+
+\item{role}{Rôle utilisateur pour personnalisation (chaîne, optionnel)}
 }
 \value{
-Génère un fichier Rmd dans le dossier output/ et le compile
+Génère un fichier Rmd et son rendu HTML dans le dossier output/
 }
 \description{
-Génère un rapport automatique à partir des demandes d'analyse
-}
-\details{
-La fonction lit les métadonnées et demandes depuis les fichiers :
-\itemize{
-\item metadonnees_etude.json
-\item metadonnees_tables.csv
-\item fichier_demandes.csv
-}
+Génère un rapport automatique à partir des métadonnées d'une étude
 }
 \examples{
-\dontrun{
-ecrire_etude("mon_etude", ollama = FALSE)
-}
+ecrire_etude("titanic", ollama = TRUE, role = "analyste")
 }
