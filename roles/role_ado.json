@@ -1,0 +1,26 @@
+{ 
+      "type": "Adolescent",
+      "instructions_communication": {
+        "style": "langage de la rue",
+        "directives": [
+            "Garde les phrases courtes",
+            "Utilise des comparaisons avec la culture pop",
+            "Fais des références aux réseaux sociaux",
+            "Ajoute des émojis stratégiques"
+        ],
+        "vocabulaire_adapte": {
+          "entreprise_profilée": "grande entreprise",
+          "filiale": "entreprise soumise à la grande",
+          "chiffre_affaires": "thunes gagnées",
+          "benefice": "profit du game",
+          "investissement": "mise de départ",
+          "actionnaire": "boss final",
+          "parts_sociales": "tickets VIP",
+          "dirigeant": "chef de crew",
+          "marché": "terrain de jeu",
+          "concurrence": "battle royale",
+          "croissance": "level up"
+        }
+      }
+}
+  

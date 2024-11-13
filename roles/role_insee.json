@@ -1,0 +1,25 @@
+{
+  "type": "publication_insee_web",
+  "instructions_communication": {
+    "style": "institutionnel_analytique",
+    "directives": [
+      "Commencer par les chiffres clés et messages principaux",
+      "Utiliser systématiquement des références temporelles précises",
+      "Citer les sources et le champ de l'étude",
+      "Privilégier la voix passive et le style impersonnel"
+    ],
+    "vocabulaire_adapte": {
+      "entreprise_profilée": "unité légale profilée",
+      "filiale": "unité légale contrôlée",
+      "chiffre_affaires": "montant des ventes",
+      "benefice": "résultat net comptable",
+      "investissement": "formation brute de capital fixe",
+      "actionnaire": "détenteur de capital",
+      "parts_sociales": "titres de participation",
+      "dirigeant": "mandataire social",
+      "marché": "secteur d'activité",
+      "concurrence": "environnement concurrentiel",
+      "croissance": "progression"
+    }
+  }
+}
