@@ -42,7 +42,7 @@ generer_entete_prompt <- function(metadonnees_etude, metadonnees_role) {
 #' @param metadonnees_etude Métadonnées de l'étude
 #' @return Chaîne de caractères contenant le prompt complet
 #' @export
-preparer_prompt <- function(table_agrege, metadonnees_tables,metadonnees_etude,metadonnee_role,params) {
+preparer_prompt <- function(table_agrege, metadonnees_tables,metadonnees_etude,metadonnees_role,params) {
   # Générer l'en-tête
   prompt <- generer_entete_prompt(metadonnees_etude,metadonnees_role)
 
