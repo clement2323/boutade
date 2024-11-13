@@ -243,35 +243,40 @@
 <span><span class="co">## [1] 20</span></span></code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ecrire_etude</span></span></code></pre></div>
-<pre><code><span><span class="co">## function (nom_etude, ollama) </span></span>
+<pre><code><span><span class="co">## function (nom_etude, ollama = FALSE, model_name = "mistral-small", </span></span>
+<span><span class="co">##     role = NULL) </span></span>
 <span><span class="co">## {</span></span>
-<span><span class="co">##     dir_etude &lt;- paste0("Etudes/", nom_etude, "/")</span></span>
-<span><span class="co">##     code_path &lt;- file.path(dir_etude, "codes")</span></span>
-<span><span class="co">##     source(file.path(code_path, "Preparation_donnees.R"), encoding = "UTF-8")</span></span>
-<span><span class="co">##     input_path &lt;- file.path(dir_etude, "input")</span></span>
-<span><span class="co">##     metadonnees_etude &lt;- jsonlite::fromJSON(file.path(input_path, </span></span>
-<span><span class="co">##         "metadonnees_etude.json"))</span></span>
-<span><span class="co">##     metadonnees_tables &lt;- read.csv(file.path(input_path, "metadonnees_tables.csv"))</span></span>
-<span><span class="co">##     table_demandes_rmd &lt;- read.csv(file.path(input_path, "fichier_demandes.csv"))</span></span>
-<span><span class="co">##     liste_info_chunk &lt;- pblapply(1:nrow(table_demandes_rmd), </span></span>
-<span><span class="co">##         function(i) {</span></span>
-<span><span class="co">##             if (ollama) {</span></span>
-<span><span class="co">##                 generer_figure_from_demande(table_demandes_rmd[i, </span></span>
-<span><span class="co">##                   ], metadonnees_tables, ollama = TRUE, fonction_ask = function(prompt) ask_ollama(prompt, </span></span>
-<span><span class="co">##                   "mistral-small"), metadonnees_etude = metadonnees_etude)</span></span>
-<span><span class="co">##             }</span></span>
-<span><span class="co">##             else {</span></span>
-<span><span class="co">##                 generer_figure_from_demande(table_demandes_rmd[i, </span></span>
-<span><span class="co">##                   ], metadonnees_tables)</span></span>
-<span><span class="co">##             }</span></span>
-<span><span class="co">##         })</span></span>
+<span><span class="co">##     return_filename &lt;- function(dir, nom_etude) {</span></span>
+<span><span class="co">##         paste0(dir, "/", grep(nom_etude, list.files(dir), value = TRUE))</span></span>
+<span><span class="co">##     }</span></span>
+<span><span class="co">##     source(return_filename("codes", nom_etude), encoding = "UTF-8")</span></span>
+<span><span class="co">##     table_demandes &lt;- read.csv(return_filename("metadonnees/demandes", </span></span>
+<span><span class="co">##         nom_etude), encoding = "UTF-8")</span></span>
+<span><span class="co">##     metadonnees_tables &lt;- read.csv(return_filename("metadonnees/metadonnees_tables", </span></span>
+<span><span class="co">##         nom_etude), encoding = "UTF-8")</span></span>
+<span><span class="co">##     metadonnees_etude &lt;- fromJSON(return_filename("metadonnees/metadonnees_etudes", </span></span>
+<span><span class="co">##         nom_etude))</span></span>
+<span><span class="co">##     metadonnees_role &lt;- fromJSON(paste0("metadonnees/roles/role_", </span></span>
+<span><span class="co">##         role, ".json"))</span></span>
+<span><span class="co">##     liste_info_chunk &lt;- pblapply(1:nrow(table_demandes), function(i) {</span></span>
+<span><span class="co">##         if (ollama) {</span></span>
+<span><span class="co">##             generer_figure_from_demande(table_demandes[i, ], </span></span>
+<span><span class="co">##                 metadonnees_tables, ollama = TRUE, fonction_ask = function(prompt) ask_ollama(prompt, </span></span>
+<span><span class="co">##                   model_name), metadonnees_role = metadonnees_role, </span></span>
+<span><span class="co">##                 metadonnees_etude = metadonnees_etude)</span></span>
+<span><span class="co">##         }</span></span>
+<span><span class="co">##         else {</span></span>
+<span><span class="co">##             generer_figure_from_demande(table_demandes_rmd[i, </span></span>
+<span><span class="co">##                 ], metadonnees_tables)</span></span>
+<span><span class="co">##         }</span></span>
+<span><span class="co">##     })</span></span>
 <span><span class="co">##     nom_rapport &lt;- paste0("rapport_automatique_", nom_etude, </span></span>
-<span><span class="co">##         ".Rmd")</span></span>
+<span><span class="co">##         "_", role, ".Rmd")</span></span>
 <span><span class="co">##     generer_markdown_auto_simple(liste_info_chunk, nom_rapport = nom_rapport)</span></span>
 <span><span class="co">##     rmarkdown::render(input = paste0("output/", nom_rapport), </span></span>
 <span><span class="co">##         envir = environment())</span></span>
 <span><span class="co">## }</span></span>
-<span><span class="co">## &lt;bytecode: 0x55bd036d4de0&gt;</span></span>
+<span><span class="co">## &lt;bytecode: 0x56017d3a9690&gt;</span></span>
 <span><span class="co">## &lt;environment: namespace:BoutadE&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># gestion excel ok &lt;-</span></span>
