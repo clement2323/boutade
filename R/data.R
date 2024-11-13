@@ -114,3 +114,32 @@
 #' @examples
 #' metadonnees_etude$public_cible$vocabulaire_adapte$entreprise_profilée
 "metadonnees_etude"
+
+#' Métadonnées de rôle pour la communication
+#'
+#' Un jeu de données contenant les paramètres de communication adaptés 
+#' pour un public cible spécifique.
+#'
+#' @format Une liste avec 2 éléments principaux :
+#' \describe{
+#'   \item{type}{Type de public cible}
+#'   \item{instructions_communication}{Liste contenant :
+#'     \itemize{
+#'       \item style : Style de communication à adopter
+#'       \item directives : Vecteur des règles de communication
+#'       \item vocabulaire_adapte : Liste des traductions de termes techniques
+#'     }
+#'   }
+#' }
+"metadonnees_role"
+
+#' Métadonnées de l'étude
+#'
+#' Un jeu de données contenant les informations générales sur l'étude.
+#'
+#' @format Une liste avec 2 éléments :
+#' \describe{
+#'   \item{nom}{Nom de l'étude}
+#'   \item{description}{Description détaillée de l'étude}
+#' }
+"metadonnees_etude"

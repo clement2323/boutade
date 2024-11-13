@@ -17,12 +17,20 @@ Une liste imbriquée contenant:
 }
 }
 }
+
+Une liste avec 2 éléments :
+\describe{
+\item{nom}{Nom de l'étude}
+\item{description}{Description détaillée de l'étude}
+}
 }
 \usage{
 metadonnees_etude
+
+metadonnees_etude
 }
 \description{
-Métadonnées générales de l'étude EP-FI Antilles-Guyane
+Un jeu de données contenant les informations générales sur l'étude.
 }
 \examples{
 metadonnees_etude$public_cible$vocabulaire_adapte$entreprise_profilée

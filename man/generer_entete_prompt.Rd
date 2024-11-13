@@ -4,10 +4,12 @@
 \alias{generer_entete_prompt}
 \title{Générer l'en-tête du prompt selon le public cible}
 \usage{
-generer_entete_prompt(metadonnees_etude)
+generer_entete_prompt(metadonnees_etude, metadonnees_role)
 }
 \arguments{
 \item{metadonnees_etude}{Métadonnées de l'étude}
+
+\item{metadonnees_role}{Métadonnées du rôle}
 }
 \value{
 Texte d'en-tête formaté

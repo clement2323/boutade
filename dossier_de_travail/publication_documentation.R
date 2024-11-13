@@ -20,4 +20,5 @@ usethis::use_data(
     overwrite=TRUE
     )
 
-usethis::use_data(table_demandes_rmd,overwrite=TRUE)
+usethis::use_data(metadonnees_etude,overwrite=TRUE)
+usethis::use_data(metadonnees_role,overwrite=TRUE)

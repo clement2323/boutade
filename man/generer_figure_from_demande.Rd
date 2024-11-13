@@ -9,7 +9,8 @@ generer_figure_from_demande(
   metadonnees_tables,
   ollama = FALSE,
   fonction_ask = NULL,
-  metadonnees_etude
+  metadonnees_role = NULL,
+  metadonnees_etude = NULL
 )
 }
 \arguments{

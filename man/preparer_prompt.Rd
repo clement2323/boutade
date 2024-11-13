@@ -4,7 +4,13 @@
 \alias{preparer_prompt}
 \title{Préparer un prompt pour l'analyse de données}
 \usage{
-preparer_prompt(table_agrege, metadonnees_tables, metadonnees_etude, params)
+preparer_prompt(
+  table_agrege,
+  metadonnees_tables,
+  metadonnees_etude,
+  metadonnee_role,
+  params
+)
 }
 \arguments{
 \item{metadonnees_tables}{Métadonnées des tables}

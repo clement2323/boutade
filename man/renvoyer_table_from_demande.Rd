@@ -4,7 +4,7 @@
 \alias{renvoyer_table_from_demande}
 \title{Générer une table agrégée à partir d'une demande}
 \usage{
-renvoyer_table_from_demande(vecteur_demande, metadata = NULL)
+renvoyer_table_from_demande(vecteur_demande)
 }
 \arguments{
 \item{vecteur_demande}{Vecteur nommé des paramètres de la demande}

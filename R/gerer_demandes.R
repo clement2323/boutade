@@ -4,9 +4,10 @@
 #' @return Liste contenant la table agrégée (table) et ses paramètres (params)
 #' @export
 renvoyer_table_from_demande <- function(vecteur_demande) {
-  # i <- 1
+  # i <- 1 table_demandes <-table_demandes_rmd
   # metadata  <- metadonnees_tables
   # vecteur_demande <- table_demandes[i,]
+  # setDT(EP_FI_AG)
   params <- preparer_parametres_demande(vecteur_demande)
   # Calcul de la table agrégée
   table_agrege <- calculer_agregat_sur_croisement(
@@ -93,9 +94,9 @@ ecrire_demande_sur_xls <- function(vecteur_demande, metadata = NULL) {
 #' @export
 generer_figure_from_demande <- function(vecteur_demande, metadonnees_tables,
                                       ollama = FALSE, fonction_ask = NULL, 
-                                      metadonnees_etude) {
+                                      metadonnees_role = NULL, metadonnees_etude = NULL) {
 
-  #data("metadonnees_tables"); data("metadonnees_etude")
+  #data("metadonnees_tables"); data("metadonnees_role")
   #vecteur_demande <- table_demandes_rmd[20,]
   liste_resultat <- renvoyer_table_from_demande(vecteur_demande)
   table_agrege <- liste_resultat$table
@@ -120,6 +121,7 @@ generer_figure_from_demande <- function(vecteur_demande, metadonnees_tables,
       table_agrege,
       metadonnees_tables,
       metadonnees_etude,
+      metadonnees_role,
       params
       )
     #cat(prompt) # fonction_ask <- function(prompt) { ask_ollama(prompt,"mistral-small")}

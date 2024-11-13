@@ -7,9 +7,9 @@
 format_variables_metadata(metadonnees_tables, params)
 }
 \arguments{
-\item{metadata}{Liste des métadonnées des tables}
+\item{params}{Paramètres de configuration}
 
-\item{nom_table}{Nom de la table}
+\item{metadata}{Liste des métadonnées des tables}
 }
 \value{
 Chaîne formatée des descriptions des variables
