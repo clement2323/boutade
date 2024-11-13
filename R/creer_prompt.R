@@ -70,7 +70,7 @@ preparer_prompt <- function(table_agrege, metadonnees_tables,metadonnees_etude,m
   instructions <- paste(
     "INSTRUCTION :",
     paste(metadonnees_role$instructions_communication$directives, 
-          collapse = ". "),
+          collapse = "\n"),
     sep = "\n"
   )
   prompt <- paste0(prompt, instructions)
@@ -91,5 +91,5 @@ preparer_prompt <- function(table_agrege, metadonnees_tables,metadonnees_etude,m
     prompt, 
     equivalences
   )
-  prompt 
+  prompt  # prompt |>cat()
 }   
