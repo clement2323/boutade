@@ -8,8 +8,8 @@
 <title>Utilisation de BoutadE avec plusieurs études • BoutadE</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Utilisation de BoutadE avec plusieurs études">
 </head>
 <body>
@@ -163,9 +163,9 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"table_demandes_valides"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"table_demandes_erreurs"</span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="ecriture-sur-excel">Ecriture sur excel<a class="anchor" aria-label="anchor" href="#ecriture-sur-excel"></a>
-</h3>
+<div class="section level2">
+<h2 id="ecriture-sur-excel">Ecriture sur excel<a class="anchor" aria-label="anchor" href="#ecriture-sur-excel"></a>
+</h2>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">metadonnees_tables</span></span></code></pre></div>
 <pre><code><span><span class="co">##                        nom_etude nom_table   nom_variable</span></span>
@@ -276,7 +276,7 @@
 <span><span class="co">##     rmarkdown::render(input = paste0("output/", nom_rapport), </span></span>
 <span><span class="co">##         envir = environment())</span></span>
 <span><span class="co">## }</span></span>
-<span><span class="co">## &lt;bytecode: 0x55bca39e2a58&gt;</span></span>
+<span><span class="co">## &lt;bytecode: 0x55b34d60c590&gt;</span></span>
 <span><span class="co">## &lt;environment: namespace:BoutadE&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># gestion excel ok &lt;-</span></span>
@@ -315,8 +315,8 @@
 <span><span class="va">figure</span></span></code></pre></div>
 <p><img src="Exemple_complet_utilisation_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">nom_rapport</span> <span class="op">&lt;-</span> <span class="st">"rapport_titou.rmd"</span></span>
-<span><span class="co"># genere le .rmd rapport titou  </span></span>
+<code class="sourceCode R"><span><span class="va">nom_rapport</span> <span class="op">&lt;-</span> <span class="st">"rapport.rmd"</span></span>
+<span><span class="co"># genere le .rmd rapport   </span></span>
 <span><span class="fu"><a href="../reference/generer_markdown_auto_simple.html">generer_markdown_auto_simple</a></span><span class="op">(</span><span class="va">liste_info_chunk</span>, nom_rapport <span class="op">=</span> <span class="va">nom_rapport</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#rmarkdown::render(input = paste0("output/", nom_rapport),envir = environment())</span></span></code></pre></div>
@@ -406,10 +406,6 @@
 <span><span class="co">## 18 en nombre d'entreprise   graphique</span></span>
 <span><span class="co">## 19 en nombre d'entreprise       kable</span></span>
 <span><span class="co">## 20 en nombre d'entreprise       kable</span></span></code></pre>
-</div>
-<div class="section level2">
-<h2 id="courage-ma-titou">Courage ma titou !!<a class="anchor" aria-label="anchor" href="#courage-ma-titou"></a>
-</h2>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># gestion excel ok &lt;-</span></span>
 <span><span class="va">liste_tables_params</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">table_demandes</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span><span class="fu"><a href="../reference/renvoyer_table_from_demande.html">renvoyer_table_from_demande</a></span><span class="op">(</span><span class="va">table_demandes</span><span class="op">[</span><span class="va">i</span>,<span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
@@ -445,8 +441,7 @@
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> Services marchands 974    autres                         41                 41</span></span>
 <span><span class="co">## <span style="color: #949494;"># ℹ 1 more variable: `redi_r310_EP-part` &lt;dbl&gt;</span></span></span></code></pre>
 </div>
-  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
-    </nav></aside>
+  </main>
 </div>
 
 
