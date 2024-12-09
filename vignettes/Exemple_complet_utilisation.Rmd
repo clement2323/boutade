@@ -87,8 +87,8 @@ figure
 ```
 
 ```{r}
-nom_rapport <- "rapport_titou.rmd"
-# genere le .rmd rapport titou  
+nom_rapport <- "rapport.rmd"
+# genere le .rmd rapport   
 generer_markdown_auto_simple(liste_info_chunk, nom_rapport = nom_rapport)
 
 ```
@@ -101,8 +101,6 @@ generer_markdown_auto_simple(liste_info_chunk, nom_rapport = nom_rapport)
 ```{r}
 table_demandes_rmd
 ```
-
-# Courage ma titou !!
 ```{r}
 
 # gestion excel ok <-
