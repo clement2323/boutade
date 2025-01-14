@@ -45,7 +45,7 @@ preparer_parametres_demande <- function(vecteur_demande) {
       tryCatch({
         cond <- with(get(extraire_param("table")), eval(parse(text = cond_text)))
         if (!is.null(cond) && sum(is.na(cond)) != 0) NULL else cond
-      }, error = function(e) NULL)
+      }, error = function(e) stop("Attention la condition n'a pas été bien parsée"))
     }
   }
   
