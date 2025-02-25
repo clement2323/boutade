@@ -45,7 +45,7 @@ ecrire_etude <- function(nom_etude, ollama = FALSE, model_name = "mistral-small"
         )
       }else{
         generer_figure_from_demande(
-          table_demandes_rmd[i,],
+          table_demandes[i,],
           metadonnees_tables
           )
       }
