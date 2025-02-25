@@ -28,7 +28,7 @@ ecrire_etude <- function(nom_etude, ollama = FALSE, model_name = "mistral-small"
   table_demandes <- read.csv(return_filename("metadonnees/demandes",nom_etude),encoding="UTF-8")
   metadonnees_tables <- read.csv(return_filename("metadonnees/metadonnees_tables",nom_etude),encoding="UTF-8")
   metadonnees_etude <- fromJSON(return_filename("metadonnees/metadonnees_etudes",nom_etude))
-  metadonnees_role <- fromJSON(paste0("metadonnees/roles/role_",role,".json"))
+  if(ollama)   metadonnees_role <- fromJSON(paste0("metadonnees/roles/role_",role,".json"))
 
   liste_info_chunk <- pblapply(
     1:nrow(table_demandes), 
