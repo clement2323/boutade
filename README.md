@@ -1,18 +1,44 @@
 # BoutadE : Boîte à outils à disposition des Etudes :
+# BoutadE 🤖 
 
-## Desciption :
-L'objectif du package est d'automatiser, la production d'outputs simples pour des études
-statistiques : à savoir  :
-    
-    - des tableaux
-    - des fichiers excels avec tableau écrits aux bon formats
-    - des graphiques
-    - des rapports automatisés à partir de ces éléments
+BoutadE est un package R qui automatise la génération de rapports d'analyse de données avec différents styles narratifs, en utilisant des modèles de langage (LLMs).
 
-Pour ce faire une fonction ecrire_etude est applicable à un sous dossier donné. Ce sous-dossier doit contenir :
-    
-    - un dossier input : contenant les données en entrée de l'étude si besoin :
-    - un fichier de metadonnées au format json qui contient des métadonnées
+## 🎯 Objectif
 
+Réduire la redondance dans les codes de production de tableaux et graphiques tout en rendant les analyses plus accessibles grâce à des narrateurs virtuels personnalisés.
 
+## ✨ Fonctionnalités
 
+- **Automatisation des analyses** : Transforme des données structurées en rapports narratifs
+- **Narrateurs multiples** : 5 styles différents (yoda, ado, beauf, insee, blasé)
+- **Intégration LLM** : Utilise Ollama en local pour la génération de texte
+- **RAG artisanal** : Système de Retrieval Augmented Generation adapté aux besoins statistiques
+
+## 🛠️ Installation
+```r
+# installation des dépendances
+
+devtools::install_github("clement2323/ollamax")
+devtools::install_github("clement2323/boutade")
+```
+
+```r
+ecrire_etude("titanic",
+ollama = TRUE,
+model_name = "mistral-small",
+role = "yoda")
+```
+## Structure de dossiers
+
+boutade/
+├── metadonnees/
+│ ├── demandes/ # Configurations des analyses
+│ ├── roles/ # Définitions des personnages
+│ └── metadonnees_tables/ # Structure des données
+├── R/
+│ └── fonctions.R # Fonctions principales
+└── inst/
+└── templates/ # Templates de rapports
+Ask
+Copy
+Apply
