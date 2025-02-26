@@ -30,6 +30,7 @@ role = "yoda")
 ```
 ## Structure de dossiers
 
+```tree
 boutade/
 ├── metadonnees/
 │ ├── demandes/ # Configurations des analyses
@@ -39,7 +40,7 @@ boutade/
 │ └── fonctions.R # Fonctions principales
 └── inst/
 └── templates/ # Templates de rapports
-
+```
 
 ## 🔒 Confidentialité
 
