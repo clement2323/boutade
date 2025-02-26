@@ -60,19 +60,51 @@
 <img src="logo.png" class="logo" alt=""><h1 id="boutade--boîte-à-outils-à-disposition-des-etudes-">BoutadE : Boîte à outils à disposition des Etudes :<a class="anchor" aria-label="anchor" href="#boutade--bo%C3%AEte-%C3%A0-outils-%C3%A0-disposition-des-etudes-"></a>
 </h1>
 </div>
+</div>
+<div class="section level1">
+<h1 id="boutade-">BoutadE 🤖<a class="anchor" aria-label="anchor" href="#boutade-"></a>
+</h1>
+<p>BoutadE est un package R qui automatise la génération de rapports d’analyse de données avec différents styles narratifs, en utilisant des modèles de langage (LLMs).</p>
 <div class="section level2">
-<h2 id="desciption-">Desciption :<a class="anchor" aria-label="anchor" href="#desciption-"></a>
+<h2 id="id_-objectif">🎯 Objectif<a class="anchor" aria-label="anchor" href="#id_-objectif"></a>
 </h2>
-<p>L’objectif du package est d’automatiser, la production d’outputs simples pour des études statistiques : à savoir :</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="sc">-</span> des tableaux</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="sc">-</span> des fichiers excels avec tableau écrits aux bon formats</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="sc">-</span> des graphiques</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="sc">-</span> des rapports automatisés à partir de ces éléments</span></code></pre></div>
-<p>Pour ce faire une fonction ecrire_etude est applicable à un sous dossier donné. Ce sous-dossier doit contenir :</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="sc">-</span> un dossier input <span class="sc">:</span> contenant les données en entrée de l<span class="st">'étude si besoin :</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="st">- un fichier de metadonnées au format json qui contient des métadonnées</span></span></code></pre></div>
+<p>Réduire la redondance dans les codes de production de tableaux et graphiques tout en rendant les analyses plus accessibles grâce à des narrateurs virtuels personnalisés.</p>
+</div>
+<div class="section level2">
+<h2 id="id_-fonctionnalités">✨ Fonctionnalités<a class="anchor" aria-label="anchor" href="#id_-fonctionnalit%C3%A9s"></a>
+</h2>
+<ul>
+<li>
+<strong>Automatisation des analyses</strong> : Transforme des données structurées en rapports narratifs</li>
+<li>
+<strong>Narrateurs multiples</strong> : 5 styles différents (yoda, ado, beauf, insee, blasé)</li>
+<li>
+<strong>Intégration LLM</strong> : Utilise Ollama en local pour la génération de texte</li>
+<li>
+<strong>RAG artisanal</strong> : Système de Retrieval Augmented Generation adapté aux besoins statistiques</li>
+</ul>
+</div>
+<div class="section level2">
+<h2 id="id_️-installation">🛠️ Installation<a class="anchor" aria-label="anchor" href="#id_%EF%B8%8F-installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># installation des dépendances</span></span>
+<span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"clement2323/ollamax"</span><span class="op">)</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"clement2323/boutade"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/ecrire_etude.html">ecrire_etude</a></span><span class="op">(</span><span class="st">"titanic"</span>,</span>
+<span>ollama <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>model_name <span class="op">=</span> <span class="st">"mistral-small"</span>,</span>
+<span>role <span class="op">=</span> <span class="st">"yoda"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="structure-de-dossiers">Structure de dossiers<a class="anchor" aria-label="anchor" href="#structure-de-dossiers"></a>
+</h2>
+<p>boutade/ ├── metadonnees/ │ ├── demandes/ # Configurations des analyses │ ├── roles/ # Définitions des personnages │ └── metadonnees_tables/ # Structure des données ├── R/ │ └── fonctions.R # Fonctions principales └── inst/ └── templates/ # Templates de rapports Ask Copy Apply</p>
 </div>
 </div>
+
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
