@@ -39,6 +39,27 @@ boutade/
 │ └── fonctions.R # Fonctions principales
 └── inst/
 └── templates/ # Templates de rapports
-Ask
-Copy
-Apply
+
+
+## 🔒 Confidentialité
+
+- Utilisation de LLMs hébergés localement (via Ollama)
+- Contrôle total sur les données et leur traitement
+- Pas de dépendance aux services cloud externes
+
+## 📚 Documentation
+
+- [Documentation complète](https://clement2323.github.io/boutade/)
+- [Package ollamax](https://github.com/clement2323/ollamax)
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à :
+- Ouvrir une issue
+- Proposer une pull request
+- Suggérer de nouveaux styles de narrateurs
+
+## ✍️ Auteur
+
+Clément Guillo - INSEE
+
